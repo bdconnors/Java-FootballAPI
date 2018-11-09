@@ -520,6 +520,67 @@ public class FootballDatabase
          throw new DLException(e,"could not load team data");
       }
    }
+   public void loadGamesByTeam(String team)throws DLException
+   {
+      try
+      {
+         startTrans();
+         MySportsFeeds feed = new MySportsFeeds();
+         String[] curGame = new String[3];
+         String gameCheck = null;
+         Game game = new Game();
+         ArrayList<String[]> games = feed.getGamesByTeam(team);
+         for(int i = 0; i < games.size(); i++)
+         {
+            curGame = games.get(i);
+            gameCheck = "select * from game where gameid = '" +curGame[0]+"';";
+            if(existsInDB(gameCheck) == true)
+            {
+            
+            }
+            else
+            {
+               game.setGameID(curGame[0]);
+               game.setDate(curGame[1]);
+               game.setTime(curGame[2]);
+               game.post(); 
+            }
+         }
+
+         endTrans();
+      }
+      catch(DLException e)
+      {
+         e.printStackTrace();
+         throw new DLException(e,"could not load team data");
+      }
+   }
+   public boolean existsInDB(String query)throws DLException
+   {
+      boolean exists = false;
+      
+     try
+     {
+     
+       ArrayList<String[]> data = getData(query);
+      
+      if(data.isEmpty())
+      {
+         exists = false;
+      }
+      else
+      {
+         exists = true;
+      }
+      }
+      catch(DLException e)
+      {
+         e.printStackTrace();
+         throw new DLException(e,"could not check if exists"); 
+      }
+      
+      return exists;
+   }
    //---------------------------------------------------------------------------------------------------
    //Method Name: startTrans
    //Description:Begins a transaction

@@ -32,6 +32,7 @@ public class MySportsFeeds{
    //add to playerString to rquest by player
    private String pNameString="&player=";
    private String teamString ="overall_team_standings.json";
+   private String teamGameString ="team_gamelogs.json?team=";
    //---------------------------------------------------------------------------------------------
    //Method Name: apiRequest
    //Description:Takes in a request string and uses API key to request data from MySportsFeeds.com
@@ -177,6 +178,36 @@ public class MySportsFeeds{
       return teamData;
    
    }//end of getPlayersByPosition method
+   public ArrayList<String[]> getGamesByTeam(String team)
+   {
+      ArrayList<String[]> gameData = new ArrayList<String[]>();
+      String reqString = feedString + teamGameString+team;
+      try
+      {
+         ObjectMapper mapper = new ObjectMapper();
+         String jsonString = apiRequest(reqString);
+         JsonNode root = mapper.readTree(jsonString);
+         JsonNode games = root.findPath("gamelogs");
+         
+         for(int i = 0; i < games.size(); i++)
+         {
+            String[] game = new String[3];
+             
+            JsonNode curGame = games.get(i);
+            
+            game[0] = curGame.findPath("game").findPath("id").asText();
+            game[1] = curGame.findPath("game").findPath("date").asText();
+            game[2] = curGame.findPath("game").findPath("time").asText();
+            
+            gameData.add(game);
+         }
+      }
+      catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return gameData;
+   }
 
 
 }//end of class 

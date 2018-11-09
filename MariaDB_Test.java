@@ -14,9 +14,10 @@ public class MariaDB_Test
        
       try
       {
-         FootballDatabase fbd = new FootballDatabase();
+         FootballDatabase fdb = new FootballDatabase();
+         fdb.loadGamesByTeam("ten");
          
-         fbd.loadPlayersByPos("k");
+         
 
          
       }
