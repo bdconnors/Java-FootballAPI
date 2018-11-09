@@ -104,8 +104,6 @@ public class MySportsFeeds{
          JsonNode root = mapper.readTree(jsonString);
          //get the player entrys from array node and create player array node
          JsonNode players = root.findPath("playerentry");
-         //create string array to hold needed player data
-         String[] player = new String[6];
          //for each player in the array node
          for(int i =0; i<players.size(); i++)
          {   //get the player assigned to index
@@ -117,6 +115,8 @@ public class MySportsFeeds{
             }
             else
             {
+               //create string array to hold needed player data
+               String[] player = new String[6];
                //store player id into first array element
                player[0] = curPlayer.findPath("ID").asText();
                //store player first name into  second array element
@@ -124,7 +124,7 @@ public class MySportsFeeds{
                //store player last name into third array element
                player[2] = curPlayer.findPath("LastName").asText();
                //store player team into fourth array element
-               player[3] = curPlayer.findPath("City").asText()+" "+curPlayer.findPath("Name").asText();
+               player[3] = curPlayer.findPath("Abbreviation").asText();
                //store player position into fifth array element
                player[4] = curPlayer.findPath("Position").asText();
                //store player jersey number into last array element
@@ -155,7 +155,6 @@ public class MySportsFeeds{
          //Json obeject mapper to load Json string into Json array node
          ObjectMapper mapper = new ObjectMapper();
          String jsonString = apiRequest(reqString);
-         String[] team = new String[2];
          //load Json string into Json array node
          JsonNode root = mapper.readTree(jsonString);
          //get the player entrys from array node and create player array node
@@ -163,11 +162,10 @@ public class MySportsFeeds{
          for(int i = 0; i < teams.size(); i++)
          {
             JsonNode curTeam = teams.get(i);
+            String[] team = new String[2];
             team[0] = curTeam.findPath("City").asText()+" "+curTeam.findPath("Name").asText();
-     
-        
-          
-         
+            team[1] = curTeam.findPath("Abbreviation").asText();
+            teamData.add(team);
          }
             
       } 

@@ -113,7 +113,7 @@ public class FootballDatabase
             conn.close();
             status = true;
          }
-  
+      
       }
       catch(Exception e){
          
@@ -339,7 +339,7 @@ public class FootballDatabase
          e.printStackTrace();
          throw new DLException(e,update,"Could Not Execute Statement");
       }
-
+   
       //return rows effected
       return effected;
    }//end executeStmnt
@@ -374,7 +374,7 @@ public class FootballDatabase
          throw new DLException(e,"Could Not print meta data");
          
       }
-
+   
    }//end descTable
    
     //---------------------------------------------------------------------------------------------------
@@ -492,7 +492,34 @@ public class FootballDatabase
       }
       return effected;
    }//end deleteAllPlayers
-   
+   public void loadAllTeams()throws DLException
+   {
+      try
+      {
+         startTrans();
+         MySportsFeeds feed = new MySportsFeeds();
+         ArrayList<String[]> teams = feed.getAllTeams();
+         String[] curTeam = new String[2];
+         Team team = new Team();
+         
+         for(int i = 0; i < teams.size(); i++)
+         {
+           curTeam = teams.get(i);
+            team.setName(curTeam[0]);
+            team.setAbrv(curTeam[1]);
+
+            team.post(); 
+         
+         }
+      
+         endTrans();
+      }
+      catch(DLException e)
+      {
+         e.printStackTrace();
+         throw new DLException(e,"could not load team data");
+      }
+   }
    //---------------------------------------------------------------------------------------------------
    //Method Name: startTrans
    //Description:Begins a transaction

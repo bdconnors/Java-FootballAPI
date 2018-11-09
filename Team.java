@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;//JSON packages
 import com.fasterxml.jackson.databind.ObjectMapper;//JSON packages
 import com.fasterxml.jackson.annotation.*;//JSON packages
 //----------------------------------------------------------------------------------------
-//Class Name: Player
+//Class Name: Team
 //Description: This class has 16 methods. 
 //post(),put(),delete() and toString()
 //6 set mutators for its class variables
@@ -30,7 +30,7 @@ public class Team
    //--------------------------------------------------------------------------------------
    //--------------------Constructor------------------------------------------------------
    //Parameter Type: JsonNode
-   //Description:takes in a json array node of player and sets players variables
+   //Description:takes in a json array node of player and sets team variables
    //------------------------------------------------------------------------------------
    public Team(JsonNode node)
    {  
@@ -42,7 +42,7 @@ public class Team
    }
     //--------------------Constructor------------------------------------------------------
     //Parameter Type: String[]
-    //Description:takes in a string[] of player data and sets players variables
+    //Description:takes in a string[] of player data and sets team variables
    //------------------------------------------------------------------------------------
    public Team(String[] team)
    {
@@ -52,8 +52,8 @@ public class Team
    }
    
    //--------------------Constructor------------------------------------------------------
-   //Parameter Type: 6 Strings
-   //Description:takes in individual strings of player data and sets player variables
+   //Parameter Type: 2 Strings
+   //Description:takes in individual strings of team data and sets team variables
    //------------------------------------------------------------------------------------
    public Team(String name,String abrv)
    {
@@ -65,7 +65,7 @@ public class Team
    }
    //--------------------Constructor------------------------------------------------------
    //Parameter Type: String
-   //Description:takes in a player id and sets players id variable
+   //Description:takes in a team name and sets name variable
    //------------------------------------------------------------------------------------
    public Team(String name)
    {
@@ -83,31 +83,26 @@ public class Team
    //-----------------------------------------------------------------------------------------------------
    //Method Name: fetch
    //Description: Issues a query to the database returning player data associated with 
-   //this player obejects set playerID and sets the remaining class variables equal to the returned data
+   //this team obejects set name and sets the remaining class variables equal to the returned data
    //----------------------------------------------------------------------------------------------------
-   /*public void fetch()throws DLException
+   public void fetch()throws DLException
    {  
       //SQL query string
-      String query = "SELECT FirstName,LastName,Team,Pos,JerseyNumber FROM player WHERE PlayerID=?;";
+      String query = "SELECT name,abbreviation FROM team WHERE abbreviation=?;";
       
       ArrayList<String> values = new ArrayList<String>();
-      values.add(id);
+      values.add(abrv);
 
       try
       { 
          //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
          ArrayList<String[]> info = db.getData(query,values); 
          String[] fields = info.get(1);   
-         //set fname to the first field value
-         fName = fields[0];
-         //set lname to the second field value
-         lName = fields[1];
-         //set team to the third field value
-         team = fields[2];
-         //set position to the foruth field value
-         position = fields[3];
-         //set jnumber to the fifth field value
-         jNumber = fields[4];
+         //set name to the first field value
+         name = fields[0];
+         //set abrv to the second field value
+         abrv = fields[1];
+
       }
       catch(Exception e)
       {  
@@ -129,15 +124,11 @@ public class Team
       int effected = 0;
       ArrayList<String> values = new ArrayList<String>();
      //SQL Insert String
-      String insert = "INSERT INTO player(PlayerID,FirstName,LastName,Team,Pos,JerseyNumber)VALUES(?,?,?,?,?,?);";
+      String insert = "INSERT INTO team(name,abbreviation)VALUES(?,?);";
       //bind values
-      values.add(id);
-      values.add(fName);
-      values.add(lName);
-      values.add(team);
-      values.add(position);
-      values.add(jNumber);
-     
+      values.add(name);
+      values.add(abrv);
+
       try
       {
        //perform insert and return number of effected
@@ -159,15 +150,12 @@ public class Team
    {  //effected records
       int effected = 0;
       //SQL Update String
-      String update = "UPDATE player SET FirstName= ? , LastName = ? , Team = ?, Position = ?,JerseyNumber= ? WHERE PlayerID = ?;";
+      String update = "UPDATE team SET name = ? WHERE abbreviation = ?;";
       ArrayList<String> values = new ArrayList<String>();
  
-      values.add(fName);
-      values.add(lName);
-      values.add(team);
-      values.add(position);
-      values.add(jNumber);
-      values.add(id);
+      values.add(name);
+      values.add(abrv);
+
       
       try
       { 
@@ -184,7 +172,7 @@ public class Team
 
    //---------------------------------------------------------------------------------------------
    //Method Name: delete
-   //Description:deletes player record from database using their id
+   //Description:deletes team record from database using their name
    //---------------------------------------------------------------------------------------------
    public int delete()throws DLException
    {
@@ -192,9 +180,9 @@ public class Team
     //effected records
       int effected = 0;
     //SQL delete string
-      String delete = "DELETE FROM player WHERE PlayerID=?;";
+      String delete = "DELETE FROM team WHERE abbreviation =?;";
       ArrayList<String> values = new ArrayList<String>();
-      values.add(id);
+      values.add(abrv);
       
     
       try
@@ -217,71 +205,32 @@ public class Team
    //toString 
    public String toString()
    {
-      return "PlayerID: " + getID()+"\n"+"First Name: " + getFName() +"\n"+"Last Name: "
-       +getLName()+"\n" +"Team: " + getTeam()+"\n" +"Position: "
-       + getPosition() +"\n"+"Jersey Number: "+ getJNumber();
+      return "Team Name: " + getName() + "\n" + "Abbreviation: " + getAbrv() +"\n";
    
    }
    
    //getters
-   public String getID()
+   public String getName()
    {
-      return id;
+      return name;
    }
-   public String getFName()
+   public String getAbrv()
    {
-      return fName;
+      return abrv;
    
    }
-   public String getLName()
-   {
-      return lName;
-   
-   }
-   public String getTeam()
-   {
-      return team;
-   }
-   public String getPosition()
-   {
-      return position;
-   
-   }
-   public String getJNumber()
-   {
-      return jNumber;
-   
-   }
+
    //setters
-   public void setID(String id)
+   public void setName(String name)
    {
-      this.id = id;
+      this.name = name;
    
    }
-   public void setFName(String fName)
+   public void setAbrv(String abrv)
    {
-      this.fName = fName;
+      this.abrv = abrv;
    
    }
-   public void setLName(String lName)
-   {
-      this.lName = lName;
-   
-   }
-   public void setTeam(String team)
-   {
-      this.team = team;
-   
-   }
-   public void setPosition(String position)
-   {
-      this.position = position;
-   
-   }
-   public void setJNumber(String jNumber)
-   {
-      this.jNumber = jNumber;
-   
-   }*/
+
 
 }//end player class

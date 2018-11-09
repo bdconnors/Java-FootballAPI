@@ -16,8 +16,8 @@ public class MariaDB_Test
       {
          FootballDatabase fbd = new FootballDatabase();
          
-         MySportsFeeds msf = new MySportsFeeds();
-         msf.getAllTeams();
+         fbd.loadPlayersByPos("k");
+
          
       }
       catch(Exception e)
