@@ -25,6 +25,7 @@ public class DefenseStats
 {
    //--------------Class Variables---------------------------------------------------------
    public String statsID;
+   public String defenseID;
    public String gameID;
    public String team;
    public String pa;
@@ -32,20 +33,17 @@ public class DefenseStats
    public String sfty;
    public String dTD;
    public String rTD;
-   public String intc;
+   public String inter;
    public String fum;
    public String blk;
    public FootballDatabase db = new FootballDatabase();
-   //--------------------------------------------------------------------------------------
    //--------------------Constructor------------------------------------------------------
    //Parameter Type: JsonNode
    //Description:takes in a json array node of player and sets team variables
    //------------------------------------------------------------------------------------
    public DefenseStats(JsonNode node)
    {  
-
-
-  
+   
    }
     //--------------------Constructor------------------------------------------------------
     //Parameter Type: String[]
@@ -53,8 +51,7 @@ public class DefenseStats
    //------------------------------------------------------------------------------------
    public DefenseStats(String[] team)
    {
-   
-     
+
    }
    
    //--------------------Constructor------------------------------------------------------
@@ -63,10 +60,7 @@ public class DefenseStats
    //------------------------------------------------------------------------------------
    public DefenseStats()
    {
-      
-  
-   
-   
+
    }
    //--------------------Constructor------------------------------------------------------
    //Parameter Type: String
@@ -77,11 +71,6 @@ public class DefenseStats
       this.statsID = statsID;    
    
    }
-   //--------------------Constructor------------------------------------------------------
-   //Parameter Type: none
-   //Description:default constructor
-   //------------------------------------------------------------------------------------
-
    //-----------------------------------------------------------------------------------------------------
    //Method Name: fetch
    //Description: Issues a query to the database returning player data associated with 
