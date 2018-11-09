@@ -19,7 +19,7 @@ import java.sql.*;
 import java.util.*;
 //----------------------------------------------------------------------------------------
 //Class Name: FootballDatabase
-//Description: This class 13 methods. 
+//Description: This class has 13 methods. 
 //connect(),close()
 //getData(String,ArrayList<String>),getData(String)
 //setData(String,ArrayList<String>),setData(String)
