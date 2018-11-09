@@ -22,12 +22,10 @@ import com.fasterxml.jackson.annotation.*;//JSON packages
 //6 get mutators for its class variables
 //----------------------------------------------------------------------------------------
 public class Game
-{
-   //--------------Class Variables---------------------------------------------------------
+{  //--------------Class Variables---------------------------------------------------------
    public String gameID;
    public String date;
    public String time;
-
    public FootballDatabase db = new FootballDatabase();
    //--------------------------------------------------------------------------------------
    //--------------------Constructor------------------------------------------------------
@@ -37,8 +35,6 @@ public class Game
    public Game(JsonNode node)
    {  
 
-
-  
    }
     //--------------------Constructor------------------------------------------------------
     //Parameter Type: String[]
@@ -46,15 +42,8 @@ public class Game
    //------------------------------------------------------------------------------------
    public Game(String[] team)
    {
-   
-     
-   }
-   
-   //--------------------Constructor------------------------------------------------------
-   //Parameter Type: 2 Strings
-   //Description:takes in individual strings of team data and sets team variables
-   //------------------------------------------------------------------------------------
-
+    
+   } 
    //--------------------Constructor------------------------------------------------------
    //Parameter Type: String
    //Description:takes in a team name and sets name variable
@@ -62,7 +51,6 @@ public class Game
    public Game(String gameID)
    {
       this.gameID = gameID;    
-   
    }
    //--------------------Constructor------------------------------------------------------
    //Parameter Type: none
@@ -78,16 +66,12 @@ public class Game
    //this team obejects set name and sets the remaining class variables equal to the returned data
    //----------------------------------------------------------------------------------------------------
    public void fetch()throws DLException
-   {  
-      //SQL query string
+   {  //SQL query string
       String query = "SELECT date,time FROM game WHERE gameid=?;";
-      
       ArrayList<String> values = new ArrayList<String>();
       values.add(gameID);
-
       try
-      { 
-         //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
+      { //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
          ArrayList<String[]> info = db.getData(query,values); 
          String[] fields = info.get(1);   
          //set name to the first field value
@@ -95,25 +79,19 @@ public class Game
          //set abrv to the second field value
          date = fields[1];
          time = fields[2];
-
       }
       catch(Exception e)
       {  
          System.out.println("No Record Found");
-        
-      }
-         
+      }    
    }
-
    //---------------------------------------------------------------------------------------------
    //Method Name: post
    //Description: inserts a record into the database using this objects class variables for 
    //the information in the corresponding fields
    //---------------------------------------------------------------------------------------------
    public int post()throws DLException
-   {  
-     
-     //effected records
+   {  //effected records
       int effected = 0;
       ArrayList<String> values = new ArrayList<String>();
      //SQL Insert String
@@ -122,22 +100,16 @@ public class Game
       values.add(gameID);
       values.add(date);
       values.add(time);
-
       try
-      {
-       //perform insert and return number of effected
+      { //perform insert and return number of effected
          effected = db.setData(insert,values);
-      
       }
       catch(DLException e)
       {
          effected = -1;
          e.printStackTrace();
-      
       }
-    
       return effected;
-   
    }
    //updates database record that corresponds to this object's 'ID' variable and then returns the number of records effected in the database
    public int put()throws DLException
@@ -146,63 +118,45 @@ public class Game
       //SQL Update String
       String update = "UPDATE game SET date=?,time = ? WHERE gameid = ?;";
       ArrayList<String> values = new ArrayList<String>();
- 
       values.add(date);
       values.add(time);
       values.add(gameID);
-      
       try
-      { 
-         //perform update and return number of effected records
+      {  //perform update and return number of effected records
          effected = db.setData(update,values);
       }
       catch(DLException e)
       {
          effected = -1;
-      }
-       
+      }   
       return effected;    
    }
-
    //---------------------------------------------------------------------------------------------
    //Method Name: delete
    //Description:deletes team record from database using their name
    //---------------------------------------------------------------------------------------------
    public int delete()throws DLException
-   {
-   
-    //effected records
+   { //effected records
       int effected = 0;
     //SQL delete string
       String delete = "DELETE FROM game WHERE gameid = ?;";
       ArrayList<String> values = new ArrayList<String>();
       values.add(gameID);
-      
-    
       try
-      {
-
-      //perform delete and return number of effected records
+      {//perform delete and return number of effected records
          effected = db.setData(delete,values);
- 
       }
       catch(DLException e)
-      {
-         effected = -1;
+      {  effected = -1;
          e.printStackTrace();
-
       }
-     
       return effected;
    }
-   
    //toString 
    public String toString()
    {
       return "GameID: " + getGameID() + "\n" + "Date: " + getDate() +"\n"+"Time: "+getTime()+"\n";
-   
    }
-   
    //getters
    public String getGameID()
    {
@@ -211,29 +165,22 @@ public class Game
    public String getDate()
    {
       return date;
-   
    }
    public String getTime()
    {
       return time;
-   
    }
-
    //setters
    public void setGameID(String gameID)
    {
       this.gameID = gameID;
-   
    }
    public void setDate(String date)
    {
       this.date = date;
-   
    }
    public void setTime(String time)
    {
       this.time = time;
-   
    }
-
 }//end player class

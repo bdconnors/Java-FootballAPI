@@ -50,8 +50,7 @@ public class FootballDatabase
       uri = "jdbc:mariadb://localhost:3305/football";
       driver = "org.mariadb.jdbc:mariadb-java-client:2.3.0";
       user = "root";
-      password = "student";
-      
+      password = "student"; 
    }
    //--------------------Constructor------------------------------------------------------
    //Parameter Type: 4 Strings
@@ -59,12 +58,10 @@ public class FootballDatabase
    //-----------------------------------------------------------------------------------
    public FootballDatabase(String uri,String driver,String user,String password)
    {
-      
       this.uri = uri;
       this.user = user;
       this.driver = driver;
-      this.password = password;
-      
+      this.password = password;  
    }
    //---------------------------------------------------------------------------------------------
    //Method Name: connect
@@ -73,7 +70,6 @@ public class FootballDatabase
    public boolean connect()throws DLException
    {
       boolean status = true;//status of server
-       
       try
       {
          if(conn == null || conn.getAutoCommit())
@@ -81,17 +77,13 @@ public class FootballDatabase
             //users supplied information to attempt connection
             status = true;
          }
-      
-      
       }
       catch(Exception e)
       {
-         
          status = false;
          e.printStackTrace();
          //throws new DLException with error message and relevant information
          throw new DLException(e,"Could Not Connect to Server","uri: "+uri,"User: "+user,"Driver: "+driver);
-         
       }
       //return success or fail
       return status;
@@ -104,36 +96,29 @@ public class FootballDatabase
    public boolean close()throws DLException
    {
       boolean status = true;
-      
-      try{
-      
+      try
+      {
          if(conn != null && conn.getAutoCommit())
-         {
-         //atempt to close connection
+         { //atempt to close connection
             conn.close();
             status = true;
          }
-      
       }
-      catch(Exception e){
-         
+      catch(Exception e)
+      {  
          status = false;
          e.printStackTrace();
          //throws new DLException with error message and relevant information
          throw new DLException(e,"Could Not Close Connection","uri: "+uri,"User: "+user,"Driver: "+driver);
       }
-      
       return status;
-      
    }//end close
-   
    //----------------------------------------------------------------------------------------------------
    //Method Name: getData
    //Description:send in query and arraylist of values to get data from database using prepared statement
    //----------------------------------------------------------------------------------------------------
    public ArrayList<String[]> getData(String query, ArrayList<String> list)throws DLException
-   {  
-      //arraylist to hold data returned from database
+   {  //arraylist to hold data returned from database
       ArrayList<String[]> data = new ArrayList<String[]>();
       //connect to database
       connect();
@@ -149,7 +134,6 @@ public class FootballDatabase
          int colCount = rsmd.getColumnCount();
          //creates String[] row with a size equal to the number of columns
          String[] colNameRow = new String[colCount];
-         
          for(int i = 0; i < colCount; i++)
          {  
             //loads the first row with the column names
@@ -170,21 +154,16 @@ public class FootballDatabase
             //add the row to the arraylist containing returned data
             data.add(valueRow);
          }
-         
-         
       }
       catch(Exception e)
       {
-         e.printStackTrace();
-         
+         e.printStackTrace();  
       }
       //close connection
       close();
       //return arraylist containing returned data
       return data;
-      
    }//end getData
-   
    //---------------------------------------------------------------------------------------------
    //Method Name: getData
    //Description:gets data from database with query string, no prepared statement
@@ -194,40 +173,31 @@ public class FootballDatabase
       connect();
       ArrayList<String[]> data = new ArrayList<String[]>();
       int numFields =0;
-      
       try
       {  //creates statement to send
          Statement stmnt= conn.createStatement();
          //loads statement with query
          ResultSet rs = stmnt.executeQuery(query);
-         
          //iterates through result set inserting results into 2d arraylist
          while(rs.next())
          {  
             ResultSetMetaData rsmd = rs.getMetaData();
             numFields = rsmd.getColumnCount();
             String[] row = new String[numFields];
-          
-            
             for(int i=1; i<=numFields; i++)
             {
                row[i-1]=rs.getString(i);
-            
             }
             data.add(row);
          }
          close();
       }
       catch(Exception e)
-      {
-         //throw new DLException sending error message and relevant information
-         throw new DLException(e,"Could Not Retrieve Data","query: "+query,"numFields: "+ String.valueOf(numFields));
-         
+      { //throw new DLException sending error message and relevant information
+         throw new DLException(e,"Could Not Retrieve Data","query: "+query,"numFields: "+ String.valueOf(numFields)); 
       }
-      
       return data;
    }//end getData
-   
    //---------------------------------------------------------------------------------------------------
    //Method Name: setData
    //Description:takes in ArrayList and string to set data in the database with update, delete or insert 
@@ -238,119 +208,95 @@ public class FootballDatabase
       connect();
       //effected rows
       int effected = 0;
-      
       try
-      {  
-         //execute update 
+      {   //execute update 
          effected = executeStmnt(update,list);
       }
       catch(Exception e)
-      {
-         effected = -1;
-         throw new DLException(e,"Could Not Set Data","Query: "+update);
-         
+      {  effected = -1;
+         throw new DLException(e,"Could Not Set Data","Query: "+update); 
       }
       //close connection
       close();
       //return rows effected
       return effected;
    }//end setData
-   
-   //---------------------------------------------------------------------------------------------------
+   //--------------------------------------------------------------------------------------------
    //Method Name: setData
    //Description:takes in string to set data in the database with update, delete or insert 
    //and returns effected rows, no prepared statement
    //---------------------------------------------------------------------------------------------------
    public int setData(String update) throws DLException
-   {
-      connect();
+   {  connect();
       int effected = 0;
-      
       try
       {
          Statement stmnt= conn.createStatement();
          effected = stmnt.executeUpdate(update);
       }
       catch(Exception e)
-      {  
-         e.printStackTrace();
+      {   e.printStackTrace();
          effected = -1;
          throw new DLException(e,"Could Not Set Data","Query: "+update);
-         
       }
-   
       return effected;
    }//end setData
-   
    //---------------------------------------------------------------------------------------------------
    //Method Name: prepare
    //Description: takes in a sql string and list of values to return a prepared statement
    //---------------------------------------------------------------------------------------------------
    public PreparedStatement prepare(String query,ArrayList<String> list)throws DLException
    {  
-   
       try
       {  
          //creates prepared stmnt with sql string
          PreparedStatement stmnt = conn.prepareStatement(query);
-         
          //for every value in the list bind the value to the prepared statement
          for(int i = 0; i < list.size(); i++)
-         {
-            
-            String value = list.get(i);
+         { String value = list.get(i);
             stmnt.setString(i+1,value);
          }
          //return prepared statement
          return stmnt;
       }
       catch(Exception e)
-      {
-         e.printStackTrace();
+      {  e.printStackTrace();
          throw new DLException(e,query,"Could Not Prepare Statement");
-         
       }
       
    }//end prepare
-   
    //---------------------------------------------------------------------------------------------------
    //Method Name: executeStmnt
    //Description: takes in an sql string and list of values to execute an update,delete or insert 
    //statement returning effected number of rows as an int
    //---------------------------------------------------------------------------------------------------
    public int executeStmnt(String update,ArrayList<String> list)throws DLException
-   {  
-      //prepared statement 
+   {   //prepared statement 
       PreparedStatement stmnt = null;
       //effected number of rows to be returned
       int effected =  0;
       try
-      { 
-         //connect to db
+      {  //connect to db
          connect();
          //call prepare method and return prepared statement
          stmnt = prepare(update,list);
          //execute prepared statement
          effected = stmnt.executeUpdate();
-         
       }
       catch(Exception e)
       {
          e.printStackTrace();
          throw new DLException(e,update,"Could Not Execute Statement");
       }
-   
       //return rows effected
       return effected;
    }//end executeStmnt
-   
    //---------------------------------------------------------------------------------------------------
    //Method Name: descTable
    //Description: takes in sql query and prints out to console a table of the data requested by query
    //---------------------------------------------------------------------------------------------------
    public void descTable(String query) throws DLException
    {   
-      
       try
       {  //create statement
          Statement stmnt = conn.createStatement();
@@ -363,20 +309,15 @@ public class FootballDatabase
          //print the table
          print.printData();
          //print types from the table
-         print.printTypes();
-         
-         
+         print.printTypes(); 
       }
       catch(Exception e)
       {
          e.printStackTrace();
          //throw new DLException sending error message and relevant information
          throw new DLException(e,"Could Not print meta data");
-         
       }
-   
    }//end descTable
-   
     //---------------------------------------------------------------------------------------------------
    //Method Name: loadPlayersByPos
    //Description: takes in a string of a players position and loads all players 
@@ -384,10 +325,8 @@ public class FootballDatabase
    //---------------------------------------------------------------------------------------------------
    public void loadPlayersByPos(String pos)throws DLException
    {
-      
       try
-      {  
-         //start transaction
+      {  //start transaction
          startTrans();
          //create object to request data from API
          MySportsFeeds feed = new MySportsFeeds();
@@ -422,7 +361,6 @@ public class FootballDatabase
       {
          e.printStackTrace();
          throw new DLException(e,"could not load player data");
-      
       }
    }//end loadPlayersByPos
     //---------------------------------------------------------------------------------------------------
@@ -467,7 +405,6 @@ public class FootballDatabase
       {
          e.printStackTrace();
          throw new DLException(e,"could not load player data");
-      
       }
    }//end deletePlayersByPos
    //---------------------------------------------------------------------------------------------------
@@ -488,30 +425,23 @@ public class FootballDatabase
       {
          e.printStackTrace();
          throw new DLException(e,"could not load player data");
-      
       }
       return effected;
    }//end deleteAllPlayers
    public void loadAllTeams()throws DLException
    {
       try
-      {
-         startTrans();
+      {  startTrans();
          MySportsFeeds feed = new MySportsFeeds();
          ArrayList<String[]> teams = feed.getAllTeams();
          String[] curTeam = new String[2];
          Team team = new Team();
-         
          for(int i = 0; i < teams.size(); i++)
-         {
-           curTeam = teams.get(i);
+         {  curTeam = teams.get(i);
             team.setName(curTeam[0]);
             team.setAbrv(curTeam[1]);
-
             team.post(); 
-         
          }
-      
          endTrans();
       }
       catch(DLException e)
@@ -539,14 +469,12 @@ public class FootballDatabase
             
             }
             else
-            {
-               game.setGameID(curGame[0]);
+            {  game.setGameID(curGame[0]);
                game.setDate(curGame[1]);
                game.setTime(curGame[2]);
                game.post(); 
             }
          }
-
          endTrans();
       }
       catch(DLException e)
@@ -558,22 +486,17 @@ public class FootballDatabase
    public void loadAllDefenses()throws DLException
    {
       try
-      {
-         startTrans();
+      {  startTrans();
          MySportsFeeds feed = new MySportsFeeds();
          ArrayList<String[]> teams = feed.getAllTeams();
          String[] curTeam = new String[2];
          Defense defense = new Defense();
          
          for(int i = 0; i < teams.size(); i++)
-         {
-            curTeam = teams.get(i);
+         {  curTeam = teams.get(i);
             defense.setTeam(curTeam[1]);
-
             defense.post(); 
-         
          }
-      
          endTrans();
       }
       catch(DLException e)
@@ -582,32 +505,27 @@ public class FootballDatabase
          throw new DLException(e,"could not load team data");
       }
    }
-
-
    public boolean existsInDB(String query)throws DLException
    {
       boolean exists = false;
       
-     try
-     {
-     
-       ArrayList<String[]> data = getData(query);
-      
-      if(data.isEmpty())
+      try
       {
-         exists = false;
-      }
-      else
-      {
-         exists = true;
-      }
+         ArrayList<String[]> data = getData(query);
+         if(data.isEmpty())
+         {
+            exists = false;
+         }
+         else
+         {
+            exists = true;
+         }
       }
       catch(DLException e)
       {
          e.printStackTrace();
          throw new DLException(e,"could not check if exists"); 
       }
-      
       return exists;
    }
    //---------------------------------------------------------------------------------------------------
@@ -636,8 +554,7 @@ public class FootballDatabase
       {
          conn.commit();
          conn.setAutoCommit(true);
-         close();
-         
+         close();  
       }
       catch(Exception e)
       {  
@@ -655,14 +572,11 @@ public class FootballDatabase
       {
          conn.rollback();
          conn.setAutoCommit(true);
-         
       }
       catch(Exception e)
       {  
          e.printStackTrace();
          throw new DLException (e,"Could not rollback transaction");
-      }
-      
-   }//end rollbacktrans
-   
+      } 
+   }//end rollbacktrans  
 }// end footballdatabase classs

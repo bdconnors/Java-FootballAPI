@@ -39,12 +39,10 @@ public class MySportsFeeds{
    //and returns an InputStream object which contains the data requested
    //---------------------------------------------------------------------------------------------
    public String apiRequest(String reqString)
-   {  
-      
+   {     
       String jsonString = null;
       try
-      {
-         //API key for MySportsFeeds.com
+      {  //API key for MySportsFeeds.com
          String encode = "b4b138b1-909e-4ffa-80ee-baccda:iste330";
          //create URL object from request string
          URL url = new URL (reqString);
@@ -74,31 +72,25 @@ public class MySportsFeeds{
             writer.write(line);
          }
          jsonString = stringWriter.toString();
-
       }
       catch(Exception e)
       {
          e.printStackTrace();
       }
       //return InputStream containing requested data
-      return jsonString;
-      
+      return jsonString; 
    }//end of apiRequest method
-   
    //---------------------------------------------------------------------------------------------
    //Method Name: getPlayersByPosition
    //Description:Takes in a string which contains desired position to request
    //and returns an ArrayList<String[]> of player data
    //---------------------------------------------------------------------------------------------
    public ArrayList<String[]> getPlayersByPosition(String pos)
-   {
-      //ArrayList for holding String[6] of player data
+   {  //ArrayList for holding String[6] of player data
       ArrayList<String[]> playerData = new ArrayList<String[]>();
-      String reqString = feedString + playerString + positionString + pos;
-       
+      String reqString = feedString + playerString + positionString + pos;    
       try 
-      { 
-         //Json obeject mapper to load Json string into Json array node
+      {  //Json obeject mapper to load Json string into Json array node
          ObjectMapper mapper = new ObjectMapper();
          String jsonString = apiRequest(reqString);
          //load Json string into Json array node
@@ -109,14 +101,12 @@ public class MySportsFeeds{
          for(int i =0; i<players.size(); i++)
          {   //get the player assigned to index
             JsonNode curPlayer = players.get(i);
-            //if the player does not have a jersey number skip him
             if(curPlayer.findPath("JerseyNumber").isMissingNode())
             {  
-   
+               //if the player does not have a jersey number skip him
             }
             else
-            {
-               //create string array to hold needed player data
+            {  //create string array to hold needed player data
                String[] player = new String[6];
                //store player id into first array element
                player[0] = curPlayer.findPath("ID").asText();
@@ -132,9 +122,8 @@ public class MySportsFeeds{
                player[5] = curPlayer.findPath("JerseyNumber").asText();
                //add player to ArrayList of players
                playerData.add(player);
-           }
-         }
-            
+            }
+         }     
       } 
       catch(Exception e) 
       {
@@ -142,18 +131,13 @@ public class MySportsFeeds{
       }
       //return ArrayList of player data
       return playerData;
-   
    }//end of getPlayersByPosition method
-
- public ArrayList<String[]> getAllTeams()
-   {
-      //ArrayList for holding String[6] of player data
+   public ArrayList<String[]> getAllTeams()
+   { //ArrayList for holding String[6] of player data
       ArrayList<String[]> teamData = new ArrayList<String[]>();
-      String reqString = feedString + teamString;
-       
+      String reqString = feedString + teamString; 
       try 
-      { 
-         //Json obeject mapper to load Json string into Json array node
+      {  //Json obeject mapper to load Json string into Json array node
          ObjectMapper mapper = new ObjectMapper();
          String jsonString = apiRequest(reqString);
          //load Json string into Json array node
@@ -161,44 +145,33 @@ public class MySportsFeeds{
          //get the player entrys from array node and create player array node
          JsonNode teams = root.findPath("teamstandingsentry");
          for(int i = 0; i < teams.size(); i++)
-         {
-            JsonNode curTeam = teams.get(i);
+         {  JsonNode curTeam = teams.get(i);
             String[] team = new String[2];
             team[0] = curTeam.findPath("City").asText()+" "+curTeam.findPath("Name").asText();
             team[1] = curTeam.findPath("Abbreviation").asText();
             teamData.add(team);
-         }
-            
+         }      
       } 
       catch(Exception e) 
       {
          e.printStackTrace();
-      }
-      //return ArrayList of player data
+      } 
       return teamData;
-   
-   }//end of getPlayersByPosition method
+   }
    public ArrayList<String[]> getGamesByTeam(String team)
-   {
-      ArrayList<String[]> gameData = new ArrayList<String[]>();
+   {  ArrayList<String[]> gameData = new ArrayList<String[]>();
       String reqString = feedString + teamGameString+team;
       try
-      {
-         ObjectMapper mapper = new ObjectMapper();
+      {  ObjectMapper mapper = new ObjectMapper();
          String jsonString = apiRequest(reqString);
          JsonNode root = mapper.readTree(jsonString);
          JsonNode games = root.findPath("gamelogs");
-         
          for(int i = 0; i < games.size(); i++)
-         {
-            String[] game = new String[3];
-             
+         {  String[] game = new String[3];
             JsonNode curGame = games.get(i);
-            
             game[0] = curGame.findPath("game").findPath("id").asText();
             game[1] = curGame.findPath("game").findPath("date").asText();
             game[2] = curGame.findPath("game").findPath("time").asText();
-            
             gameData.add(game);
          }
       }
@@ -208,6 +181,4 @@ public class MySportsFeeds{
       }
       return gameData;
    }
-
-
-}//end of class 
+}//end of class
