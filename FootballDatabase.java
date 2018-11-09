@@ -82,10 +82,7 @@ public class FootballDatabase
             status = true;
          }
       
-<<<<<<< HEAD
-=======
       
->>>>>>> b85317045c508c10f7ad7673087d02e3c3128f89
       }
       catch(Exception e)
       {
@@ -116,10 +113,7 @@ public class FootballDatabase
             conn.close();
             status = true;
          }
-<<<<<<< HEAD
-=======
       
->>>>>>> b85317045c508c10f7ad7673087d02e3c3128f89
       }
       catch(Exception e){
          
@@ -196,12 +190,8 @@ public class FootballDatabase
    //Description:gets data from database with query string, no prepared statement
    //---------------------------------------------------------------------------------------------
    public ArrayList<String[]> getData(String query)throws DLException
-<<<<<<< HEAD
-   {
-=======
    {  
       connect();
->>>>>>> b85317045c508c10f7ad7673087d02e3c3128f89
       ArrayList<String[]> data = new ArrayList<String[]>();
       int numFields =0;
       
@@ -226,11 +216,7 @@ public class FootballDatabase
             }
             data.add(row);
          }
-<<<<<<< HEAD
-         
-=======
          close();
->>>>>>> b85317045c508c10f7ad7673087d02e3c3128f89
       }
       catch(Exception e)
       {
@@ -286,12 +272,8 @@ public class FootballDatabase
          effected = stmnt.executeUpdate(update);
       }
       catch(Exception e)
-<<<<<<< HEAD
-      {
-=======
       {  
          e.printStackTrace();
->>>>>>> b85317045c508c10f7ad7673087d02e3c3128f89
          effected = -1;
          throw new DLException(e,"Could Not Set Data","Query: "+update);
          
@@ -357,12 +339,7 @@ public class FootballDatabase
          e.printStackTrace();
          throw new DLException(e,update,"Could Not Execute Statement");
       }
-<<<<<<< HEAD
-      //close db
-      close();
-=======
    
->>>>>>> b85317045c508c10f7ad7673087d02e3c3128f89
       //return rows effected
       return effected;
    }//end executeStmnt
@@ -397,11 +374,7 @@ public class FootballDatabase
          throw new DLException(e,"Could Not print meta data");
          
       }
-<<<<<<< HEAD
-
-=======
    
->>>>>>> b85317045c508c10f7ad7673087d02e3c3128f89
    }//end descTable
    
     //---------------------------------------------------------------------------------------------------
@@ -497,9 +470,6 @@ public class FootballDatabase
       
       }
    }//end deletePlayersByPos
-<<<<<<< HEAD
-   
-=======
    //---------------------------------------------------------------------------------------------------
    //Method Name: deleteAllPlayers
    //Description:takes in a string of a players position and deletes all players 
@@ -585,6 +555,35 @@ public class FootballDatabase
          throw new DLException(e,"could not load team data");
       }
    }
+   public void loadAllDefenses()throws DLException
+   {
+      try
+      {
+         startTrans();
+         MySportsFeeds feed = new MySportsFeeds();
+         ArrayList<String[]> teams = feed.getAllTeams();
+         String[] curTeam = new String[2];
+         Defense defense = new Defense();
+         
+         for(int i = 0; i < teams.size(); i++)
+         {
+            curTeam = teams.get(i);
+            defense.setTeam(curTeam[1]);
+
+            defense.post(); 
+         
+         }
+      
+         endTrans();
+      }
+      catch(DLException e)
+      {
+         e.printStackTrace();
+         throw new DLException(e,"could not load team data");
+      }
+   }
+
+
    public boolean existsInDB(String query)throws DLException
    {
       boolean exists = false;
@@ -611,7 +610,6 @@ public class FootballDatabase
       
       return exists;
    }
->>>>>>> b85317045c508c10f7ad7673087d02e3c3128f89
    //---------------------------------------------------------------------------------------------------
    //Method Name: startTrans
    //Description:Begins a transaction
