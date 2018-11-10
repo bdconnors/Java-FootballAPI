@@ -1,5 +1,6 @@
 //----------------------------------------------------------------------------------------------
 //Dev Name: Sam Evans
+//Group: 12 
 //Filename: User.Java
 //Date: 11/9/18
 //Program Description: User object to hold data for a user of this fantasy football application
