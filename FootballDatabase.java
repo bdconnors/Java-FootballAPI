@@ -418,6 +418,7 @@ public class FootballDatabase
          {  curStats= stats.get(i);
             DefenseStats dstats = new DefenseStats(curStats);
             dstats.setTeam(team);  
+            dstats.post();
          }
          endTrans();
       }

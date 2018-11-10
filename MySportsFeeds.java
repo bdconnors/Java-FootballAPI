@@ -28,11 +28,12 @@ public class MySportsFeeds{
    //add to feedString to request rostered players
    private String playerString ="roster_players.json?rosterstatus=assigned-to-roster";
    //add to playerString to request by position
-   private String positionString="&position=";
+   private String positionString="position=";
    //add to playerString to rquest by player
-   private String pNameString="&player=";
+   private String pNameString="player=";
    private String teamString ="overall_team_standings.json";
    private String teamGameString ="team_gamelogs.json?team=";
+   private String playerTeamGameString = "player_gamelogs.json?team=";
    //---------------------------------------------------------------------------------------------
    //Method Name: apiRequest
    //Description:Takes in a request string and uses API key to request data from MySportsFeeds.com
@@ -88,7 +89,7 @@ public class MySportsFeeds{
    public ArrayList<String[]> getPlayersByPosition(String pos)
    {  //ArrayList for holding String[6] of player data
       ArrayList<String[]> playerData = new ArrayList<String[]>();
-      String reqString = feedString + playerString + positionString + pos;    
+      String reqString = feedString + playerString +"&"+ positionString + pos;    
       try 
       {  //Json obeject mapper to load Json string into Json array node
          ObjectMapper mapper = new ObjectMapper();
@@ -193,18 +194,18 @@ public class MySportsFeeds{
          { 
             int[] stats= new int[12];
             JsonNode curGame = games.get(i);
-            System.out.println(stats[0] = curGame.findPath("id").asInt());
-            System.out.println(stats[1] = curGame.findPath("PointsAgainst").findPath("#text").asInt());
-            System.out.println(stats[2] = curGame.findPath("Sacks").findPath("#text").asInt());
-            System.out.println(stats[3] = curGame.findPath("Safeties").findPath("#text").asInt());
-            System.out.println(stats[4] = curGame.findPath("IntTD").findPath("#text").asInt());
-            System.out.println(stats[5] = curGame.findPath("FumTD").findPath("#text").asInt());
-            System.out.println(stats[6] = curGame.findPath("KrTD").findPath("#text").asInt());
-            System.out.println(stats[7] = curGame.findPath("PrTD").findPath("#text").asInt());
-            System.out.println(stats[8] = curGame.findPath("Interceptions").findPath("#text").asInt());
-            System.out.println(stats[9] = curGame.findPath("Fumbles").findPath("#text").asInt());
-            System.out.println( stats[10] = curGame.findPath("KB").findPath("#text").asInt());
-            System.out.println(stats[11] = curGame.findPath("XpBlk").findPath("#text").asInt());
+            stats[0] = curGame.findPath("id").asInt();
+            stats[1] = curGame.findPath("PointsAgainst").findPath("#text").asInt();
+            stats[2] = curGame.findPath("Sacks").findPath("#text").asInt();
+            stats[3] = curGame.findPath("Safeties").findPath("#text").asInt();
+            stats[4] = curGame.findPath("IntTD").findPath("#text").asInt();
+            stats[5] = curGame.findPath("FumTD").findPath("#text").asInt();
+            stats[6] = curGame.findPath("KrTD").findPath("#text").asInt();
+            stats[7] = curGame.findPath("PrTD").findPath("#text").asInt();
+            stats[8] = curGame.findPath("Interceptions").findPath("#text").asInt();
+            stats[9] = curGame.findPath("Fumbles").findPath("#text").asInt();
+            stats[10] = curGame.findPath("KB").findPath("#text").asInt();
+            stats[11] = curGame.findPath("XpBlk").findPath("#text").asInt();
             defStats.add(stats);
          }
       }
@@ -214,4 +215,33 @@ public class MySportsFeeds{
       }
       return defStats;
    }
+   public ArrayList<int[]> getStatsByTeamPos(String team,String pos)
+   {  ArrayList<int[]> pStats = new ArrayList<int[]>();
+      String reqString=feedString+playerTeamGameString+team+"&"+positionString+pos;
+      try
+      {  ObjectMapper mapper = new ObjectMapper();
+         String jsonString = apiRequest(reqString);
+         JsonNode root = mapper.readTree(jsonString);
+         JsonNode games = root.findPath("gamelogs");
+
+         for(int i=0; i<games.size(); i++)
+         {  
+            JsonNode player = games.get(i);
+            String position = player.findPath("player").findPath("Position").asText();
+        
+        
+           System.out.println(player.findPath("player").findPath("LastName").asText());
+           
+            
+         }
+         
+    
+      }
+      catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return pStats;
+   }
+
 }//end of class
