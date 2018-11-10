@@ -405,6 +405,28 @@ public class FootballDatabase
          throw new DLException(e,"could not load team data");
       }
    }
+   public void loadPlayerStats(String team,String pos)throws DLException
+   {
+      try
+      {  startTrans();
+         MySportsFeeds feed = new MySportsFeeds();
+         ArrayList<int[]> stats = feed.getStatsByTeamPos(team,pos);
+         int[] curStats = new int[22];
+         DefenseStats dfs = new DefenseStats();
+         
+         for(int i = 0; i < stats.size(); i++)
+         {  curStats= stats.get(i);
+            PlayerStats pstats = new PlayerStats(curStats); 
+            pstats.post();
+         }
+         endTrans();
+      }
+      catch(DLException e)
+      {
+         e.printStackTrace();
+         throw new DLException(e,"could not load team data");
+      }
+   }
    public void loadDefStats(String team)throws DLException
    {
       try
