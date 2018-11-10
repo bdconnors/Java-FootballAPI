@@ -17,19 +17,12 @@ import com.fasterxml.jackson.core.JsonParseException;//JSON Packages
 import com.fasterxml.jackson.databind.JsonMappingException;//JSON Packages
 import com.fasterxml.jackson.databind.JsonNode;//JSON Packages
 import com.fasterxml.jackson.databind.ObjectMapper;//JSON Packages
-//----------------------------------------------------------------------------------------
-//Class Name: MySportsFeeds
-//Description: This class has two methods. apiRequest() and getPlayersByPosition()
-//----------------------------------------------------------------------------------------
+
 public class MySportsFeeds{
    //--------------Class Variables---------------------------------------------------------
-   //starting half of string for api requests
    private String feedString = "https://api.mysportsfeeds.com/v1.0/pull/nfl/2018-regular/";
-   //add to feedString to request rostered players
    private String playerString ="roster_players.json?rosterstatus=assigned-to-roster";
-   //add to playerString to request by position
    private String positionString="position=";
-   //add to playerString to rquest by player
    private String pNameString="player=";
    private String teamString ="overall_team_standings.json";
    private String teamGameString ="team_gamelogs.json?team=";
@@ -43,33 +36,21 @@ public class MySportsFeeds{
    {     
       String jsonString = null;
       try
-      {  //API key for MySportsFeeds.com
+      {  
          String encode = "b4b138b1-909e-4ffa-80ee-baccda:iste330";
-         //create URL object from request string
          URL url = new URL (reqString);
-         //encode API key
          String encoding = Base64.getEncoder().encodeToString(encode.getBytes());
-         //open HTTP connection
          HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-         //set request method to GET
          connection.setRequestMethod("GET");
-         //set output to true
          connection.setDoOutput(true);
-         //send in authorization of encoded API key
          connection.setRequestProperty("Authorization", "Basic " + encoding);
-         //load InputStream with requested data
          InputStream content = (InputStream)connection.getInputStream();
-         //calls apiRequest sending in the requested string and returns InputStream into BufferedReader
          BufferedReader in = new BufferedReader(new InputStreamReader(content));
-         //StringWriter to assemble Json string into single line
          StringWriter stringWriter = new StringWriter();
-         //PrintWriter to wrap StringWriter
          PrintWriter writer = new PrintWriter(stringWriter, true);
-         //String to read line being read in from buffered reader
          String line;
-         //while line is still being read
          while ((line = in.readLine()) != null) 
-         {  //write the line to stringWriter
+         { 
             writer.write(line);
          }
          jsonString = stringWriter.toString();
@@ -78,50 +59,40 @@ public class MySportsFeeds{
       {
          e.printStackTrace();
       }
-      //return InputStream containing requested data
+
       return jsonString; 
-   }//end of apiRequest method
+   }
    //---------------------------------------------------------------------------------------------
    //Method Name: getPlayersByPosition
    //Description:Takes in a string which contains desired position to request
    //and returns an ArrayList<String[]> of player data
    //---------------------------------------------------------------------------------------------
    public ArrayList<String[]> getPlayersByPosition(String pos)
-   {  //ArrayList for holding String[6] of player data
+   { 
       ArrayList<String[]> playerData = new ArrayList<String[]>();
       String reqString = feedString + playerString +"&"+ positionString + pos;    
       try 
-      {  //Json obeject mapper to load Json string into Json array node
+      { 
          ObjectMapper mapper = new ObjectMapper();
          String jsonString = apiRequest(reqString);
-         //load Json string into Json array node
          JsonNode root = mapper.readTree(jsonString);
-         //get the player entrys from array node and create player array node
          JsonNode players = root.findPath("playerentry");
-         //for each player in the array node
          for(int i =0; i<players.size(); i++)
-         {   //get the player assigned to index
+         {   
             JsonNode curPlayer = players.get(i);
             if(curPlayer.findPath("JerseyNumber").isMissingNode())
             {  
-               //if the player does not have a jersey number skip him
+
             }
             else
-            {  //create string array to hold needed player data
+            { 
                String[] player = new String[6];
-               //store player id into first array element
                player[0] = curPlayer.findPath("ID").asText();
-               //store player first name into  second array element
                player[1] = curPlayer.findPath("FirstName").asText();
-               //store player last name into third array element
                player[2] = curPlayer.findPath("LastName").asText();
-               //store player team into fourth array element
                player[3] = curPlayer.findPath("Abbreviation").asText();
-               //store player position into fifth array element
                player[4] = curPlayer.findPath("Position").asText();
-               //store player jersey number into last array element
                player[5] = curPlayer.findPath("JerseyNumber").asText();
-               //add player to ArrayList of players
                playerData.add(player);
             }
          }     
@@ -130,20 +101,23 @@ public class MySportsFeeds{
       {
          e.printStackTrace();
       }
-      //return ArrayList of player data
       return playerData;
-   }//end of getPlayersByPosition method
+   }
+   //---------------------------------------------------------------------------------------------
+   //Method Name: getAllTeams
+   //Description: Requests from API the data on all 32 NFL teams. maps Json string to JsonNode
+   //iteratres through JsonNode to and adds team data to String array which is added to 
+   //2d ArrayList of teamdata which is then returned
+   //---------------------------------------------------------------------------------------------
    public ArrayList<String[]> getAllTeams()
-   { //ArrayList for holding String[6] of player data
+   { 
       ArrayList<String[]> teamData = new ArrayList<String[]>();
       String reqString = feedString + teamString; 
       try 
-      {  //Json obeject mapper to load Json string into Json array node
+      { 
          ObjectMapper mapper = new ObjectMapper();
          String jsonString = apiRequest(reqString);
-         //load Json string into Json array node
          JsonNode root = mapper.readTree(jsonString);
-         //get the player entrys from array node and create player array node
          JsonNode teams = root.findPath("teamstandingsentry");
          for(int i = 0; i < teams.size(); i++)
          {  JsonNode curTeam = teams.get(i);
@@ -159,6 +133,13 @@ public class MySportsFeeds{
       } 
       return teamData;
    }
+    //---------------------------------------------------------------------------------------------
+   //Method Name: getGamesByTeam
+   //Description: Takes in a String of a team name and issues a request to API for data from all
+   //games played by that team. the received Json string is mapped to a JsonNode
+   //it then iterates through JsonNode and adds team data to String array which is added to 
+   //2d ArrayList of gamedata which is then returned
+   //---------------------------------------------------------------------------------------------
    public ArrayList<String[]> getGamesByTeam(String team)
    {  ArrayList<String[]> gameData = new ArrayList<String[]>();
       String reqString = feedString + teamGameString+team;
@@ -182,6 +163,13 @@ public class MySportsFeeds{
       }
       return gameData;
    }
+    //---------------------------------------------------------------------------------------------
+   //Method Name: getDefStatsByTeam
+   //Description: Takes in a String of a team name and issues a request to API for defense stats 
+   //from all games played by that team. the received Json string is mapped to a JsonNode
+   //it then iterates through JsonNode and adds defense stats to int array which is added to 
+   //2d ArrayList of defense stats which is then returned
+   //---------------------------------------------------------------------------------------------
    public ArrayList<int[]> getDefStatsByTeam(String team)
    {  ArrayList<int[]> defStats = new ArrayList<int[]>();
       String reqString = feedString + teamGameString+team;
@@ -215,6 +203,13 @@ public class MySportsFeeds{
       }
       return defStats;
    }
+    //---------------------------------------------------------------------------------------------
+   //Method Name: getStasByTeamPos
+   //Description: Takes in a two Strings a team name and position type issues a request to API for 
+   //all statistics by players of that position on that team. the received Json string is mapped to a JsonNode
+   //it then iterates through JsonNode and adds player stats to int array which is added to 
+   //2d ArrayList of stats which is then returned
+   //---------------------------------------------------------------------------------------------
    public ArrayList<int[]> getStatsByTeamPos(String team,String pos)
    {  ArrayList<int[]> pStats = new ArrayList<int[]>();
       String reqString=feedString+playerTeamGameString+team+"&"+positionString+pos;
