@@ -21,42 +21,61 @@ import com.fasterxml.jackson.annotation.*;//JSON packages
 //6 set mutators for its class variables
 //6 get mutators for its class variables
 //----------------------------------------------------------------------------------------
-public class DefenseStats
+public class PlayerStats
 {
    //--------------Class Variables---------------------------------------------------------
    public String gameid;
-   public String team;
-   public int pa;
-   public int sck;
-   public int sfty;
-   public int intTD;
-   public int fumTD;
+   public String playerid;
+   public int passAtt;
+   public int passComp;
+   public int passYds;
+   public int passTds;
+   public int pass2pt;
+   public int rushAtt;
+   public int rushYds;
+   public int rush2pt;
+   public int rec;
+   public int recYds;
+   public int recTd;
+   public int rec2pt;
+   public int fgAtt;
+   public int fgMd;
+   public int xpAtt;
+   public int xpMd;
+   public int intThr;
+   public int fum;
    public int krTD;
    public int prTD;
-   public int intc;
-   public int fum;
-   public int kBlk;
-   public int xpBlk;
    public FootballDatabase db = new FootballDatabase();
 
     //--------------------Constructor------------------------------------------------------
     //Parameter Type: String[]
     //Description:takes in a string[] of player data and sets team variables
    //------------------------------------------------------------------------------------
-   public DefenseStats(int[] stats)
+   public PlayerStats(int[] stats)
    {
-      gameid = String.valueOf(stats[0]); 
-      pa = stats[1];
-      sck = stats[2];
-      sfty = stats[3];
-      intTD = stats[4];
-      fumTD = stats[5];
-      krTD = stats[6];
-      prTD = stats[7];
-      intc = stats[8];
-      fum = stats[9];
-      kBlk = stats[10];
-      xpBlk = stats[11];
+      gameid= String.valueOf(stats[0]);
+      playerid=String.valueOf(stats[1]);
+      passAtt = stats[2];
+      passComp = stats[3];
+      passYds = stats[4];
+      passTds = stats[5];
+      pass2pt = stats[6];
+      rushAtt = stats[7];
+      rushYds = stats[8];
+      rush2pt = stats[9];
+      rec = stats[10];
+      recYds = stats[11];
+      recTd = stats[12];
+      rec2pt = stats[13];
+      fgAtt = stats[14];
+      fgMd = stats[15];
+      xpAtt = stats[16];
+      xpMd = stats[17];
+      intThr = stats[18];
+      fum = stats[19];
+      krTD = stats[20];
+      prTD = stats[21];
      
    }
    
@@ -64,27 +83,14 @@ public class DefenseStats
    //Parameter Type: 2 Strings
    //Description:takes in individual strings of team data and sets team variables
    //------------------------------------------------------------------------------------
-   public DefenseStats()
+   public PlayerStats()
    {
       
    
    
    
    }
-   //--------------------Constructor------------------------------------------------------
-   //Parameter Type: String
-   //Description:takes in a team name and sets name variable
-   //------------------------------------------------------------------------------------
-   public DefenseStats(String team,String gameID)
-   {
-      this.team = team;
-      this.gameid=gameid;    
-   
-   }
-   //--------------------Constructor------------------------------------------------------
-   //Parameter Type: none
-   //Description:default constructor
-   //------------------------------------------------------------------------------------
+
 
    //-----------------------------------------------------------------------------------------------------
    //Method Name: fetch
@@ -94,29 +100,36 @@ public class DefenseStats
    public void fetch()throws DLException
    {  
       //SQL query string
-      String query = "SELECT pa,sck,sfty,inttd,fumtd,krtd,prtd,intc,fum,kblk,xpblk FROM defensestats WHERE gameid=? AND team = ?;";
+      String query = "SELECT passatt,passcomp,passyds,passtds,pass2pt,rushatt,rushyds,rush2pt,rec,recyds,rectd,rec2pt,fgatt,fgmd,xpatt,xpmd,intthr,fum,krtd,prtd FROM playerstats WHERE gameid=? AND playerid= ?;";
       
       ArrayList<String> values = new ArrayList<String>();
-      values.add(gameid);
-      values.add(team);
       try
       { 
          //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
          ArrayList<String[]> info = db.getData(query,values); 
          String[] fields = info.get(1);   
          //set name to the first field value
-         pa = Integer.parseInt(fields[1]);
-         sck = Integer.parseInt(fields[2]);
-         sfty = Integer.parseInt(fields[3]);
-         intTD = Integer.parseInt(fields[4]);
-         fumTD = Integer.parseInt(fields[5]);
-         krTD = Integer.parseInt(fields[6]);
-         prTD = Integer.parseInt(fields[7]);
-         intc = Integer.parseInt(fields[8]);
-         fum = Integer.parseInt(fields[9]);
-         kBlk = Integer.parseInt(fields[10]);
-         xpBlk = Integer.parseInt(fields[11]);
-         
+       
+         passAtt = Integer.parseInt(fields[2]);
+         passComp = Integer.parseInt(fields[3]);
+         passYds = Integer.parseInt(fields[4]);
+         passTds = Integer.parseInt(fields[5]);
+         pass2pt = Integer.parseInt(fields[6]);
+         rushAtt = Integer.parseInt(fields[7]);
+         rushYds = Integer.parseInt(fields[8]);
+         rush2pt = Integer.parseInt(fields[9]);
+         rec = Integer.parseInt(fields[10]);
+         recYds = Integer.parseInt(fields[11]);
+         recTd = Integer.parseInt(fields[12]);
+         rec2pt = Integer.parseInt(fields[13]);
+         fgAtt = Integer.parseInt(fields[14]);
+         fgMd = Integer.parseInt(fields[15]);
+         xpAtt = Integer.parseInt(fields[16]);
+         xpMd = Integer.parseInt(fields[17]);
+         intThr = Integer.parseInt(fields[18]);
+         fum = Integer.parseInt(fields[19]);
+         krTD = Integer.parseInt(fields[20]);
+         prTD = Integer.parseInt(fields[21]);
       }
       catch(Exception e)
       {  
@@ -138,21 +151,31 @@ public class DefenseStats
       int effected = 0;
       ArrayList<String> values = new ArrayList<String>();
      //SQL Insert String
-      String insert = "INSERT INTO defensestats(gameid,team,pa,sck,sfty,inttd,fumtd,krtd,prtd,intc,fum,kblk,xpblk)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
+      String insert = "INSERT INTO playerstats(gameid,playerid,passatt,passyds,passtds,pass2pt,rushatt,rushyds,rush2pt,rec,recyds,rectd,rec2pt,fgatt,fgmd,xpatt,xpmd,intthr,fum,krtd,prtd)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
       //bind values
-      values.add(String.valueOf(gameid));
-      values.add(String.valueOf(team));
-      values.add(String.valueOf(pa));
-      values.add(String.valueOf(sck));
-      values.add(String.valueOf(sfty));
-      values.add(String.valueOf(intTD));
-      values.add(String.valueOf(fumTD));
+         
+      values.add(gameid);
+      values.add(playerid);
+      values.add(String.valueOf(passAtt));
+      values.add(String.valueOf(passComp));
+      values.add(String.valueOf(passYds));
+      values.add(String.valueOf( passTds));
+      values.add(String.valueOf(pass2pt));
+      values.add(String.valueOf(rushAtt));
+      values.add(String.valueOf(rushYds));
+      values.add(String.valueOf(rush2pt));
+      values.add(String.valueOf(rec));
+      values.add(String.valueOf(recYds));
+      values.add(String.valueOf(recTd));
+      values.add(String.valueOf(rec2pt));
+      values.add(String.valueOf(fgAtt));
+      values.add(String.valueOf(fgMd));
+      values.add(String.valueOf(xpAtt));
+      values.add(String.valueOf(xpMd)); 
+      values.add(String.valueOf(intThr));
+      values.add(String.valueOf(fum));
       values.add(String.valueOf(krTD));
       values.add(String.valueOf(prTD));
-      values.add(String.valueOf(intc));
-      values.add(String.valueOf(fum));
-      values.add(String.valueOf(kBlk));
-      values.add(String.valueOf(xpBlk));
    
       try
       {
@@ -175,22 +198,32 @@ public class DefenseStats
    {  //effected records
       int effected = 0;
       //SQL Update String
-      String update = "UPDATE defensestats SET pa=?,sck=?,sfty=?,intTD=?,fumTD=?,krTD=?,prTD=?,intc=?,fum=?,kBlk=?,xpBlk=?WHERE gameid = ? AND team=?;";
+      String update = "UPDATE playerstats SET passatt=?,passcomp=?,passyds=?,passtds=?,pass2pt=?,rushatt=?,rushyds=?,rush2pt=?,rec=?,recyds=?,rectd=?,rec2pt=?,fgatt=?,fgmd=?,xpatt=?,xpmd=?,intthr=?,fum=?,krtd=?,prtd=?WHERE gameid = ? AND playerid=?;";
       ArrayList<String> values = new ArrayList<String>();
    
-      values.add(String.valueOf(pa));
-      values.add(String.valueOf(sck));
-      values.add(String.valueOf(sfty));
-      values.add(String.valueOf(intTD));
-      values.add(String.valueOf(fumTD));
+       
+      values.add(String.valueOf(passAtt));
+      values.add(String.valueOf(passComp));
+      values.add(String.valueOf(passYds));
+      values.add(String.valueOf(passTds));
+      values.add(String.valueOf(pass2pt));
+      values.add(String.valueOf(rushAtt));
+      values.add(String.valueOf(rushYds));
+      values.add(String.valueOf(rush2pt));
+      values.add(String.valueOf(rec));
+      values.add(String.valueOf(recYds));
+      values.add(String.valueOf(recTd));
+      values.add(String.valueOf(rec2pt));
+      values.add(String.valueOf(fgAtt));
+      values.add(String.valueOf(fgMd));
+      values.add(String.valueOf(xpAtt));
+      values.add(String.valueOf(xpMd)); 
+      values.add(String.valueOf(intThr));
+      values.add(String.valueOf(fum));
       values.add(String.valueOf(krTD));
       values.add(String.valueOf(prTD));
-      values.add(String.valueOf(intc));
-      values.add(String.valueOf(fum));
-      values.add(String.valueOf(kBlk));
-      values.add(String.valueOf(xpBlk));
-      values.add(String.valueOf(gameid));
-      values.add(String.valueOf(team));
+      values.add(gameid);
+      values.add(playerid);
       
       try
       { 
@@ -215,10 +248,10 @@ public class DefenseStats
     //effected records
       int effected = 0;
     //SQL delete string
-      String delete = "DELETE FROM defensestats WHERE gameid =? AND team=?;";
+      String delete = "DELETE FROM playerstats WHERE gameid =? AND playerid=?;";
       ArrayList<String> values = new ArrayList<String>();
       values.add(gameid);
-      values.add(team);
+      values.add(playerid);
       
     
       try
@@ -244,113 +277,6 @@ public class DefenseStats
       return null;
    
    }
-   //setters
-   public void setGameID(String gameid)
-   {
-      this.gameid = gameid;
-   }
-      
-   public void setTeam(String team) 
-   {
-      this.team = team;
-   }
-   public void setPa(int pa)
-   {
-      this.pa = pa;
-   }
-   public void setSck(int sck)
-   { 
-      this.sck = sck;
-   }
-   public void setSfty(int sfty)
-   {   
-      this.sfty = sfty;
-   }
-   public void setIntTD(int intTD)
-   {   
-      this.intTD = intTD;  
-   }
-   public void setFumTD(int fumTD)
-   {
-      this.fumTD = fumTD;
-   }
-   public void setKrTD(int krTD)
-   {
-      this.krTD = krTD;
-   }
-   public void setPrTD(int prTD)
-   {
-      this.prTD = prTD;
-   }
-   public void setIntc(int intc)
-   {
-      this.intc = intc;
-   }
-   public void setFum(int fum)
-   {
-      this.fum = fum;
-   }
-   public void setKblk(int kblk)
-   {  
-      this.kBlk = kBlk;
-   }
-   public void setXpBlk(int xpblk)
-   {
-      this.xpBlk = xpBlk;
-   }
 
-   //getters
-   public String getGameID()
-   {
-      return gameid;
-   }
-      
-   public String getTeam() 
-   {
-      return team;
-   }
-   public int getPa()
-   {
-      return pa;
-   }
-   public int getSck()
-   { 
-      return sck;
-   }
-   public int getSfty()
-   {   
-      return sfty;
-   }
-   public int getIntTD()
-   {   
-      return intTD;  
-   }
-   public int getFumTD()
-   {
-      return fumTD;
-   }
-   public int getKrTD()
-   {
-      return krTD;
-   }
-   public int getPrTD()
-   {
-      return prTD;
-   }
-   public int getIntc()
-   {
-      return intc;
-   }
-   public int getFum()
-   {
-      return fum;
-   }
-   public int getKblk()
-   {  
-      return kBlk;
-   }
-   public int getXpBlk()
-   {
-      return xpBlk;
-   }
+
 }//end player class
