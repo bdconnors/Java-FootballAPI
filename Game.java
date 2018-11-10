@@ -21,54 +21,37 @@ import com.fasterxml.jackson.annotation.*;//JSON packages
 //6 set mutators for its class variables
 //6 get mutators for its class variables
 //----------------------------------------------------------------------------------------
-public class Team
-{
-   //--------------Class Variables---------------------------------------------------------
-   public String name;
-   public String abrv;
+public class Game
+{  //--------------Class Variables---------------------------------------------------------
+   public String gameID;
+   public String date;
+   public String time;
    public FootballDatabase db = new FootballDatabase();
    //--------------------------------------------------------------------------------------
-   //--------------------Constructor------------------------------------------------------
-   //Parameter Type: JsonNode
-   //Description:takes in a json array node of player and sets team variables
-   //------------------------------------------------------------------------------------
-   public Team(JsonNode node)
-   {  
-      name = node.findPath("City").asText()+" "+node.findPath("Name").asText();
-      abrv = node.findPath("Abbreviation").asText();
-   }
     //--------------------Constructor------------------------------------------------------
     //Parameter Type: String[]
     //Description:takes in a string[] of player data and sets team variables
    //------------------------------------------------------------------------------------
-   public Team(String[] team)
+   public Game(String[] game)
    {
-      name = team[0];
-      abrv = team[1]; 
-   }
-   
-   //--------------------Constructor------------------------------------------------------
-   //Parameter Type: 2 Strings
-   //Description:takes in individual strings of team data and sets team variables
-   //------------------------------------------------------------------------------------
-   public Team(String name,String abrv)
-   {      
-      this.name = name;
-      this.abrv = abrv;
-   }
+      gameID = game[0];
+      date = game[1];
+      time = game[2];
+    
+   } 
    //--------------------Constructor------------------------------------------------------
    //Parameter Type: String
    //Description:takes in a team name and sets name variable
    //------------------------------------------------------------------------------------
-   public Team(String name)
+   public Game(String gameID)
    {
-      this.name= name;   
+      this.gameID = gameID;    
    }
    //--------------------Constructor------------------------------------------------------
    //Parameter Type: none
    //Description:default constructor
    //------------------------------------------------------------------------------------
-   public Team()
+   public Game()
    {
    
    }  
@@ -78,23 +61,24 @@ public class Team
    //this team obejects set name and sets the remaining class variables equal to the returned data
    //----------------------------------------------------------------------------------------------------
    public void fetch()throws DLException
-   {   //SQL query string
-      String query = "SELECT name,abbreviation FROM team WHERE abbreviation=?;";
+   {  //SQL query string
+      String query = "SELECT date,time FROM game WHERE gameid=?;";
       ArrayList<String> values = new ArrayList<String>();
-      values.add(abrv);
+      values.add(gameID);
       try
       { //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
          ArrayList<String[]> info = db.getData(query,values); 
          String[] fields = info.get(1);   
          //set name to the first field value
-         name = fields[0];
+         gameID = fields[0];
          //set abrv to the second field value
-         abrv = fields[1];
+         date = fields[1];
+         time = fields[2];
       }
       catch(Exception e)
       {  
          System.out.println("No Record Found");
-      }  
+      }    
    }
    //---------------------------------------------------------------------------------------------
    //Method Name: post
@@ -106,20 +90,20 @@ public class Team
       int effected = 0;
       ArrayList<String> values = new ArrayList<String>();
      //SQL Insert String
-      String insert = "INSERT INTO team(name,abbreviation)VALUES(?,?);";
+      String insert = "INSERT INTO game(gameid,date,time)VALUES(?,?,?);";
       //bind values
-      values.add(name);
-      values.add(abrv);
+      values.add(gameID);
+      values.add(date);
+      values.add(time);
       try
-      {
-       //perform insert and return number of effected
+      { //perform insert and return number of effected
          effected = db.setData(insert,values);
       }
       catch(DLException e)
       {
          effected = -1;
          e.printStackTrace();
-      }    
+      }
       return effected;
    }
    //updates database record that corresponds to this object's 'ID' variable and then returns the number of records effected in the database
@@ -127,18 +111,19 @@ public class Team
    {  //effected records
       int effected = 0;
       //SQL Update String
-      String update = "UPDATE team SET name = ? WHERE abbreviation = ?;";
+      String update = "UPDATE game SET date=?,time = ? WHERE gameid = ?;";
       ArrayList<String> values = new ArrayList<String>();
-      values.add(name);
-      values.add(abrv);
+      values.add(date);
+      values.add(time);
+      values.add(gameID);
       try
-      { //perform update and return number of effected records
+      {  //perform update and return number of effected records
          effected = db.setData(update,values);
       }
       catch(DLException e)
       {
          effected = -1;
-      }
+      }   
       return effected;    
    }
    //---------------------------------------------------------------------------------------------
@@ -146,20 +131,18 @@ public class Team
    //Description:deletes team record from database using their name
    //---------------------------------------------------------------------------------------------
    public int delete()throws DLException
-   {
-    //effected records
+   { //effected records
       int effected = 0;
     //SQL delete string
-      String delete = "DELETE FROM team WHERE abbreviation =?;";
+      String delete = "DELETE FROM game WHERE gameid = ?;";
       ArrayList<String> values = new ArrayList<String>();
-      values.add(abrv);
+      values.add(gameID);
       try
-      { //perform delete and return number of effected records
+      {//perform delete and return number of effected records
          effected = db.setData(delete,values);
       }
       catch(DLException e)
-      {
-         effected = -1;
+      {  effected = -1;
          e.printStackTrace();
       }
       return effected;
@@ -167,24 +150,32 @@ public class Team
    //toString 
    public String toString()
    {
-      return "Team Name: " + getName() + "\n" + "Abbreviation: " + getAbrv() +"\n";
+      return "GameID: " + getGameID() + "\n" + "Date: " + getDate() +"\n"+"Time: "+getTime()+"\n";
    }
    //getters
-   public String getName()
+   public String getGameID()
    {
-      return name;
+      return gameID;
    }
-   public String getAbrv()
+   public String getDate()
    {
-      return abrv;
+      return date;
+   }
+   public String getTime()
+   {
+      return time;
    }
    //setters
-   public void setName(String name)
+   public void setGameID(String gameID)
    {
-      this.name = name;
+      this.gameID = gameID;
    }
-   public void setAbrv(String abrv)
+   public void setDate(String date)
    {
-      this.abrv = abrv;
+      this.date = date;
+   }
+   public void setTime(String time)
+   {
+      this.time = time;
    }
 }//end player class

@@ -21,66 +21,37 @@ import com.fasterxml.jackson.annotation.*;//JSON packages
 //6 set mutators for its class variables
 //6 get mutators for its class variables
 //----------------------------------------------------------------------------------------
-public class Player
+public class Defense
 {
    //--------------Class Variables---------------------------------------------------------
-   public String id;
-   public String fName;
-   public String lName;
-   public String team;
-   public String position;
-   public String jNumber;
-   public FootballDatabase db = new FootballDatabase();
-   //--------------------------------------------------------------------------------------
-   //--------------------Constructor------------------------------------------------------
-   //Parameter Type: JsonNode
-   //Description:takes in a json array node of player and sets players variables
-   //------------------------------------------------------------------------------------
-   public Player(JsonNode node)
-   {  
-
-      id = node.findPath("ID").asText();
-      fName = node.findPath("FirstName").asText();
-      lName = node.findPath("LastName").asText();
-      team = node.findPath("City").asText()+" "+node.findPath("Name").asText();
-      position = node.findPath("Position").asText();
-      jNumber= node.findPath("JerseyNumber").asText();
    
-   }
+   public String id;
+   public String team;
+   public FootballDatabase db = new FootballDatabase();
     //--------------------Constructor------------------------------------------------------
     //Parameter Type: String[]
     //Description:takes in a string[] of player data and sets players variables
    //------------------------------------------------------------------------------------
-   public Player(String[] player)
+   public Defense(String[] def)
    {
-      id = player[0];
-      fName = player[1];
-      lName = player[2];
-      team = player[3];
-      position = player[4];
-      jNumber = player[5];
+    
    }
    
    //--------------------Constructor------------------------------------------------------
    //Parameter Type: 6 Strings
    //Description:takes in individual strings of player data and sets player variables
    //------------------------------------------------------------------------------------
-   public Player(String id,String fName,String lName,String team,String position,String jNumber)
+   public Defense(String id,String team)
    {
       
-      this.id = id;
-      this.fName = fName;
-      this.lName = lName;
-      this.team = team;
-      this.position = position;
-      this.jNumber = jNumber;
+    
    
    }
    //--------------------Constructor------------------------------------------------------
    //Parameter Type: String
    //Description:takes in a player id and sets players id variable
    //------------------------------------------------------------------------------------
-   public Player(String id)
+   public Defense(String id)
    {
       this.id= id;   
    
@@ -89,7 +60,7 @@ public class Player
    //Parameter Type: none
    //Description:default constructor
    //------------------------------------------------------------------------------------
-   public Player()
+   public Defense()
    {
    
    }  
@@ -101,10 +72,10 @@ public class Player
    public void fetch()throws DLException
    {  
       //SQL query string
-      String query = "SELECT FirstName,LastName,Team,Pos,JerseyNumber FROM player WHERE PlayerID=?;";
+      String query = "SELECT defenseid FROM defense WHERE team = ?";
       
       ArrayList<String> values = new ArrayList<String>();
-      values.add(id);
+      values.add(team);
 
       try
       { 
@@ -112,15 +83,8 @@ public class Player
          ArrayList<String[]> info = db.getData(query,values); 
          String[] fields = info.get(1);   
          //set fname to the first field value
-         fName = fields[0];
-         //set lname to the second field value
-         lName = fields[1];
-         //set team to the third field value
-         team = fields[2];
-         //set position to the foruth field value
-         position = fields[3];
-         //set jnumber to the fifth field value
-         jNumber = fields[4];
+         id = fields[0];
+   
       }
       catch(Exception e)
       {  
@@ -142,15 +106,10 @@ public class Player
       int effected = 0;
       ArrayList<String> values = new ArrayList<String>();
      //SQL Insert String
-      String insert = "INSERT INTO player(PlayerID,FirstName,LastName,Team,Pos,JerseyNumber)VALUES(?,?,?,?,?,?);";
+      String insert = "INSERT INTO defense(team)VALUES(?);";
       //bind values
-      values.add(id);
-      values.add(fName);
-      values.add(lName);
       values.add(team);
-      values.add(position);
-      values.add(jNumber);
-     
+
       try
       {
        //perform insert and return number of effected
@@ -172,15 +131,12 @@ public class Player
    {  //effected records
       int effected = 0;
       //SQL Update String
-      String update = "UPDATE player SET FirstName= ? , LastName = ? , Team = ?, Position = ?,JerseyNumber= ? WHERE PlayerID = ?;";
+      String update = "UPDATE defense SET team = ? WHERE defenseid = ?;";
       ArrayList<String> values = new ArrayList<String>();
  
-      values.add(fName);
-      values.add(lName);
       values.add(team);
-      values.add(position);
-      values.add(jNumber);
       values.add(id);
+ 
       
       try
       { 
@@ -205,7 +161,7 @@ public class Player
     //effected records
       int effected = 0;
     //SQL delete string
-      String delete = "DELETE FROM player WHERE PlayerID=?;";
+      String delete = "DELETE FROM defense WHERE defenseid=?;";
       ArrayList<String> values = new ArrayList<String>();
       values.add(id);
       
@@ -230,9 +186,7 @@ public class Player
    //toString 
    public String toString()
    {
-      return "PlayerID: " + getID()+"\n"+"First Name: " + getFName() +"\n"+"Last Name: "
-       +getLName()+"\n" +"Team: " + getTeam()+"\n" +"Position: "
-       + getPosition() +"\n"+"Jersey Number: "+ getJNumber();
+      return "DefenseID: "+getID()+"\n"+"Team: "+getTeam()+"\n";
    
    }
    
@@ -241,59 +195,20 @@ public class Player
    {
       return id;
    }
-   public String getFName()
-   {
-      return fName;
-   
-   }
-   public String getLName()
-   {
-      return lName;
-   
-   }
    public String getTeam()
    {
       return team;
-   }
-   public String getPosition()
-   {
-      return position;
    
    }
-   public String getJNumber()
-   {
-      return jNumber;
    
-   }
-   //setters
    public void setID(String id)
    {
       this.id = id;
-   
-   }
-   public void setFName(String fName)
-   {
-      this.fName = fName;
-   
-   }
-   public void setLName(String lName)
-   {
-      this.lName = lName;
-   
+ 
    }
    public void setTeam(String team)
    {
       this.team = team;
-   
-   }
-   public void setPosition(String position)
-   {
-      this.position = position;
-   
-   }
-   public void setJNumber(String jNumber)
-   {
-      this.jNumber = jNumber;
    
    }
 
