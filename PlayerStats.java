@@ -151,7 +151,7 @@ public class PlayerStats
       int effected = 0;
       ArrayList<String> values = new ArrayList<String>();
      //SQL Insert String
-      String insert = "INSERT INTO playerstats(gameid,playerid,passatt,passyds,passtds,pass2pt,rushatt,rushyds,rush2pt,rec,recyds,rectd,rec2pt,fgatt,fgmd,xpatt,xpmd,intthr,fum,krtd,prtd)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+      String insert = "INSERT INTO playerstats(gameid,playerid,passatt,passcomp,passyds,passtds,pass2pt,rushatt,rushyds,rush2pt,rec,recyds,rectd,rec2pt,fgatt,fgmd,xpatt,xpmd,intthr,fum,krtd,prtd)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
       //bind values
          
       values.add(gameid);
