@@ -35,8 +35,8 @@ public class FootballDatabase {
         this.password = password;
     }
     /** Creates a connection to database
-     * @throws DLException Throws Data Layer Exception if connection unsuccesful
-     * @return A boolean represting a succesful or unsuccessful connection
+     * @throws Throws Data Layer Exception if connection unsuccessful
+     * @return A boolean representing a successful or unsuccessful connection
      */
     public boolean connect() throws DLException {
         boolean status = true;
@@ -53,8 +53,8 @@ public class FootballDatabase {
         return status;
     }
     /** Closes the connection to database
-     * @throws DLException Throws Data Layer Exception if close is unsuccesful
-     * @return A boolean represting a succesful or unsuccessful close
+     * @throws Throws Data Layer Exception if close is unsuccesful
+     * @return A boolean representing successfull or unsuccessful close
      */
     public boolean close() throws DLException {
         boolean status = true;
@@ -71,7 +71,7 @@ public class FootballDatabase {
         return status;
     }
     /**Retrieves data from database using a PreparedStatement
-     * @throws DLException Throws Data Layer Exception if data cannot be retrieved
+     * @throws Throws Data Layer Exception if data cannot be retrieved
      * @param query A String containing an SQL query statement
      * @param list An ArrayList of String containing query values
      * @return An ArrayList of String[] containing data requested
@@ -103,7 +103,7 @@ public class FootballDatabase {
         return data;
     }
     /**Retrieves data from database
-     * @throws DLException Throws Data Layer Exception if data cannot be retrieved
+     * @throws Throws Data Layer Exception if data cannot be retrieved
      * @param query A String containing an SQL query statement
      * @return An ArrayList of String[] containing data requested
      */
@@ -130,7 +130,7 @@ public class FootballDatabase {
         return data;
     }
     /**Sets data in database
-     * @throws DLException Throws Data Layer Exception if data cannot be set
+     * @throws Throws Data Layer Exception if data cannot be set
      * @param update A String containing an SQL update statement
      * @param list An ArrayList of String containing update values
      * @return An int representing the number of rows effected
@@ -149,9 +149,9 @@ public class FootballDatabase {
         return effected;
     }
     /**Sets data in database
-     * @throws DLException Throws Data Layer Exception if data cannot be set
+     * @throws Throws Data Layer Exception if data cannot be set
      * @param update A String containing an SQL update statement
-     * @return An int reprsenting the number of rows effected
+     * @return An int representing the number of rows effected
      */
     public int setData(String update) throws DLException {
         connect();
@@ -167,7 +167,7 @@ public class FootballDatabase {
         return effected;
     }
     /**Creates a PreparedStatement from String and an ArrayList of values
-     * @throws DLException Throws Data Layer Exception if statement cannot be created
+     * @throws Throws Data Layer Exception if statement cannot be created
      * @param query A String containing an SQL statement
      * @return A PreparedStatement object
      */
@@ -185,10 +185,10 @@ public class FootballDatabase {
         }
 
     }
-    /**Prepares a statment from an SQL update String and an ArrayList of values and executes it
-     * @throws DLException Throws Data Layer Exception if statement cannot be executed
+    /**Prepares a statement from an SQL update String and an ArrayList of values and executes it
+     * @throws Throws Data Layer Exception if statement cannot be executed
      * @param update A String containing an SQL statement
-     * @return An int reprsenting the number of rows effected
+     * @return An int representing the number of rows effected
      */
     public int executeStmnt(String update, ArrayList<String> list) throws DLException {
         PreparedStatement stmnt = null;
@@ -204,7 +204,7 @@ public class FootballDatabase {
         return effected;
     }
     /**Prints to console a table containing requested data
-     * @throws DLException Throws Data Layer Exception if statement cannot be created
+     * @throws Throws Data Layer Exception if statement cannot be created
      * @param query A String containing an SQL query statement
      */
     public void descTable(String query) throws DLException {
@@ -221,7 +221,7 @@ public class FootballDatabase {
         }
     }
     /**Retrieves data on players of the specified position from an API and loads it into database
-     * @throws DLException Throws Data Layer Exception if player data could not be loaded
+     * @throws Throws Data Layer Exception if player data could not be loaded
      * @param pos A String containing a specified player position (Ex.'WR','RB','TE','QB','K')
      */
     public void loadPlayersByPos(String pos) throws DLException {
@@ -241,7 +241,7 @@ public class FootballDatabase {
         }
     }
     /**Retrieves data on all 32 NFL teams from an API and loads it into database
-     * @throws DLException Throws Data Layer Exception if team data could not be loaded
+     * @throws Throws Data Layer Exception if team data could not be loaded
      */
     public void loadAllTeams() throws DLException {
         try {
@@ -261,7 +261,7 @@ public class FootballDatabase {
         }
     }
     /**Retrieves data on all games played by a specified NFL team and loads them into database
-     * @throws DLException Throws Data Layer Exception if game data could not be loaded
+     * @throws Throws Data Layer Exception if game data could not be loaded
      * @param team A String containing an NFL team 2 or 3 letter abbreviation (ex. 'NYG' is 'New York Giants')
      */
     public void loadGamesByTeam(String team) throws DLException {
@@ -289,7 +289,7 @@ public class FootballDatabase {
     }
     /**Retrieves player game statistics from all players of a specified position
      * on a specified team and loads them into database
-     * @throws DLException Throws Data Layer Exception if player statistics could not be loaded
+     * @throws Throws Data Layer Exception if player statistics could not be loaded
      * @param team A String containing an NFL team 2 or 3 letter abbreviation (ex. 'NYG' is 'New York Giants')
      * @param pos A String containing a specified player position (Ex.'WR','RB','TE','QB','K')
      */
@@ -313,7 +313,7 @@ public class FootballDatabase {
         }
     }
     /**Retrieves Defensive game statistics of a specified NFL team and loads them into database
-     * @throws DLException Throws Data Layer Exception if Defensive statistics could not be loaded
+     * @throws Throws Data Layer Exception if Defensive statistics could not be loaded
      * @param team A String containing an NFL team 2 or 3 letter abbreviation (ex. 'NYG' is 'New York Giants')
      */
     public void loadDefStats(String team) throws DLException {
@@ -337,7 +337,7 @@ public class FootballDatabase {
         }
     }
     /**Querys the database to check if a record exists
-     * @throws DLException Throws Data Layer Exception if check cannot be excuted
+     * @throws Throws Data Layer Exception if check cannot be excuted
      * @param query A String containing an SQL query statement
      * @return A boolean indicating if the record exists
      */
@@ -358,7 +358,7 @@ public class FootballDatabase {
         return exists;
     }
     /**Begins a transaction, setting auto commit to false
-     * @throws DLException Throws Data Layer Exception if transaction cannot be started
+     * @throws Throws Data Layer Exception if transaction cannot be started
      */
     public void startTrans() throws DLException {
         try {
@@ -369,7 +369,9 @@ public class FootballDatabase {
             throw new DLException(e, "Could not start transaction");
         }
     }
-
+    /**Ends a transaction, setting auto commit to true
+     * @throws Throws Data Layer Exception if transaction cannot end
+     */
     public void endTrans() throws DLException {
         try {
             conn.commit();
@@ -380,7 +382,9 @@ public class FootballDatabase {
             throw new DLException(e, "Could not end transaction");
         }
     }
-
+    /**Rolls a transaction back
+     * @throws Throws Data Layer Exception if transaction cannot be rolled back
+     */
     public void rollbackTrans() throws DLException {
         try {
             conn.rollback();
