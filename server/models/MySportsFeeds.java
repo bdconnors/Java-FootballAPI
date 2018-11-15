@@ -1,11 +1,4 @@
-package models;//----------------------------------------------------------------------------------------
-//Dev Name: Brandon Connors
-//Filename: MySportsFeeds.Java
-//Date: 11/8/18
-//Program Description: Contains methods to request data from MySportsFeeds.com API
-//---------------------------------------------------------------------------------------
-//--------------Import Statements--------------------------------------------------------
-
+package models;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 public class MySportsFeeds {
-    //--------------Class Variables---------------------------------------------------------
+
     private String feedString = "https://api.mysportsfeeds.com/v1.0/pull/nfl/2018-regular/";
     private String playerString = "roster_players.json?rosterstatus=assigned-to-roster";
     private String positionString = "position=";
@@ -25,12 +18,8 @@ public class MySportsFeeds {
     private String teamGameString = "team_gamelogs.json?team=";
     private String playerTeamGameString = "player_gamelogs.json?team=";
 
-    //---------------------------------------------------------------------------------------------
-    //Method Name: apiRequest
-    //Description:Takes in a request string and uses API key to request data from MySportsFeeds.com
-    //and returns an InputStream object which contains the data requested
-    //---------------------------------------------------------------------------------------------
     public String apiRequest(String reqString) {
+
         String jsonString = null;
         try {
             String encode = "b4b138b1-909e-4ffa-80ee-baccda:iste330";
@@ -56,12 +45,8 @@ public class MySportsFeeds {
         return jsonString;
     }
 
-    //---------------------------------------------------------------------------------------------
-    //Method Name: getPlayersByPosition
-    //Description:Takes in a string which contains desired position to request
-    //and returns an ArrayList<String[]> of player data
-    //---------------------------------------------------------------------------------------------
     public ArrayList<String[]> getPlayersByPosition(String pos) {
+
         ArrayList<String[]> playerData = new ArrayList<String[]>();
         String reqString = feedString + playerString + "&" + positionString + pos;
         try {
@@ -90,13 +75,8 @@ public class MySportsFeeds {
         return playerData;
     }
 
-    //---------------------------------------------------------------------------------------------
-    //Method Name: getAllTeams
-    //Description: Requests from API the data on all 32 NFL teams. maps Json string to JsonNode
-    //iteratres through JsonNode to and adds team data to String array which is added to
-    //2d ArrayList of teamdata which is then returned
-    //---------------------------------------------------------------------------------------------
     public ArrayList<String[]> getAllTeams() {
+
         ArrayList<String[]> teamData = new ArrayList<String[]>();
         String reqString = feedString + teamString;
         try {
@@ -117,14 +97,8 @@ public class MySportsFeeds {
         return teamData;
     }
 
-    //---------------------------------------------------------------------------------------------
-    //Method Name: getGamesByTeam
-    //Description: Takes in a String of a team name and issues a request to API for data from all
-    //games played by that team. the received Json string is mapped to a JsonNode
-    //it then iterates through JsonNode and adds team data to String array which is added to
-    //2d ArrayList of gamedata which is then returned
-    //---------------------------------------------------------------------------------------------
     public ArrayList<String[]> getGamesByTeam(String team) {
+
         ArrayList<String[]> gameData = new ArrayList<String[]>();
         String reqString = feedString + teamGameString + team;
         try {
@@ -146,14 +120,8 @@ public class MySportsFeeds {
         return gameData;
     }
 
-    //---------------------------------------------------------------------------------------------
-    //Method Name: getDefStatsByTeam
-    //Description: Takes in a String of a team name and issues a request to API for defense stats
-    //from all games played by that team. the received Json string is mapped to a JsonNode
-    //it then iterates through JsonNode and adds defense stats to int array which is added to
-    //2d ArrayList of defense stats which is then returned
-    //---------------------------------------------------------------------------------------------
     public ArrayList<int[]> getDefStatsByTeam(String team) {
+
         ArrayList<int[]> defStats = new ArrayList<int[]>();
         String reqString = feedString + teamGameString + team;
         try {
@@ -184,14 +152,8 @@ public class MySportsFeeds {
         return defStats;
     }
 
-    //---------------------------------------------------------------------------------------------
-    //Method Name: getStasByTeamPos
-    //Description: Takes in a two Strings a team name and position type issues a request to API for
-    //all statistics by players of that position on that team. the received Json string is mapped to a JsonNode
-    //it then iterates through JsonNode and adds player stats to int array which is added to
-    //2d ArrayList of stats which is then returned
-    //---------------------------------------------------------------------------------------------
     public ArrayList<int[]> getStatsByTeamPos(String team, String pos) {
+
         ArrayList<int[]> pStats = new ArrayList<int[]>();
         String reqString = feedString + playerTeamGameString + team + "&" + positionString + pos;
         try {
@@ -228,11 +190,10 @@ public class MySportsFeeds {
                 pStats.add(stats);
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return pStats;
     }
 
-}//end of class
+}//end of MySportsFeeds
