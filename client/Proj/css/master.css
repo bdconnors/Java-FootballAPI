@@ -1,0 +1,69 @@
+body{
+  font-family: 'Noto Sans SC', sans-serif;
+  background: #f4f4f4;
+}
+ul {
+    list-style-type: none;
+    margin-left: 250px;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #111;
+}
+
+.header{
+  background-color: #333;
+  height: 60px;
+  width: 100%;
+}
+.logo img{
+  max-height: 90px;
+  position: fixed;
+  top: 5px;
+  left: 40px;
+}
+.last{
+  float: right;
+  margin: 0 40px;
+}
+.content{
+  width: 60%;
+  height: 100%;
+  margin: 0 auto;
+  background: white;
+}
+.table{
+  width: 90%;
+  height: 400px;
+  margin: 0 auto;
+}
+.table td, th{
+  min-width: 120px;
+  text-align: center;
+}
+.table th{
+  background: #333;
+  color: #f4f4f4;
+}
+.banner{
+  background-image: url('../img/banner-1.jpg');
+  height: 90px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: 0% 70%;
+}
