@@ -1,4 +1,4 @@
-package models;
+package server.models;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -8,17 +8,18 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
 
-public class MySportsFeeds {
+class MySportsFeeds {
 
     private String feedString = "https://api.mysportsfeeds.com/v1.0/pull/nfl/2018-regular/";
     private String playerString = "roster_players.json?rosterstatus=assigned-to-roster";
     private String positionString = "position=";
+    private String cumStats = "cumulative_player_stats.json";
     private String pNameString = "player=";
     private String teamString = "overall_team_standings.json";
     private String teamGameString = "team_gamelogs.json?team=";
     private String playerTeamGameString = "player_gamelogs.json?team=";
 
-    public String apiRequest(String reqString) {
+    private String apiRequest(String reqString) {
 
         String jsonString = null;
         try {
@@ -29,7 +30,7 @@ public class MySportsFeeds {
             connection.setRequestMethod("GET");
             connection.setDoOutput(true);
             connection.setRequestProperty("Authorization", "Basic " + encoding);
-            InputStream content = (InputStream) connection.getInputStream();
+            InputStream content = connection.getInputStream();
             BufferedReader in = new BufferedReader(new InputStreamReader(content));
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter, true);
@@ -45,9 +46,9 @@ public class MySportsFeeds {
         return jsonString;
     }
 
-    public ArrayList<String[]> getPlayersByPosition(String pos) {
+    ArrayList<String[]> getPlayersByPosition(String pos) {
 
-        ArrayList<String[]> playerData = new ArrayList<String[]>();
+        ArrayList<String[]> playerData = new ArrayList<>();
         String reqString = feedString + playerString + "&" + positionString + pos;
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -56,9 +57,7 @@ public class MySportsFeeds {
             JsonNode players = root.findPath("playerentry");
             for (int i = 0; i < players.size(); i++) {
                 JsonNode curPlayer = players.get(i);
-                if (curPlayer.findPath("JerseyNumber").isMissingNode()) {
-
-                } else {
+                if (!curPlayer.findPath("JerseyNumber").isMissingNode()) {
                     String[] player = new String[6];
                     player[0] = curPlayer.findPath("ID").asText();
                     player[1] = curPlayer.findPath("FirstName").asText();
@@ -75,9 +74,9 @@ public class MySportsFeeds {
         return playerData;
     }
 
-    public ArrayList<String[]> getAllTeams() {
+    ArrayList<String[]> getAllTeams() {
 
-        ArrayList<String[]> teamData = new ArrayList<String[]>();
+        ArrayList<String[]> teamData = new ArrayList<>();
         String reqString = feedString + teamString;
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -97,9 +96,9 @@ public class MySportsFeeds {
         return teamData;
     }
 
-    public ArrayList<String[]> getGamesByTeam(String team) {
+    ArrayList<String[]> getGamesByTeam(String team) {
 
-        ArrayList<String[]> gameData = new ArrayList<String[]>();
+        ArrayList<String[]> gameData = new ArrayList<>();
         String reqString = feedString + teamGameString + team;
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -120,9 +119,9 @@ public class MySportsFeeds {
         return gameData;
     }
 
-    public ArrayList<int[]> getDefStatsByTeam(String team) {
+    ArrayList<int[]> getDefStatsByTeam(String team) {
 
-        ArrayList<int[]> defStats = new ArrayList<int[]>();
+        ArrayList<int[]> defStats = new ArrayList<>();
         String reqString = feedString + teamGameString + team;
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -152,9 +151,9 @@ public class MySportsFeeds {
         return defStats;
     }
 
-    public ArrayList<int[]> getStatsByTeamPos(String team, String pos) {
+    ArrayList<int[]> getStatsByTeamPos(String team, String pos) {
 
-        ArrayList<int[]> pStats = new ArrayList<int[]>();
+        ArrayList<int[]> pStats = new ArrayList<>();
         String reqString = feedString + playerTeamGameString + team + "&" + positionString + pos;
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -195,5 +194,50 @@ public class MySportsFeeds {
         }
         return pStats;
     }
+    ArrayList<int[]> getOverallPlayerStats(String pos)
+    {
+        ArrayList<int[]> pStats = new ArrayList<>();
+        String reqString = feedString + cumStats +"?"+positionString+pos;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonString = apiRequest(reqString);
+            JsonNode root = mapper.readTree(jsonString);
+            JsonNode players = root.findPath("playerstatsentry");
+            for(int i = 0; i<players.size(); i++)
+            {
+                JsonNode player = players.get(i);
+                int[] stats = new int[22];
+                stats[0] = player.findPath("ID").asInt();
+                stats[1] = player.findPath("stats").findPath("GamesPlayed").findPath("#text").asInt();
+                stats[2] = player.findPath("stats").findPath("PassAttempts").findPath("#text").asInt();
+                stats[3] = player.findPath("stats").findPath("PassCompletions").findPath("#text").asInt();
+                stats[4] = player.findPath("stats").findPath("PassYards").findPath("#text").asInt();
+                stats[5] = player.findPath("stats").findPath("PassTD").findPath("#text").asInt();
+                stats[6] = player.findPath("stats").findPath("TwoPtPassMade").findPath("#text").asInt();
+                stats[7] = player.findPath("stats").findPath("RushAttempts").findPath("#text").asInt();
+                stats[8] = player.findPath("stats").findPath("RushYards").findPath("#text").asInt();
+                stats[9] = player.findPath("stats").findPath("TwoPtRushMade").findPath("#text").asInt();
+                stats[10] = player.findPath("stats").findPath("Receptions").findPath("#text").asInt();
+                stats[11] = player.findPath("stats").findPath("RecYards").findPath("#text").asInt();
+                stats[12] = player.findPath("stats").findPath("RecTD").findPath("#text").asInt();
+                stats[13] =player.findPath("stats").findPath("TwoPtPassRec").findPath("#text").asInt();
+                stats[14] = player.findPath("stats").findPath("FgAtt").findPath("#text").asInt();
+                stats[15] = player.findPath("stats").findPath("FgMade").findPath("#text").asInt();
+                stats[16] = player.findPath("stats").findPath("XpAtt").findPath("#text").asInt();
+                stats[17] = player.findPath("stats").findPath("XpMade").findPath("#text").asInt();
+                stats[18] = player.findPath("stats").findPath("PassInt").findPath("#text").asInt();
+                stats[19] = player.findPath("stats").findPath("Fumbles").findPath("#text").asInt();
+                stats[20] = player.findPath("stats").findPath("KrTD").findPath("#text").asInt();
+                stats[21] = player.findPath("stats").findPath("PrTD").findPath("#text").asInt();
+                pStats.add(stats);
+            }
+        }
+        catch(Exception e)
+        {
 
+            e.printStackTrace();
+
+        }
+        return pStats;
+    }
 }//end of MySportsFeeds

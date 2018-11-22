@@ -1,18 +1,18 @@
-package models;
+package server.models;
 
 import java.util.ArrayList;
 
 public class Player {
 
-    public String id;
-    public String fName;
-    public String lName;
-    public String team;
-    public String position;
-    public String jNumber;
-    public FootballDatabase db = new FootballDatabase();
+    private String id;
+    private String fName;
+    private String lName;
+    private String team;
+    private String position;
+    private String jNumber;
+    private FootballDatabase db = new FootballDatabase();
 
-    public Player(String[] player) {
+    Player(String[] player) {
         id = player[0];
         fName = player[1];
         lName = player[2];
@@ -34,7 +34,7 @@ public class Player {
         //SQL query string
         String query = "SELECT FirstName,LastName,Team,Pos,JerseyNumber FROM player WHERE PlayerID=?;";
 
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(id);
 
         try {
@@ -53,10 +53,10 @@ public class Player {
 
     }
 
-    public int post() throws DLException {
+    int post() throws DLException {
 
-        int effected = 0;
-        ArrayList<String> values = new ArrayList<String>();
+        int effected;
+        ArrayList<String> values = new ArrayList<>();
         String insert = "INSERT INTO player(PlayerID,FirstName,LastName,Team,Pos,JerseyNumber)VALUES(?,?,?,?,?,?);";
         values.add(id);
         values.add(fName);
@@ -77,9 +77,9 @@ public class Player {
 
     public int put() throws DLException {
 
-        int effected = 0;
+        int effected;
         String update = "UPDATE player SET FirstName= ? , LastName = ? , Team = ?, Position = ?,JerseyNumber= ? WHERE PlayerID = ?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
 
         values.add(fName);
         values.add(lName);
@@ -105,10 +105,10 @@ public class Player {
     public int delete() throws DLException {
 
         //effected records
-        int effected = 0;
+        int effected;
         //SQL delete string
         String delete = "DELETE FROM player WHERE PlayerID=?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(id);
 
 

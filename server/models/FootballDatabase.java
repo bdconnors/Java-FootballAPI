@@ -1,4 +1,5 @@
-package models;
+package server.models;
+
 import java.sql.*;
 import java.util.ArrayList;
 /** Object used to perform operations on MySQL football statistics database.
@@ -16,7 +17,7 @@ public class FootballDatabase {
     private Connection conn = null;
     /** Creates a FootballDatabase with predefined information
      */
-    public FootballDatabase() {
+    FootballDatabase() {
         uri = "jdbc:mariadb://localhost:3305/football";
         driver = "org.mariadb.jdbc:mariadb-java-client:2.3.0";
         user = "root";
@@ -38,15 +39,14 @@ public class FootballDatabase {
      * @throws Throws Data Layer Exception if connection unsuccessful
      * @return A boolean representing a successful or unsuccessful connection
      */
-    public boolean connect() throws DLException {
-        boolean status = true;
+    private boolean connect() throws DLException {
+        boolean status = false;
         try {
             if (conn == null || conn.getAutoCommit()) {
                 conn = DriverManager.getConnection(uri, user, password);
                 status = true;
             }
         } catch (Exception e) {
-            status = false;
             e.printStackTrace();
             throw new DLException(e, "Could Not Connect to Server", "uri: " + uri, "User: " + user, "Driver: " + driver);
         }
@@ -56,15 +56,14 @@ public class FootballDatabase {
      * @throws Throws Data Layer Exception if close is unsuccesful
      * @return A boolean representing successfull or unsuccessful close
      */
-    public boolean close() throws DLException {
-        boolean status = true;
+    private boolean close() throws DLException {
+        boolean status = false;
         try {
             if (conn != null && conn.getAutoCommit()) {
                 conn.close();
                 status = true;
             }
         } catch (Exception e) {
-            status = false;
             e.printStackTrace();
             throw new DLException(e, "Could Not Close Connection", "uri: " + uri, "User: " + user, "Driver: " + driver);
         }
@@ -76,8 +75,8 @@ public class FootballDatabase {
      * @param list An ArrayList of String containing query values
      * @return An ArrayList of String[] containing data requested
      */
-    public ArrayList<String[]> getData(String query, ArrayList<String> list) throws DLException {
-        ArrayList<String[]> data = new ArrayList<String[]>();
+    ArrayList<String[]> getData(String query, ArrayList<String> list) throws DLException {
+        ArrayList<String[]> data = new ArrayList<>();
         connect();
         try {
             PreparedStatement stmnt = prepare(query, list);
@@ -107,9 +106,9 @@ public class FootballDatabase {
      * @param query A String containing an SQL query statement
      * @return An ArrayList of String[] containing data requested
      */
-    public ArrayList<String[]> getData(String query) throws DLException {
+    private ArrayList<String[]> getData(String query) throws DLException {
         connect();
-        ArrayList<String[]> data = new ArrayList<String[]>();
+        ArrayList<String[]> data = new ArrayList<>();
         int numFields = 0;
         try {
             Statement stmnt = conn.createStatement();
@@ -135,13 +134,12 @@ public class FootballDatabase {
      * @param list An ArrayList of String containing update values
      * @return An int representing the number of rows effected
      */
-    public int setData(String update, ArrayList<String> list) throws DLException {
+    int setData(String update, ArrayList<String> list) throws DLException {
         connect();
-        int effected = 0;
+        int effected;
         try {
             effected = executeStmnt(update, list);
         } catch (Exception e) {
-            effected = -1;
             throw new DLException(e, "Could Not Set Data", "Query: " + update);
         }
         close();
@@ -155,13 +153,12 @@ public class FootballDatabase {
      */
     public int setData(String update) throws DLException {
         connect();
-        int effected = 0;
+        int effected;
         try {
             Statement stmnt = conn.createStatement();
             effected = stmnt.executeUpdate(update);
         } catch (Exception e) {
             e.printStackTrace();
-            effected = -1;
             throw new DLException(e, "Could Not Set Data", "Query: " + update);
         }
         return effected;
@@ -171,7 +168,7 @@ public class FootballDatabase {
      * @param query A String containing an SQL statement
      * @return A PreparedStatement object
      */
-    public PreparedStatement prepare(String query, ArrayList<String> list) throws DLException {
+    private PreparedStatement prepare(String query, ArrayList<String> list) throws DLException {
         try {
             PreparedStatement stmnt = conn.prepareStatement(query);
             for (int i = 0; i < list.size(); i++) {
@@ -190,9 +187,9 @@ public class FootballDatabase {
      * @param update A String containing an SQL statement
      * @return An int representing the number of rows effected
      */
-    public int executeStmnt(String update, ArrayList<String> list) throws DLException {
-        PreparedStatement stmnt = null;
-        int effected = 0;
+    private int executeStmnt(String update, ArrayList<String> list) throws DLException {
+        PreparedStatement stmnt;
+        int effected;
         try {
             connect();
             stmnt = prepare(update, list);
@@ -229,8 +226,7 @@ public class FootballDatabase {
             startTrans();
             MySportsFeeds feed = new MySportsFeeds();
             ArrayList<String[]> players = feed.getPlayersByPosition(pos);
-            for (int i = 0; i < players.size(); i++) {
-                String[] curPlayer = players.get(i);
+            for (String[] curPlayer : players) {
                 Player player = new Player(curPlayer);
                 player.post();
             }
@@ -247,10 +243,10 @@ public class FootballDatabase {
         try {
             startTrans();
             MySportsFeeds feed = new MySportsFeeds();
-            String[] curTeam = new String[2];
+            String[] curTeam;
             ArrayList<String[]> teams = feed.getAllTeams();
-            for (int i = 0; i < teams.size(); i++) {
-                curTeam = teams.get(i);
+            for (String[] team1 : teams) {
+                curTeam = team1;
                 Team team = new Team(curTeam);
                 team.post();
             }
@@ -268,15 +264,13 @@ public class FootballDatabase {
         try {
             startTrans();
             MySportsFeeds feed = new MySportsFeeds();
-            String[] curGame = new String[3];
-            String gameCheck = null;
+            String[] curGame;
+            String gameCheck;
             ArrayList<String[]> games = feed.getGamesByTeam(team);
-            for (int i = 0; i < games.size(); i++) {
-                curGame = games.get(i);
+            for (String[] g : games) {
+                curGame = g;
                 gameCheck = "select * from game where gameid = '" + curGame[0] + "';";
-                if (existsInDB(gameCheck) == true) {
-
-                } else {
+                if (!existsInDB(gameCheck)) {
                     Game game = new Game(curGame);
                     game.post();
                 }
@@ -287,7 +281,7 @@ public class FootballDatabase {
             throw new DLException(e, "could not load team data");
         }
     }
-    /**Retrieves player game statistics from all players of a specified position
+    /**Retrieves all available game statistics of every player from specified position
      * on a specified team and loads them into database
      * @throws Throws Data Layer Exception if player statistics could not be loaded
      * @param team A String containing an NFL team 2 or 3 letter abbreviation (ex. 'NYG' is 'New York Giants')
@@ -298,18 +292,40 @@ public class FootballDatabase {
             startTrans();
             MySportsFeeds feed = new MySportsFeeds();
             ArrayList<int[]> stats = feed.getStatsByTeamPos(team, pos);
-            int[] curStats = new int[22];
-            DefenseStats dfs = new DefenseStats();
+            int[] curStats;
 
-            for (int i = 0; i < stats.size(); i++) {
-                curStats = stats.get(i);
+            for (int[] stat : stats) {
+                curStats = stat;
                 PlayerStats pstats = new PlayerStats(curStats);
                 pstats.post();
             }
             endTrans();
         } catch (DLException e) {
             e.printStackTrace();
-            throw new DLException(e, "could not load team data");
+            throw new DLException(e, "could not load players game data");
+        }
+    }
+    /**Retrieves cumulative statistics of all players of a specified position
+     * on a specified team and loads them into database
+     * @throws Throws Data Layer Exception if player statistics could not be loaded
+     * @param pos A String containing a specified player position (Ex.'WR','RB','TE','QB','K')
+     */
+    public void loadCumPlayerStats(String pos) throws DLException {
+        try {
+            startTrans();
+            MySportsFeeds feed = new MySportsFeeds();
+            ArrayList<int[]> stats = feed.getOverallPlayerStats(pos);
+            int[] curStats;
+
+            for (int[] stat : stats) {
+                curStats = stat;
+                CumPlayerStats cps = new CumPlayerStats(curStats);
+                cps.post();
+            }
+            endTrans();
+        } catch (DLException e) {
+            e.printStackTrace();
+            throw new DLException(e, "could not load cumulative player data");
         }
     }
     /**Retrieves Defensive game statistics of a specified NFL team and loads them into database
@@ -321,14 +337,13 @@ public class FootballDatabase {
             startTrans();
             MySportsFeeds feed = new MySportsFeeds();
             ArrayList<int[]> stats = feed.getDefStatsByTeam(team);
-            int[] curStats = new int[12];
-            DefenseStats dfs = new DefenseStats();
+            int[] curStats;
 
-            for (int i = 0; i < stats.size(); i++) {
-                curStats = stats.get(i);
-                DefenseStats dstats = new DefenseStats(curStats);
-                dstats.setTeam(team);
-                dstats.post();
+            for (int[] stat : stats) {
+                curStats = stat;
+                DefenseStats ds = new DefenseStats(curStats);
+                ds.setTeam(team);
+                ds.post();
             }
             endTrans();
         } catch (DLException e) {
@@ -341,16 +356,12 @@ public class FootballDatabase {
      * @param query A String containing an SQL query statement
      * @return A boolean indicating if the record exists
      */
-    public boolean existsInDB(String query) throws DLException {
-        boolean exists = false;
+    private boolean existsInDB(String query) throws DLException {
+        boolean exists;
 
         try {
             ArrayList<String[]> data = getData(query);
-            if (data.isEmpty()) {
-                exists = false;
-            } else {
-                exists = true;
-            }
+            exists = !data.isEmpty();
         } catch (DLException e) {
             e.printStackTrace();
             throw new DLException(e, "could not check if exists");
@@ -360,7 +371,7 @@ public class FootballDatabase {
     /**Begins a transaction, setting auto commit to false
      * @throws Throws Data Layer Exception if transaction cannot be started
      */
-    public void startTrans() throws DLException {
+    private void startTrans() throws DLException {
         try {
             connect();
             conn.setAutoCommit(false);
@@ -372,7 +383,7 @@ public class FootballDatabase {
     /**Ends a transaction, setting auto commit to true
      * @throws Throws Data Layer Exception if transaction cannot end
      */
-    public void endTrans() throws DLException {
+    private void endTrans() throws DLException {
         try {
             conn.commit();
             conn.setAutoCommit(true);

@@ -1,4 +1,4 @@
-package models;
+package server.models;
 
 import java.util.*;
 /**Represents defensive statistics acrued by an NFL team during a game
@@ -25,7 +25,7 @@ public class DefenseStats {
     /**Creates a set of defensive statistics from a game played by an NFL team with specified stats and gameid
      * @param stats An int[] containing statistics acrued by an NFL team during one game
      */
-    public DefenseStats(int[] stats) {
+    DefenseStats(int[] stats) {
         gameid = String.valueOf(stats[0]);
         pa = stats[1];
         sck = stats[2];
@@ -58,11 +58,11 @@ public class DefenseStats {
 
     /**
      * Retrieves defensive statistics of the objects current team and current gameid and sets them as class variables
-     * @throws Throws Data Layer Exception if data cannot be fetched
+     * @throws e Layer Exception if data cannot be fetched
      */
     public void fetch() throws Exception {
         String query = "SELECT pa,sck,sfty,inttd,fumtd,krtd,prtd,intc,fum,kblk,xpblk FROM defensestats WHERE gameid=? AND team = ?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(gameid);
         values.add(team);
         try {
@@ -90,9 +90,10 @@ public class DefenseStats {
      * @return An int representing the number of rows effected
      * @throws Throws Data Layer Exception if data cannot be inserted
      */
-    public int post() throws DLException {
+    int post() throws DLException {
         int effected;
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
+
         String insert = "INSERT INTO defensestats(gameid,team,pa,sck,sfty,inttd,fumtd,krtd,prtd,intc,fum,kblk,xpblk)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);";
         values.add(String.valueOf(gameid));
         values.add(String.valueOf(team));
@@ -121,9 +122,9 @@ public class DefenseStats {
      * @throws Throws Data Layer Exception if update cannot be completed
      */
     public int put() throws DLException {
-        int effected = 0;
+        int effected;
         String update = "UPDATE defensestats SET pa=?,sck=?,sfty=?,intTD=?,fumTD=?,krTD=?,prTD=?,intc=?,fum=?,kBlk=?,xpBlk=?WHERE gameid = ? AND team=?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(String.valueOf(pa));
         values.add(String.valueOf(sck));
         values.add(String.valueOf(sfty));
@@ -152,7 +153,7 @@ public class DefenseStats {
     public int delete() throws DLException {
         int effected;
         String delete = "DELETE FROM defensestats WHERE gameid =? AND team=?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(gameid);
         values.add(team);
         try {
@@ -356,6 +357,6 @@ public class DefenseStats {
      * @param xpBlk A int whos value is equal to the number of extra points blocked by the team during the game
      */
     public void setXpBlk(int xpBlk) {
-        this.xpBlk = xpBlk
+        this.xpBlk = xpBlk;
     }
 }//end DefenseStats class

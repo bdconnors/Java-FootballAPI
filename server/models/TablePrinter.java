@@ -1,13 +1,13 @@
-package models;
+package server.models;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 
 public class TablePrinter {
-    ResultSet rs = null;
-    ResultSetMetaData rsmd = null;
-    ArrayList<String[]> info = null;
+    private ResultSet rs;
+    private ResultSetMetaData rsmd;
+    private ArrayList<String[]> info = null;
 
 
     public TablePrinter(ResultSet rs) throws DLException {
@@ -20,7 +20,7 @@ public class TablePrinter {
 
     }
 
-    public TablePrinter(ResultSet rs, ArrayList<String[]> info) throws DLException {
+    TablePrinter(ResultSet rs, ArrayList<String[]> info) throws DLException {
         try {
             this.rs = rs;
             rsmd = rs.getMetaData();
@@ -31,7 +31,7 @@ public class TablePrinter {
 
     }
 
-    public int getRowCount() throws DLException {
+    private int getRowCount() throws DLException {
 
         try {
             rs.last();
@@ -46,10 +46,10 @@ public class TablePrinter {
         }
     }
 
-    public void printColumnNames() throws DLException {
+    private void printColumnNames() throws DLException {
         try {
             int numCol = rsmd.getColumnCount();
-            String colName = "";
+            String colName;
             rs.beforeFirst();
             System.out.print("|");
 
@@ -71,7 +71,7 @@ public class TablePrinter {
 
     }
 
-    public void printDivider() throws DLException {
+    private void printDivider() throws DLException {
         try {
             int numCol = rsmd.getColumnCount();
             for (int i = 0; i < numCol; i++) {
@@ -94,11 +94,11 @@ public class TablePrinter {
 
     }
 
-    public void printData() throws DLException {
+    void printData() throws DLException {
         try {
             int numCol = rsmd.getColumnCount();
-            String colName = "";
-            String data = "";
+            String colName;
+            String data;
             rs.beforeFirst();
 
             printDivider();
@@ -133,13 +133,13 @@ public class TablePrinter {
 
     }
 
-    public int findLongest(int colNum) throws DLException {
+    private int findLongest(int colNum) throws DLException {
 
         try {
 
             int numRows = getRowCount();
-            String[] row = null;
-            String field = null;
+            String[] row;
+            String field;
             String colName = rsmd.getColumnName(colNum);
             int longest = colName.length();
 
@@ -169,13 +169,13 @@ public class TablePrinter {
 
     }
 
-    public void printTypes() throws DLException {
+    void printTypes() throws DLException {
 
         try {
             int numCol = rsmd.getColumnCount();
-            String colName = null;
-            String colType = null;
-            int colSize = 0;
+            String colName;
+            String colType;
+            int colSize;
             String field = null;
             System.out.println();
             System.out.printf("%-30.30s  %-30.30s%n", "..Column Name..", "..Column Type..");

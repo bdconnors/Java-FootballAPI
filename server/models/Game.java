@@ -1,15 +1,15 @@
-package models;
+package server.models;
 
 import java.util.ArrayList;
 
 public class Game {
 
-    public String gameID;
-    public String date;
-    public String time;
-    public FootballDatabase db = new FootballDatabase();
+    private String gameID;
+    private String date;
+    private String time;
+    private FootballDatabase db = new FootballDatabase();
 
-    public Game(String[] game) {
+    Game(String[] game) {
         gameID = game[0];
         date = game[1];
         time = game[2];
@@ -26,7 +26,7 @@ public class Game {
 
     public void fetch() throws DLException {  //SQL query string
         String query = "SELECT date,time FROM game WHERE gameid=?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(gameID);
         try { //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
             ArrayList<String[]> info = db.getData(query, values);
@@ -41,9 +41,9 @@ public class Game {
         }
     }
 
-    public int post() throws DLException {
-        int effected = 0;
-        ArrayList<String> values = new ArrayList<String>();
+    int post() throws DLException {
+        int effected;
+        ArrayList<String> values = new ArrayList<>();
         String insert = "INSERT INTO game(gameid,date,time)VALUES(?,?,?);";
         values.add(gameID);
         values.add(date);
@@ -57,9 +57,9 @@ public class Game {
         return effected;
     }
     public int put() throws DLException {  //effected records
-        int effected = 0;
+        int effected;
         String update = "UPDATE game SET date=?,time = ? WHERE gameid = ?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(date);
         values.add(time);
         values.add(gameID);
@@ -72,9 +72,9 @@ public class Game {
     }
 
     public int delete() throws DLException { //effected records
-        int effected = 0;
+        int effected;
         String delete = "DELETE FROM game WHERE gameid = ?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(gameID);
         try {
             effected = db.setData(delete, values);

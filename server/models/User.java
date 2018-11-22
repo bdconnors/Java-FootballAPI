@@ -1,4 +1,4 @@
-package models;//----------------------------------------------------------------------------------------------
+package server.models;//----------------------------------------------------------------------------------------------
 //Dev Name: Sam Evans
 //Group: 12 
 //Filename: User.Java
@@ -18,17 +18,17 @@ import java.util.Scanner;
 //----------------------------------------------------------------------------------------
 public class User {
     //--------------Class Variables---------------------------------------------------------
-    public String email;
-    public String password;
-    public String username;
-    public String teamName;
-    public String ownerName;
-    public String leagueName;
-    public int totalPoints;
-    public int weekPoints;
-    public int currStanding;
-    public boolean leagueManager = false;
-    public boolean admin = false;
+    private String email;
+    private String password;
+    private String username;
+    private String teamName;
+    private String ownerName;
+    private String leagueName;
+    private int totalPoints;
+    private int weekPoints;
+    private int currStanding;
+    private boolean leagueManager = false;
+    private boolean admin = false;
 
     //--------------------------------------------------------------------------------------
     //--------------------Constructor------------------------------------------------------
@@ -131,7 +131,7 @@ public class User {
         String myPlayers = reader.next();
 
         String sqlQuery = "INSERT INTO pendingTrades offeringTeam, respondingTeam, offeringPlayers, respondingPlayers VALUES ?,?,?,?;";
-        ArrayList<String> vals = new ArrayList<String>();
+        ArrayList<String> vals = new ArrayList<>();
         vals.add(this.teamName);
         vals.add(tradeTeam);
         vals.add(myPlayers);
@@ -154,7 +154,7 @@ public class User {
         reader.close();
 
         String sqlQuery = "INSERT INTO requestName oldName, newName Values ?,?";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(this.teamName);
         values.add(response);
 
@@ -174,7 +174,7 @@ public class User {
         reader.close();
 
         String sqlQuery = "INSERT INTO requestLeague teamName,leagueName VALUES ?,?;";
-        ArrayList<String> vals = new ArrayList<String>();
+        ArrayList<String> vals = new ArrayList<>();
         vals.add(this.teamName);
         vals.add(response);
         FootballDatabase fb = new FootballDatabase();
@@ -202,9 +202,9 @@ public class User {
         reader.close();
 
         FootballDatabase fb = new FootballDatabase();
-        String sqlQuery = new String();
-        ArrayList<String> responseArray = new ArrayList<String>();
-        if (response == "y") {
+        String sqlQuery;
+        ArrayList<String> responseArray = new ArrayList<>();
+        if ("y".equals(response)) {
             sqlQuery = "UPDATE pendingTrade SET approval = ?, WHERE tradeID = ?;";
             responseArray.add("true");
             responseArray.add(tradeID);

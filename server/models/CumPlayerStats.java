@@ -15,10 +15,10 @@ import java.util.ArrayList;
 //6 set mutators for its class variables
 //6 get mutators for its class variables
 //----------------------------------------------------------------------------------------
-public class PlayerStats {
+public class CumPlayerStats {
     //--------------Class Variables---------------------------------------------------------
-    private String gameid;
     private String playerid;
+    private int gplayed;
     private int passAtt;
     private int passComp;
     private int passYds;
@@ -45,9 +45,9 @@ public class PlayerStats {
     //Parameter Type: String[]
     //Description:takes in a string[] of player data and sets team variables
     //------------------------------------------------------------------------------------
-    PlayerStats(int[] stats) {
-        gameid = String.valueOf(stats[0]);
-        playerid = String.valueOf(stats[1]);
+    CumPlayerStats(int[] stats) {
+        playerid = String.valueOf(stats[0]);
+        gplayed = stats[1];
         passAtt = stats[2];
         passComp = stats[3];
         passYds = stats[4];
@@ -75,7 +75,7 @@ public class PlayerStats {
     //Parameter Type: 2 Strings
     //Description:takes in individual strings of team data and sets team variables
     //------------------------------------------------------------------------------------
-    public PlayerStats() {
+    public CumPlayerStats() {
 
 
     }
@@ -88,7 +88,7 @@ public class PlayerStats {
     //----------------------------------------------------------------------------------------------------
     public void fetch() throws DLException {
         //SQL query string
-        String query = "SELECT passatt,passcomp,passyds,passtds,pass2pt,rushatt,rushyds,rush2pt,rec,recyds,rectd,rec2pt,fgatt,fgmd,xpatt,xpmd,intthr,fum,krtd,prtd FROM playerstats WHERE gameid=? AND playerid= ?;";
+        String query = "SELECT gplayed,passatt,passcomp,passyds,passtds,pass2pt,rushatt,rushyds,rush2pt,rec,recyds,rectd,rec2pt,fgatt,fgmd,xpatt,xpmd,intthr,fum,krtd,prtd FROM cumplayerstats WHERE playerid= ?;";
 
         ArrayList<String> values = new ArrayList<>();
         try {
@@ -96,7 +96,7 @@ public class PlayerStats {
             ArrayList<String[]> info = db.getData(query, values);
             String[] fields = info.get(1);
             //set name to the first field value
-
+            gplayed = Integer.parseInt(fields[1]);
             passAtt = Integer.parseInt(fields[2]);
             passComp = Integer.parseInt(fields[3]);
             passYds = Integer.parseInt(fields[4]);
@@ -135,11 +135,11 @@ public class PlayerStats {
         int effected;
         ArrayList<String> values = new ArrayList<>();
         //SQL Insert String
-        String insert = "INSERT INTO playerstats(gameid,playerid,passatt,passcomp,passyds,passtds,pass2pt,rushatt,rushyds,rush2pt,rec,recyds,rectd,rec2pt,fgatt,fgmd,xpatt,xpmd,intthr,fum,krtd,prtd)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        String insert = "INSERT INTO cumplayerstats(playerid,gplayed,passatt,passcomp,passyds,passtds,pass2pt,rushatt,rushyds,rush2pt,rec,recyds,rectd,rec2pt,fgatt,fgmd,xpatt,xpmd,intthr,fum,krtd,prtd)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         //bind values
 
-        values.add(gameid);
         values.add(playerid);
+        values.add(String.valueOf(gplayed));
         values.add(String.valueOf(passAtt));
         values.add(String.valueOf(passComp));
         values.add(String.valueOf(passYds));
@@ -179,10 +179,10 @@ public class PlayerStats {
     public int put() throws DLException {  //effected records
         int effected;
         //SQL Update String
-        String update = "UPDATE playerstats SET passatt=?,passcomp=?,passyds=?,passtds=?,pass2pt=?,rushatt=?,rushyds=?,rush2pt=?,rec=?,recyds=?,rectd=?,rec2pt=?,fgatt=?,fgmd=?,xpatt=?,xpmd=?,intthr=?,fum=?,krtd=?,prtd=?WHERE gameid = ? AND playerid=?;";
+        String update = "UPDATE cumplayerstats SET gplayerd =?,passatt=?,passcomp=?,passyds=?,passtds=?,pass2pt=?,rushatt=?,rushyds=?,rush2pt=?,rec=?,recyds=?,rectd=?,rec2pt=?,fgatt=?,fgmd=?,xpatt=?,xpmd=?,intthr=?,fum=?,krtd=?,prtd=?WHERE playerid=?;";
         ArrayList<String> values = new ArrayList<>();
 
-
+        values.add(String.valueOf(gplayed));
         values.add(String.valueOf(passAtt));
         values.add(String.valueOf(passComp));
         values.add(String.valueOf(passYds));
@@ -203,7 +203,6 @@ public class PlayerStats {
         values.add(String.valueOf(fum));
         values.add(String.valueOf(krTD));
         values.add(String.valueOf(prTD));
-        values.add(gameid);
         values.add(playerid);
 
         try {
@@ -225,9 +224,8 @@ public class PlayerStats {
         //effected records
         int effected;
         //SQL delete string
-        String delete = "DELETE FROM playerstats WHERE gameid =? AND playerid=?;";
+        String delete = "DELETE FROM cumplayerstats WHERE playerid=?;";
         ArrayList<String> values = new ArrayList<>();
-        values.add(gameid);
         values.add(playerid);
 
 

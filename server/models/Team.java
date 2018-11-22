@@ -1,4 +1,4 @@
-package models;//----------------------------------------------------------------------------------------------
+package server.models;//----------------------------------------------------------------------------------------------
 //Dev Name: Brandon Connors
 //Filename: Player.Java
 //Date: 11/8/18
@@ -19,9 +19,9 @@ import java.util.ArrayList;
 //----------------------------------------------------------------------------------------
 public class Team {
     //--------------Class Variables---------------------------------------------------------
-    public String name;
-    public String abrv;
-    public FootballDatabase db = new FootballDatabase();
+    private String name;
+    private String abrv;
+    private FootballDatabase db = new FootballDatabase();
 
     //--------------------------------------------------------------------------------------
     //--------------------Constructor------------------------------------------------------
@@ -74,7 +74,7 @@ public class Team {
     //----------------------------------------------------------------------------------------------------
     public void fetch() throws DLException {   //SQL query string
         String query = "SELECT name,abbreviation FROM team WHERE abbreviation=?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(abrv);
         try { //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
             ArrayList<String[]> info = db.getData(query, values);
@@ -93,9 +93,9 @@ public class Team {
     //Description: inserts a record into the database using this objects class variables for
     //the information in the corresponding fields
     //---------------------------------------------------------------------------------------------
-    public int post() throws DLException {  //effected records
-        int effected = 0;
-        ArrayList<String> values = new ArrayList<String>();
+    int post() throws DLException {  //effected records
+        int effected;
+        ArrayList<String> values = new ArrayList<>();
         //SQL Insert String
         String insert = "INSERT INTO team(name,abbreviation)VALUES(?,?);";
         //bind values
@@ -113,10 +113,10 @@ public class Team {
 
     //updates database record that corresponds to this object's 'ID' variable and then returns the number of records effected in the database
     public int put() throws DLException {  //effected records
-        int effected = 0;
+        int effected;
         //SQL Update String
         String update = "UPDATE team SET name = ? WHERE abbreviation = ?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(name);
         values.add(abrv);
         try { //perform update and return number of effected records
@@ -133,10 +133,10 @@ public class Team {
     //---------------------------------------------------------------------------------------------
     public int delete() throws DLException {
         //effected records
-        int effected = 0;
+        int effected;
         //SQL delete string
         String delete = "DELETE FROM team WHERE abbreviation =?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         values.add(abrv);
         try { //perform delete and return number of effected records
             effected = db.setData(delete, values);
@@ -162,9 +162,7 @@ public class Team {
         this.name = name;
     }
 
-    public String getAbrv() {
-        return abrv;
-    }
+    public String getAbrv() { return abrv; }
 
     public void setAbrv(String abrv) {
         this.abrv = abrv;
