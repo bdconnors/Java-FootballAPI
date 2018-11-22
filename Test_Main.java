@@ -1,12 +1,11 @@
-import server.models.FootballDatabase;
+import server.models.Player;
 
 public class Test_Main
 {
    public static void main(String[] args)throws Exception
    {
-      FootballDatabase fdb = new FootballDatabase();
-      fdb.loadAllCumStats();
-
+      Player odellbeckham = new Player("7746");
+      odellbeckham.fetch();
    }
 
 }

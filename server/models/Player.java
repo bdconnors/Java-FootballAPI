@@ -10,11 +10,11 @@ public class Player {
     private String team;
     private String position;
     private String jNumber;
-    private PlayerCumPass cumPassStats;
-    private PlayerCumRec cumRecStats;
-    private PlayerCumRush cumRushStats;
-    private PlayerCumKick cumKickStats;
-    private PlayerCumMisc cumMiscStats;
+    public PlayerCumPass cumPassStats;
+    public PlayerCumRec cumRecStats;
+    public PlayerCumRush cumRushStats;
+    public PlayerCumKick cumKickStats;
+    public PlayerCumMisc cumMiscStats;
     private FootballDatabase db = new FootballDatabase();
 
     Player(String[] player) {
@@ -34,6 +34,11 @@ public class Player {
 
     public Player(String id) {
         this.id = id;
+        cumPassStats = new PlayerCumPass(id);
+        cumRecStats = new PlayerCumRec(id);
+        cumRushStats = new PlayerCumRush(id);
+        cumKickStats = new PlayerCumKick(id);
+        cumMiscStats = new PlayerCumMisc(id);
 
     }
 
@@ -42,7 +47,7 @@ public class Player {
     }
     public void fetch() throws DLException {
         //SQL query string
-        String query = "SELECT FirstName,LastName,Team,Pos,JerseyNumber FROM player WHERE PlayerID=?;";
+        String query = "SELECT FirstName,LastName,Team,Pos,JerseyNumber FROM player WHERE playerid = ?;";
 
         ArrayList<String> values = new ArrayList<>();
         values.add(id);
@@ -63,6 +68,7 @@ public class Player {
             cumMiscStats.fetch();
 
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("No Record Found");
 
         }
@@ -196,4 +202,44 @@ public class Player {
     public void setjNumber(String jNumber) {
         this.jNumber = jNumber;
     }
-}//end player class
+
+    public PlayerCumPass getCumPassStats() {
+        return cumPassStats;
+    }
+
+    public void setCumPassStats(PlayerCumPass cumPassStats) {
+        this.cumPassStats = cumPassStats;
+    }
+
+    public PlayerCumRec getCumRecStats() {
+        return cumRecStats;
+    }
+
+    public void setCumRecStats(PlayerCumRec cumRecStats) {
+        this.cumRecStats = cumRecStats;
+    }
+
+    public PlayerCumRush getCumRushStats() {
+        return cumRushStats;
+    }
+
+    public void setCumRushStats(PlayerCumRush cumRushStats) {
+        this.cumRushStats = cumRushStats;
+    }
+
+    public PlayerCumKick getCumKickStats() {
+        return cumKickStats;
+    }
+
+    public void setCumKickStats(PlayerCumKick cumKickStats) {
+        this.cumKickStats = cumKickStats;
+    }
+
+    public PlayerCumMisc getCumMiscStats() {
+        return cumMiscStats;
+    }
+
+    public void setCumMiscStats(PlayerCumMisc cumMiscStats) {
+        this.cumMiscStats = cumMiscStats;
+    }
+}

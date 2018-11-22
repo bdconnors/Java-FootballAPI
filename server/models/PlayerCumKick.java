@@ -32,8 +32,8 @@ public class PlayerCumKick {
     public void fetch() throws DLException {
         //SQL query string
         String query = "SELECT fgatt,fgmd,xpatt,xpmd FROM playercumkick WHERE playerid= ?;";
-
         ArrayList<String> values = new ArrayList<>();
+        values.add(playerid);
         try {
             //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
             ArrayList<String[]> info = db.getData(query, values);
