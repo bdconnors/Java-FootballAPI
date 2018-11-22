@@ -10,6 +10,11 @@ public class Player {
     private String team;
     private String position;
     private String jNumber;
+    private PlayerCumPass cumPassStats;
+    private PlayerCumRec cumRecStats;
+    private PlayerCumRush cumRushStats;
+    private PlayerCumKick cumKickStats;
+    private PlayerCumMisc cumMiscStats;
     private FootballDatabase db = new FootballDatabase();
 
     Player(String[] player) {
@@ -19,6 +24,12 @@ public class Player {
         team = player[3];
         position = player[4];
         jNumber = player[5];
+        cumPassStats = new PlayerCumPass(id);
+        cumRecStats = new PlayerCumRec(id);
+        cumRushStats = new PlayerCumRush(id);
+        cumKickStats = new PlayerCumKick(id);
+        cumMiscStats = new PlayerCumMisc(id);
+
     }
 
     public Player(String id) {
@@ -29,7 +40,6 @@ public class Player {
     public Player() {
 
     }
-
     public void fetch() throws DLException {
         //SQL query string
         String query = "SELECT FirstName,LastName,Team,Pos,JerseyNumber FROM player WHERE PlayerID=?;";
@@ -46,6 +56,12 @@ public class Player {
             team = fields[2];
             position = fields[3];
             jNumber = fields[4];
+            cumPassStats.fetch();
+            cumRecStats.fetch();
+            cumRushStats.fetch();
+            cumKickStats.fetch();
+            cumMiscStats.fetch();
+
         } catch (Exception e) {
             System.out.println("No Record Found");
 

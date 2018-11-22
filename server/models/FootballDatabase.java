@@ -15,9 +15,10 @@ public class FootballDatabase {
     private String driver;
     private String password;
     private Connection conn = null;
+    private MySportsFeeds msf = new MySportsFeeds();
     /** Creates a FootballDatabase with predefined information
      */
-    FootballDatabase() {
+    public FootballDatabase() {
         uri = "jdbc:mariadb://localhost:3305/football";
         driver = "org.mariadb.jdbc:mariadb-java-client:2.3.0";
         user = "root";
@@ -224,8 +225,7 @@ public class FootballDatabase {
     public void loadPlayersByPos(String pos) throws DLException {
         try {
             startTrans();
-            MySportsFeeds feed = new MySportsFeeds();
-            ArrayList<String[]> players = feed.getPlayersByPosition(pos);
+            ArrayList<String[]> players = msf.getPlayersByPosition(pos);
             for (String[] curPlayer : players) {
                 Player player = new Player(curPlayer);
                 player.post();
@@ -242,9 +242,8 @@ public class FootballDatabase {
     public void loadAllTeams() throws DLException {
         try {
             startTrans();
-            MySportsFeeds feed = new MySportsFeeds();
             String[] curTeam;
-            ArrayList<String[]> teams = feed.getAllTeams();
+            ArrayList<String[]> teams = msf.getAllTeams();
             for (String[] team1 : teams) {
                 curTeam = team1;
                 Team team = new Team(curTeam);
@@ -263,10 +262,9 @@ public class FootballDatabase {
     public void loadGamesByTeam(String team) throws DLException {
         try {
             startTrans();
-            MySportsFeeds feed = new MySportsFeeds();
             String[] curGame;
             String gameCheck;
-            ArrayList<String[]> games = feed.getGamesByTeam(team);
+            ArrayList<String[]> games = msf.getGamesByTeam(team);
             for (String[] g : games) {
                 curGame = g;
                 gameCheck = "select * from game where gameid = '" + curGame[0] + "';";
@@ -290,14 +288,34 @@ public class FootballDatabase {
     public void loadPlayerStats(String team, String pos) throws DLException {
         try {
             startTrans();
-            MySportsFeeds feed = new MySportsFeeds();
-            ArrayList<int[]> stats = feed.getStatsByTeamPos(team, pos);
-            int[] curStats;
+            ArrayList<int[]> stats = msf.getStatsByTeamPos(team, pos);
 
-            for (int[] stat : stats) {
-                curStats = stat;
-                PlayerStats pstats = new PlayerStats(curStats);
-                pstats.post();
+            for (int[] curPlayer : stats) {
+
+                String query = "Select * from player where playerid = '"+curPlayer[1]+"';";
+
+                    if(existsInDB(query))
+                    {
+                        int[] passStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[2], curPlayer[3], curPlayer[4], curPlayer[5], curPlayer[6]};
+                        PlayerGamePass pass = new PlayerGamePass(passStats);
+                        pass.post();
+
+                        int[] rushStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[7], curPlayer[8], curPlayer[9]};
+                        PlayerGameRush rush = new PlayerGameRush(rushStats);
+                        rush.post();
+
+                        int[] recStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[10], curPlayer[11], curPlayer[12], curPlayer[13]};
+                        PlayerGameRec rec = new PlayerGameRec(recStats);
+                        rec.post();
+
+                        int[] kickStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[14], curPlayer[15], curPlayer[16], curPlayer[17]};
+                        PlayerGameKick kick = new PlayerGameKick(kickStats);
+                        kick.post();
+
+                        int[] miscStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[18], curPlayer[19], curPlayer[20], curPlayer[21]};
+                        PlayerGameMisc misc = new PlayerGameMisc(miscStats);
+                        misc.post();
+                    }
             }
             endTrans();
         } catch (DLException e) {
@@ -305,27 +323,42 @@ public class FootballDatabase {
             throw new DLException(e, "could not load players game data");
         }
     }
-    /**Retrieves cumulative statistics of all players of a specified position
-     * on a specified team and loads them into database
-     * @throws Throws Data Layer Exception if player statistics could not be loaded
-     * @param pos A String containing a specified player position (Ex.'WR','RB','TE','QB','K')
-     */
     public void loadCumPlayerStats(String pos) throws DLException {
         try {
             startTrans();
-            MySportsFeeds feed = new MySportsFeeds();
-            ArrayList<int[]> stats = feed.getOverallPlayerStats(pos);
-            int[] curStats;
+            ArrayList<int[]> stats = msf.getOverallPlayerStats(pos);
 
-            for (int[] stat : stats) {
-                curStats = stat;
-                CumPlayerStats cps = new CumPlayerStats(curStats);
-                cps.post();
+            for (int[] curPlayer : stats) {
+
+                String query = "Select * from player where playerid = '"+curPlayer[0]+"';";
+
+                if(existsInDB(query))
+                {
+                    int[] passStats = {curPlayer[0], curPlayer[1], curPlayer[2], curPlayer[3], curPlayer[4],curPlayer[5]};
+                    PlayerCumPass pass = new PlayerCumPass(passStats);
+                    pass.post();
+
+                    int[] rushStats = {curPlayer[0], curPlayer[6], curPlayer[7], curPlayer[8]};
+                    PlayerCumRush rush = new PlayerCumRush(rushStats);
+                    rush.post();
+
+                    int[] recStats = {curPlayer[0], curPlayer[9], curPlayer[10], curPlayer[11], curPlayer[12]};
+                    PlayerCumRec rec = new PlayerCumRec(recStats);
+                    rec.post();
+
+                    int[] kickStats = {curPlayer[0], curPlayer[13], curPlayer[14], curPlayer[15], curPlayer[16]};
+                    PlayerCumKick kick = new PlayerCumKick(kickStats);
+                    kick.post();
+
+                    int[] miscStats = {curPlayer[0], curPlayer[17], curPlayer[18], curPlayer[19], curPlayer[20], curPlayer[21]};
+                    PlayerCumMisc misc = new PlayerCumMisc(miscStats);
+                    misc.post();
+                }
             }
             endTrans();
         } catch (DLException e) {
             e.printStackTrace();
-            throw new DLException(e, "could not load cumulative player data");
+            throw new DLException(e, "could not load players game data");
         }
     }
     /**Retrieves Defensive game statistics of a specified NFL team and loads them into database
@@ -335,8 +368,7 @@ public class FootballDatabase {
     public void loadDefStats(String team) throws DLException {
         try {
             startTrans();
-            MySportsFeeds feed = new MySportsFeeds();
-            ArrayList<int[]> stats = feed.getDefStatsByTeam(team);
+            ArrayList<int[]> stats = msf.getDefStatsByTeam(team);
             int[] curStats;
 
             for (int[] stat : stats) {
@@ -349,6 +381,110 @@ public class FootballDatabase {
         } catch (DLException e) {
             e.printStackTrace();
             throw new DLException(e, "could not load team data");
+        }
+    }
+    public void loadAllPlayers()throws Exception {
+        String[] position = {"wr,te,rb,qb,k"};
+        try {
+            System.out.println("Loading Active Player Data...This May Take A While...");
+            double loading = 0.0;
+            double time = 50000;
+
+            for(String pos : position)
+            {
+                    double perc = loading / 5 * 100;
+                    double minutes = (time / 1000) / 60;
+                    loadPlayersByPos(pos);
+                    loading++;
+                    System.out.println("Loading...." + perc + "%");
+                    System.out.println("Time Remaining: " + minutes + " minutes");
+                    Thread.sleep(10000);
+                    time -= 10000;
+            }
+            System.out.println("Loading...100%");
+            System.out.println("Active Player Data Loaded Successfully!");
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void loadAllGames()throws Exception {
+        ArrayList<String[]> teams = msf.getAllTeams();
+        try {
+            System.out.println("Loading Game Data...This May Take A While...");
+            double loading = 0.0;
+            double time = 320000;
+
+            for(String[] team: teams)
+            {
+                double perc = loading/32*100;
+                double minutes = time/100000;
+                loadGamesByTeam(team[1]);
+                loading++;
+                System.out.println("Loading...."+perc+"%");
+                System.out.println("Time Remaining: "+minutes+" minutes");
+                Thread.sleep(10000);
+                time -= 10000;
+            }
+            System.out.println("Loading...100%");
+            System.out.println("Game Data Loaded Successfully!");
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void loadAllPlayerStats()throws Exception {
+        String[] teams;
+        teams = new String[]{"NYG","WAS","DAL","PHI","NO","ATL","CAR","TB","LA","SEA","SF","ARI","GB","DET","CHI",
+                "MIN","BUF","NE","MIA","NYJ","OAK","DEN","KC","LAC","PIT","CIN","CLE","BAL","JAX","TEN","IND","HOU"};
+
+        try
+        {
+            System.out.println("Loading Player Game Stats...This May Take A While...");
+            double loading = 0.0;
+            double time = 2400;
+
+            String[] position = new String[]{"WR", "TE", "RB", "QB", "K"};
+            for(String team: teams)
+            {   System.out.println("Now Loading.... "+team+" players");
+                for(String pos : position)
+                {
+                    double perc = loading / 160 * 100;
+                    double minutes = time / 60;
+                    loadPlayerStats(team,pos);
+                    System.out.println(team+" "+pos+" have been successfully loaded");
+                    loading++;
+                    System.out.println("Loading...." + perc + "%");
+                    System.out.println("Time Remaining: " + minutes + " minutes");
+                    Thread.sleep(15000);
+                    time -= 15;
+                }
+            }
+            System.out.println("Loading...100%");
+            System.out.println("Player Game Stats Loaded Successfully!");
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void loadAllCumStats()throws Exception {
+
+        try
+        {
+            String[] position = new String[]{"WR", "TE", "RB", "QB", "K"};
+            for(String pos : position)
+            {
+                System.out.println("Now Loading " + pos);
+                loadCumPlayerStats(pos);
+                Thread.sleep(15000);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
         }
     }
     /**Querys the database to check if a record exists

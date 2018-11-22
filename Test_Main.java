@@ -1,6 +1,12 @@
+import server.models.FootballDatabase;
+
 public class Test_Main
-{  public static void main(String[] args)
+{
+   public static void main(String[] args)throws Exception
    {
+      FootballDatabase fdb = new FootballDatabase();
+      fdb.loadAllCumStats();
 
    }
+
 }
