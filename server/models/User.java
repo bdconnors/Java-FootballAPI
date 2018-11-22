@@ -1,23 +1,10 @@
-package server.models;//----------------------------------------------------------------------------------------------
-//Dev Name: Sam Evans
-//Group: 12 
-//Filename: User.Java
-//Date: 11/9/18
-//Program Description: User object to hold data for a user of this fantasy football application
-//----------------------------------------------------------------------------------------------
+package server.models;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//----------------------------------------------------------------------------------------
-//Class Name: User
-//Description:  
-/*
-   The user class allows for the interaction between the user and the database
-*/
-//----------------------------------------------------------------------------------------
 public class User {
-    //--------------Class Variables---------------------------------------------------------
+
     private String email;
     private String password;
     private String username;
@@ -30,19 +17,14 @@ public class User {
     private boolean leagueManager = false;
     private boolean admin = false;
 
-    //--------------------------------------------------------------------------------------
-    //--------------------Constructor------------------------------------------------------
-    //Parameter Type: String[]
-    //Description:takes in a string[] of user data and sets basic user variables
-    //------------------------------------------------------------------------------------
+
     public User(String[] user) {
         email = user[0];
         password = user[1];
         username = user[2];
-    }// end user constructor
+    }
 
 
-    // get methods
     public String getEmail() {
         return email;
     }
@@ -55,7 +37,6 @@ public class User {
         return teamName;
     }
 
-    // set methods
     public void setTeamName(String fTeamName) {
         this.teamName = fTeamName;
     }
@@ -116,11 +97,6 @@ public class User {
         this.admin = ad;
     }
 
-    //---------------------------------------------------------------------------------------------
-    //Method Name: requestTrade
-    //Description: Prompts user for team names, offering players, and opposing players. creates new
-    // object in requestTrade table
-    //---------------------------------------------------------------------------------------------
     public void requestTrade() throws DLException {
         Scanner reader = new Scanner(System.in);
         System.out.println("What is the team you would like to trade with?");
@@ -141,12 +117,6 @@ public class User {
         fb.setData(sqlQuery, vals);
 
     }
-
-    //---------------------------------------------------------------------------------------------
-    //Method Name: requestName
-    //Description: User is prompted to input new name and requestName field is updated in database
-    // to reflect requested name change
-    //---------------------------------------------------------------------------------------------
     public void requestName() throws DLException {
         System.out.println("What is the new name you would like?");
         Scanner reader = new Scanner(System.in);
@@ -161,12 +131,6 @@ public class User {
         FootballDatabase fb = new FootballDatabase();
         fb.setData(sqlQuery, values);
     }
-
-    //---------------------------------------------------------------------------------------------
-    //Method Name: requestJoinLeague
-    //Description: User is prompted to request the name of the league they would like to join
-    //an object in the requestLeague table is then created with the requested league and team name
-    //---------------------------------------------------------------------------------------------
     public void requestJoinLeague() throws DLException {
         System.out.println("What is the Name of the league you would like to join?");
         Scanner reader = new Scanner(System.in);
@@ -180,12 +144,6 @@ public class User {
         FootballDatabase fb = new FootballDatabase();
         fb.setData(sqlQuery, vals);
     }
-
-    //---------------------------------------------------------------------------------------------
-    //Method Name: respondTrade
-    //Description: User is given the option to accept or deny a trade and depending on answer the
-    // trade object is either updated to be true or the object is deleted from the database
-    //---------------------------------------------------------------------------------------------
     public void respondTrade(String[] theirPlayers, String[] myPlayers, String theirTeam, String tradeID) throws DLException {
         System.out.println("Requested trade from " + theirTeam);
         System.out.println(theirTeam + " is offering: ");

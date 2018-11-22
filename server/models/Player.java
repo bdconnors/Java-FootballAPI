@@ -97,11 +97,6 @@ public class Player {
 
         return effected;
     }
-
-    //---------------------------------------------------------------------------------------------
-    //Method Name: delete
-    //Description:deletes player record from database using their id
-    //---------------------------------------------------------------------------------------------
     public int delete() throws DLException {
 
         //effected records
