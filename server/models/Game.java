@@ -85,8 +85,13 @@ public class Game {
         return effected;
     }
 
+    @Override
     public String toString() {
-        return "GameID: " + getGameID() + "\n" + "Date: " + getDate() + "\n" + "Time: " + getTime() + "\n";
+        return "Game{" +
+                "gameID='" + gameID + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                '}';
     }
 
     public String getGameID() {

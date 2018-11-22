@@ -245,11 +245,208 @@ public class PlayerStats {
         return effected;
     }
 
-    //toString
+    @Override
     public String toString() {
-        return null;
-
+        return "PlayerStats{" +
+                "gameid='" + gameid + '\'' +
+                ", playerid='" + playerid + '\'' +
+                ", passAtt=" + passAtt +
+                ", passComp=" + passComp +
+                ", passYds=" + passYds +
+                ", passTds=" + passTds +
+                ", pass2pt=" + pass2pt +
+                ", rushAtt=" + rushAtt +
+                ", rushYds=" + rushYds +
+                ", rush2pt=" + rush2pt +
+                ", rec=" + rec +
+                ", recYds=" + recYds +
+                ", recTd=" + recTd +
+                ", rec2pt=" + rec2pt +
+                ", fgAtt=" + fgAtt +
+                ", fgMd=" + fgMd +
+                ", xpAtt=" + xpAtt +
+                ", xpMd=" + xpMd +
+                ", intThr=" + intThr +
+                ", fum=" + fum +
+                ", krTD=" + krTD +
+                ", prTD=" + prTD +
+                ", db=" + db +
+                '}';
     }
 
+    public String getGameid() {
+        return gameid;
+    }
 
+    public void setGameid(String gameid) {
+        this.gameid = gameid;
+    }
+
+    public String getPlayerid() {
+        return playerid;
+    }
+
+    public void setPlayerid(String playerid) {
+        this.playerid = playerid;
+    }
+
+    public int getPassAtt() {
+        return passAtt;
+    }
+
+    public void setPassAtt(int passAtt) {
+        this.passAtt = passAtt;
+    }
+
+    public int getPassComp() {
+        return passComp;
+    }
+
+    public void setPassComp(int passComp) {
+        this.passComp = passComp;
+    }
+
+    public int getPassYds() {
+        return passYds;
+    }
+
+    public void setPassYds(int passYds) {
+        this.passYds = passYds;
+    }
+
+    public int getPassTds() {
+        return passTds;
+    }
+
+    public void setPassTds(int passTds) {
+        this.passTds = passTds;
+    }
+
+    public int getPass2pt() {
+        return pass2pt;
+    }
+
+    public void setPass2pt(int pass2pt) {
+        this.pass2pt = pass2pt;
+    }
+
+    public int getRushAtt() {
+        return rushAtt;
+    }
+
+    public void setRushAtt(int rushAtt) {
+        this.rushAtt = rushAtt;
+    }
+
+    public int getRushYds() {
+        return rushYds;
+    }
+
+    public void setRushYds(int rushYds) {
+        this.rushYds = rushYds;
+    }
+
+    public int getRush2pt() {
+        return rush2pt;
+    }
+
+    public void setRush2pt(int rush2pt) {
+        this.rush2pt = rush2pt;
+    }
+
+    public int getRec() {
+        return rec;
+    }
+
+    public void setRec(int rec) {
+        this.rec = rec;
+    }
+
+    public int getRecYds() {
+        return recYds;
+    }
+
+    public void setRecYds(int recYds) {
+        this.recYds = recYds;
+    }
+
+    public int getRecTd() {
+        return recTd;
+    }
+
+    public void setRecTd(int recTd) {
+        this.recTd = recTd;
+    }
+
+    public int getRec2pt() {
+        return rec2pt;
+    }
+
+    public void setRec2pt(int rec2pt) {
+        this.rec2pt = rec2pt;
+    }
+
+    public int getFgAtt() {
+        return fgAtt;
+    }
+
+    public void setFgAtt(int fgAtt) {
+        this.fgAtt = fgAtt;
+    }
+
+    public int getFgMd() {
+        return fgMd;
+    }
+
+    public void setFgMd(int fgMd) {
+        this.fgMd = fgMd;
+    }
+
+    public int getXpAtt() {
+        return xpAtt;
+    }
+
+    public void setXpAtt(int xpAtt) {
+        this.xpAtt = xpAtt;
+    }
+
+    public int getXpMd() {
+        return xpMd;
+    }
+
+    public void setXpMd(int xpMd) {
+        this.xpMd = xpMd;
+    }
+
+    public int getIntThr() {
+        return intThr;
+    }
+
+    public void setIntThr(int intThr) {
+        this.intThr = intThr;
+    }
+
+    public int getFum() {
+        return fum;
+    }
+
+    public void setFum(int fum) {
+        this.fum = fum;
+    }
+
+    public int getKrTD() {
+        return krTD;
+    }
+
+    public void setKrTD(int krTD) {
+        this.krTD = krTD;
+    }
+
+    public int getPrTD() {
+        return prTD;
+    }
+
+    public void setPrTD(int prTD) {
+        this.prTD = prTD;
+    }
 }//end player class

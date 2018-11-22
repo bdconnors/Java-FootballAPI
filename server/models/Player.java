@@ -126,43 +126,40 @@ public class Player {
         return effected;
     }
 
-    //toString
+    @Override
     public String toString() {
-        return "PlayerID: " + getID() + "\n" + "First Name: " + getFName() + "\n" + "Last Name: "
-                + getLName() + "\n" + "Team: " + getTeam() + "\n" + "Position: "
-                + getPosition() + "\n" + "Jersey Number: " + getJNumber();
-
+        return "Player{" +
+                "id='" + id + '\'' +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", team='" + team + '\'' +
+                ", position='" + position + '\'' +
+                ", jNumber='" + jNumber + '\'' +
+                '}';
     }
 
-    //getters
-    public String getID() {
+    public String getId() {
         return id;
     }
 
-    //setters
-    public void setID(String id) {
+    public void setId(String id) {
         this.id = id;
-
     }
 
-    public String getFName() {
+    public String getfName() {
         return fName;
-
     }
 
-    public void setFName(String fName) {
+    public void setfName(String fName) {
         this.fName = fName;
-
     }
 
-    public String getLName() {
+    public String getlName() {
         return lName;
-
     }
 
-    public void setLName(String lName) {
+    public void setlName(String lName) {
         this.lName = lName;
-
     }
 
     public String getTeam() {
@@ -171,27 +168,21 @@ public class Player {
 
     public void setTeam(String team) {
         this.team = team;
-
     }
 
     public String getPosition() {
         return position;
-
     }
 
     public void setPosition(String position) {
         this.position = position;
-
     }
 
-    public String getJNumber() {
+    public String getjNumber() {
         return jNumber;
-
     }
 
-    public void setJNumber(String jNumber) {
+    public void setjNumber(String jNumber) {
         this.jNumber = jNumber;
-
     }
-
 }//end player class

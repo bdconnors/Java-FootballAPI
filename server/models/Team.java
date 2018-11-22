@@ -147,23 +147,22 @@ public class Team {
         return effected;
     }
 
-    //toString
+    @Override
     public String toString() {
-        return "Team Name: " + getName() + "\n" + "Abbreviation: " + getAbrv() + "\n";
+        return "Team{" +
+                "name='" + name + '\'' +
+                ", abrv='" + abrv + '\'' +
+                ", db=" + db +
+                '}';
     }
-
-    //getters
     public String getName() {
         return name;
     }
-
-    //setters
     public void setName(String name) {
         this.name = name;
     }
 
     public String getAbrv() { return abrv; }
-
     public void setAbrv(String abrv) {
         this.abrv = abrv;
     }

@@ -166,196 +166,125 @@ public class DefenseStats {
         return effected;
     }
 
-    /**
-     * Prints the class variables of the object
-     * @return A String representation of the NFL teams defensive statistics acrued during a game
-     */
     @Override
     public String toString() {
-        return null;
+        return "DefenseStats{" +
+                "gameid='" + gameid + '\'' +
+                ", team='" + team + '\'' +
+                ", pa=" + pa +
+                ", sck=" + sck +
+                ", sfty=" + sfty +
+                ", intTD=" + intTD +
+                ", fumTD=" + fumTD +
+                ", krTD=" + krTD +
+                ", prTD=" + prTD +
+                ", intc=" + intc +
+                ", fum=" + fum +
+                ", kBlk=" + kBlk +
+                ", xpBlk=" + xpBlk +
+                '}';
     }
 
-    /**
-     * gets the objects current gameid
-     * @return a String containing the unique id to a game played by an NFL team
-     */
-    public String getGameID() {
+    public String getGameid() {
         return gameid;
     }
 
-    /**
-     * sets the objects gameid to the specified gameid
-     * @param gameid a unique id of a game played by an NFL team
-     */
-    public void setGameID(String gameid) {
+    public void setGameid(String gameid) {
         this.gameid = gameid;
     }
-    /**
-     * gets the objects current team
-     * @return A String representing an NFL team 2 or 3 letter abbreviation (ex. 'NYG' is 'New York Giants')
-     */
+
     public String getTeam() {
         return team;
     }
-    /**
-     * sets the objects team to the specified team
-     * @param team A String containing an NFL team 2 or 3 letter abbreviation (ex. 'NYG' is 'New York Giants')
-     */
+
     public void setTeam(String team) {
         this.team = team;
     }
-    /**
-     * gets the objects points allowed value
-     * @return A int whos value is equal to the number of points allowed by the teams defense during the game
-     */
+
     public int getPa() {
         return pa;
     }
-    /**
-     * sets the objects points allowed value
-     * @param pa A int whos value is equal to the number of points allowed by the teams defense during the game
-     */
+
     public void setPa(int pa) {
         this.pa = pa;
     }
-    /**
-     * gets the number of sacks acrued by the team during the game
-     * @return A int whos value is equal to the number of sacks acrued by the teams defense during the game
-     */
+
     public int getSck() {
         return sck;
     }
-    /**
-     * sets the number of sacks acrued by the team during the game
-     * @param sck A int whos value is equal to the number of sacks acrued by the teams defense during the game
-     */
+
     public void setSck(int sck) {
         this.sck = sck;
     }
-    /**
-     * gets the number of safeties acrued by the team during the game
-     * @return A int whos value is equal to the number of safeties acrued by the teams defense during the game
-     */
+
     public int getSfty() {
         return sfty;
     }
-    /**
-     * sets the number of safeties acrued by the team during the game
-     * @param sfty A int whos value is equal to the number of safeties acrued by the teams defense during the game
-     */
+
     public void setSfty(int sfty) {
         this.sfty = sfty;
     }
-    /**
-     * gets the number of interception touchdowns acrued by the team during the game
-     * @return A int whos value is equal to the number of interception TDs acrued by the teams defense during the game
-     */
+
     public int getIntTD() {
         return intTD;
     }
-    /**
-     * sets the number of interception touchdowns acrued by the team during the game
-     * @param intTD A int whos value is equal to the number of interception TDs acrued by the teams defense during the game
-     */
+
     public void setIntTD(int intTD) {
         this.intTD = intTD;
     }
-    /**
-     * gets the number of fumble touchdowns acrued by the team during the game
-     * @return A int whos value is equal to the number of fumble TDs acrued by the teams defense during the game
-     */
+
     public int getFumTD() {
         return fumTD;
     }
-    /**
-     * sets the number of fumble touchdowns acrued by the team during the game
-     * @param fumTD int whos value is equal to the number of fumble TDs acrued by the teams defense during the game
-     */
+
     public void setFumTD(int fumTD) {
         this.fumTD = fumTD;
     }
-    /**
-     * gets the number of kick return touchdowns acrued by the team during the game
-     * @return A int whos value is equal to the number of  kick return TDs acrued by the team during the game
-     */
+
     public int getKrTD() {
         return krTD;
     }
-    /**
-     * sets the number of kick return touchdowns acrued by the team during the game
-     * @param krTD A int whos value is equal to the number of kick return TDs acrued by the team during the game
-     */
+
     public void setKrTD(int krTD) {
         this.krTD = krTD;
     }
-    /**
-     * gets the number of punt return touchdowns acrued by the team during the game
-     * @return A int whos value is equal to the number of  punt return TDs acrued by the team during the game
-     */
+
     public int getPrTD() {
         return prTD;
     }
-    /**
-     * sets the number of punt return touchdowns acrued by the team during the game
-     * @param prTD A int whos value is equal to the number of punt return TDs acrued by the team during the game
-     */
+
     public void setPrTD(int prTD) {
         this.prTD = prTD;
     }
-    /**
-     * sets the number of interceptions acrued by the team during the game
-     * @return A int whos value is equal to the number of interceptions acrued by the teams defense during the game
-     */
+
     public int getIntc() {
         return intc;
     }
-    /**
-     * sets the number of interceptions acrued by the team during the game
-     * @param intc A int whos value is equal to the number of interceptions acrued by the teams defense during the game
-     */
+
     public void setIntc(int intc) {
         this.intc = intc;
     }
-    /**
-     * gets the number of fumble touchdowns acrued by the team during the game
-     * @return A int whos value is equal to the number of fumbles acrued by the teams defense during the game
-     */
+
     public int getFum() {
         return fum;
     }
 
-    /**
-     * sets the number of fumbles acrued by the team during the game
-     * @param fum A int whos value is equal to the number of fumbles acrued by the teams defense during the game
-     */
     public void setFum(int fum) {
         this.fum = fum;
     }
-    /**
-     * gets the number of kicks blocked by the team during the game
-     * @return A int whos value is equal to the number of kicks blocked by the team during the game
-     */
-    public int getKblk() {
+
+    public int getkBlk() {
         return kBlk;
     }
-    /**
-     * sets the number of kicks blocked by the team during the game
-     * @param kBlk A int whos value is equal to the number of kicks blocked by the team during the game
-     */
-    public void setKblk(int kBlk) {
+
+    public void setkBlk(int kBlk) {
         this.kBlk = kBlk;
     }
-    /**
-     * gets the number of extra points blocked by the team during the game
-     * @return An int whos value is equal to the number of extra points blocked by the team during the game
-     */
+
     public int getXpBlk() {
         return xpBlk;
     }
-    /**
-     * sets the number of extra points blocked by the team during the game
-     * @param xpBlk A int whos value is equal to the number of extra points blocked by the team during the game
-     */
+
     public void setXpBlk(int xpBlk) {
         this.xpBlk = xpBlk;
     }
