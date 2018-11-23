@@ -106,11 +106,14 @@ public class MySportsFeeds {
             JsonNode root = mapper.readTree(jsonString);
             JsonNode games = root.findPath("gamelogs");
             for (int i = 0; i < games.size(); i++) {
-                String[] game = new String[3];
+                String[] game = new String[6];
                 JsonNode curGame = games.get(i);
                 game[0] = curGame.findPath("game").findPath("id").asText();
                 game[1] = curGame.findPath("game").findPath("date").asText();
                 game[2] = curGame.findPath("game").findPath("time").asText();
+                game[3] = curGame.findPath("homeTeam").findPath("Abbreviation").asText();
+                game[4] = curGame.findPath("awayTeam").findPath("Abbreviation").asText();
+                game[5] = curGame.findPath("location").asText();
                 gameData.add(game);
             }
         } catch (Exception e) {
@@ -131,7 +134,7 @@ public class MySportsFeeds {
             for (int i = 0; i < games.size(); i++) {
                 int[] stats = new int[12];
                 JsonNode curGame = games.get(i);
-                stats[0] = curGame.findPath("id").asInt();
+                stats[0] = curGame.findPath("game").findPath("id").asInt();
                 stats[1] = curGame.findPath("PointsAgainst").findPath("#text").asInt();
                 stats[2] = curGame.findPath("Sacks").findPath("#text").asInt();
                 stats[3] = curGame.findPath("Safeties").findPath("#text").asInt();

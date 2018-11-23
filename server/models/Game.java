@@ -7,12 +7,18 @@ public class Game {
     private String gameID;
     private String date;
     private String time;
+    private String homeTeam;
+    private String awayTeam;
+    private String loc;
     private FootballDatabase db = new FootballDatabase();
 
     Game(String[] game) {
         gameID = game[0];
         date = game[1];
         time = game[2];
+        homeTeam = game[3];
+        awayTeam = game[4];
+        loc = game[5];
 
     }
 
@@ -23,9 +29,8 @@ public class Game {
     public Game() {
 
     }
-
     public void fetch() throws DLException {  //SQL query string
-        String query = "SELECT date,time FROM game WHERE gameid=?;";
+        String query = "SELECT date,time,homeTeam,awayTeam,loc FROM game WHERE gameid=?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(gameID);
         try { //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
@@ -36,6 +41,9 @@ public class Game {
             //set abrv to the second field value
             date = fields[1];
             time = fields[2];
+            homeTeam = fields[3];
+            awayTeam = fields[4];
+            loc = fields[5];
         } catch (Exception e) {
             System.out.println("No Record Found");
         }
@@ -44,10 +52,13 @@ public class Game {
     int post() throws DLException {
         int effected;
         ArrayList<String> values = new ArrayList<>();
-        String insert = "INSERT INTO game(gameid,date,time)VALUES(?,?,?);";
+        String insert = "INSERT INTO game(gameid,date,time,homeTeam,awayTeam,loc)VALUES(?,?,?,?,?,?);";
         values.add(gameID);
         values.add(date);
         values.add(time);
+        values.add(homeTeam);
+        values.add(awayTeam);
+        values.add(loc);
         try {
             effected = db.setData(insert, values);
         } catch (DLException e) {
@@ -58,10 +69,13 @@ public class Game {
     }
     public int put() throws DLException {  //effected records
         int effected;
-        String update = "UPDATE game SET date=?,time = ? WHERE gameid = ?;";
+        String update = "UPDATE game SET date=?,time = ?,homeTeam =?,awayTeam = ?,loc = ? WHERE gameid = ?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(date);
         values.add(time);
+        values.add(homeTeam);
+        values.add(awayTeam);
+        values.add(loc);
         values.add(gameID);
         try {
             effected = db.setData(update, values);
@@ -91,6 +105,9 @@ public class Game {
                 "gameID='" + gameID + '\'' +
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
+                ", homeTeam='" + homeTeam + '\'' +
+                ", awayTeam='" + awayTeam + '\'' +
+                ", loc='" + loc + '\'' +
                 '}';
     }
 
@@ -117,4 +134,28 @@ public class Game {
     public void setTime(String time) {
         this.time = time;
     }
-}//end Game class
+
+    public String getHomeTeam() {
+        return homeTeam;
+    }
+
+    public void setHomeTeam(String homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
+    public String getAwayTeam() {
+        return awayTeam;
+    }
+
+    public void setAwayTeam(String awayTeam) {
+        this.awayTeam = awayTeam;
+    }
+
+    public String getLoc() {
+        return loc;
+    }
+
+    public void setLoc(String loc) {
+        this.loc = loc;
+    }
+}
