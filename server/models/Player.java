@@ -10,11 +10,6 @@ public class Player {
     private String team;
     private String position;
     private String jNumber;
-    public PlayerCumPass cumPassStats;
-    public PlayerCumRec cumRecStats;
-    public PlayerCumRush cumRushStats;
-    public PlayerCumKick cumKickStats;
-    public PlayerCumMisc cumMiscStats;
     private FootballDatabase db = new FootballDatabase();
 
     Player(String[] player) {
@@ -24,21 +19,11 @@ public class Player {
         team = player[3];
         position = player[4];
         jNumber = player[5];
-        cumPassStats = new PlayerCumPass(id);
-        cumRecStats = new PlayerCumRec(id);
-        cumRushStats = new PlayerCumRush(id);
-        cumKickStats = new PlayerCumKick(id);
-        cumMiscStats = new PlayerCumMisc(id);
 
     }
 
     public Player(String id) {
         this.id = id;
-        cumPassStats = new PlayerCumPass(id);
-        cumRecStats = new PlayerCumRec(id);
-        cumRushStats = new PlayerCumRush(id);
-        cumKickStats = new PlayerCumKick(id);
-        cumMiscStats = new PlayerCumMisc(id);
 
     }
 
@@ -61,11 +46,6 @@ public class Player {
             team = fields[2];
             position = fields[3];
             jNumber = fields[4];
-            cumPassStats.fetch();
-            cumRecStats.fetch();
-            cumRushStats.fetch();
-            cumKickStats.fetch();
-            cumMiscStats.fetch();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -203,43 +183,4 @@ public class Player {
         this.jNumber = jNumber;
     }
 
-    public PlayerCumPass getCumPassStats() {
-        return cumPassStats;
-    }
-
-    public void setCumPassStats(PlayerCumPass cumPassStats) {
-        this.cumPassStats = cumPassStats;
-    }
-
-    public PlayerCumRec getCumRecStats() {
-        return cumRecStats;
-    }
-
-    public void setCumRecStats(PlayerCumRec cumRecStats) {
-        this.cumRecStats = cumRecStats;
-    }
-
-    public PlayerCumRush getCumRushStats() {
-        return cumRushStats;
-    }
-
-    public void setCumRushStats(PlayerCumRush cumRushStats) {
-        this.cumRushStats = cumRushStats;
-    }
-
-    public PlayerCumKick getCumKickStats() {
-        return cumKickStats;
-    }
-
-    public void setCumKickStats(PlayerCumKick cumKickStats) {
-        this.cumKickStats = cumKickStats;
-    }
-
-    public PlayerCumMisc getCumMiscStats() {
-        return cumMiscStats;
-    }
-
-    public void setCumMiscStats(PlayerCumMisc cumMiscStats) {
-        this.cumMiscStats = cumMiscStats;
-    }
 }
