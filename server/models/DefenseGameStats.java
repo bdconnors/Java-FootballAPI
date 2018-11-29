@@ -5,7 +5,7 @@ import java.util.*;
  * @author Brandon Connors
  * @author bdc5435@rit.edu
  */
-public class DefenseStats {
+public class DefenseGameStats {
 
     private String gameid;
     private String team;
@@ -16,12 +16,12 @@ public class DefenseStats {
     private int fumTD;
     private int intc;
     private int fum;
-    private FootballDatabase db = new FootballDatabase();
+    private static FootballDatabase db = new FootballDatabase();
 
     /**Creates a set of defensive statistics from a game played by an NFL team with specified stats and gameid
      * @param stats An int[] containing statistics acrued by an NFL team during one game
      */
-    DefenseStats(String team,int[] stats) {
+    public DefenseGameStats(String team,int[] stats) {
         gameid = String.valueOf(stats[0]);
         this.team = team;
         pa = stats[1];
@@ -36,7 +36,7 @@ public class DefenseStats {
     /**Creates an empty set of defensive statistics from a specified game played by a specified NFL team
      * @param team A String containing an NFL team 2 or 3 letter abbreviation (ex. 'NYG' is 'New York Giants')
      */
-    public DefenseStats(String team, String gameid) {
+    public DefenseGameStats(String team, String gameid) {
         this.team = team;
         this.gameid = gameid;
 
@@ -45,7 +45,7 @@ public class DefenseStats {
     /**
      * Default Constructor
      */
-    public DefenseStats() {
+    public DefenseGameStats() {
 
 
     }
@@ -55,7 +55,7 @@ public class DefenseStats {
      * @throws e Layer Exception if data cannot be fetched
      */
     public void fetch() throws Exception {
-        String query = "SELECT pa,sck,sfty,inttd,fumtd,intc,fum FROM defensestats WHERE gameid=? AND team = ?;";
+        String query = "SELECT pa,sck,sfty,inttd,fumtd,intc,fum FROM defensegamestats WHERE gameid=? AND team = ?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(gameid);
         values.add(team);
@@ -83,7 +83,7 @@ public class DefenseStats {
         int effected;
         ArrayList<String> values = new ArrayList<>();
 
-        String insert = "INSERT INTO defensestats(gameid,team,pa,sck,sfty,inttd,fumtd,intc,fum)VALUES(?,?,?,?,?,?,?,?,?);";
+        String insert = "INSERT INTO defensegamestats(gameid,team,pa,sck,sfty,inttd,fumtd,intc,fum)VALUES(?,?,?,?,?,?,?,?,?);";
         values.add(String.valueOf(gameid));
         values.add(String.valueOf(team));
         values.add(String.valueOf(pa));
@@ -108,7 +108,7 @@ public class DefenseStats {
      */
     public int put() throws DLException {
         int effected;
-        String update = "UPDATE defensestats SET pa=?,sck=?,sfty=?,intTD=?,fumTD=?,intc=?,fum=? WHERE gameid = ? AND team=?;";
+        String update = "UPDATE defensegamestats SET pa=?,sck=?,sfty=?,intTD=?,fumTD=?,intc=?,fum=? WHERE gameid = ? AND team=?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(String.valueOf(pa));
         values.add(String.valueOf(sck));
@@ -133,7 +133,7 @@ public class DefenseStats {
      */
     public int delete() throws DLException {
         int effected;
-        String delete = "DELETE FROM defensestats WHERE gameid =? AND team=?;";
+        String delete = "DELETE FROM defensegamestats WHERE gameid =? AND team=?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(gameid);
         values.add(team);
@@ -149,7 +149,7 @@ public class DefenseStats {
 
     @Override
     public String toString() {
-        return "DefenseStats{" +
+        return "DefenseGameStats{" +
                 "gameid='" + gameid + '\'' +
                 ", team='" + team + '\'' +
                 ", pa=" + pa +
@@ -161,7 +161,6 @@ public class DefenseStats {
                 ", fum=" + fum +
                 '}';
     }
-
     public String getGameid() {
         return gameid;
     }

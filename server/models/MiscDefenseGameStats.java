@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author Brandon Connors
  * @author bdc5435@rit.edu
  */
-public class MiscDefenseStats {
+public class MiscDefenseGameStats {
 
     private String gameid;
     private String team;
@@ -14,12 +14,12 @@ public class MiscDefenseStats {
     private int prTD;
     private int kBlk;
     private int xpBlk;
-    private FootballDatabase db = new FootballDatabase();
+    private static FootballDatabase db = new FootballDatabase();
 
     /**Creates a set of defensive statistics from a game played by an NFL team with specified stats and gameid
      * @param stats An int[] containing statistics acrued by an NFL team during one game
      */
-    MiscDefenseStats(String team,int[] stats) {
+    public MiscDefenseGameStats(String team,int[] stats) {
         gameid = String.valueOf(stats[0]);
         this.team = team;
         krTD = stats[1];
@@ -30,7 +30,7 @@ public class MiscDefenseStats {
     /**Creates an empty set of defensive statistics from a specified game played by a specified NFL team
      * @param team A String containing an NFL team 2 or 3 letter abbreviation (ex. 'NYG' is 'New York Giants')
      */
-    public MiscDefenseStats(String team, String gameid) {
+    public MiscDefenseGameStats(String team, String gameid) {
         this.team = team;
         this.gameid = gameid;
 
@@ -39,7 +39,7 @@ public class MiscDefenseStats {
     /**
      * Default Constructor
      */
-    public MiscDefenseStats() {
+    public MiscDefenseGameStats() {
 
 
     }
@@ -48,7 +48,7 @@ public class MiscDefenseStats {
      * @throws e Layer Exception if data cannot be fetched
      */
     public void fetch() throws Exception {
-        String query = "krtd,prtd,kblk,xpblk FROM miscdefensestats WHERE gameid=? AND team = ?;";
+        String query = "krtd,prtd,kblk,xpblk FROM miscdefensegamestats WHERE gameid=? AND team = ?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(gameid);
         values.add(team);
@@ -74,7 +74,7 @@ public class MiscDefenseStats {
         int effected;
         ArrayList<String> values = new ArrayList<>();
 
-        String insert = "INSERT INTO miscdefensestats(gameid,team,krtd,prtd,kblk,xpblk)VALUES(?,?,?,?,?,?);";
+        String insert = "INSERT INTO miscdefensegamestats(gameid,team,krtd,prtd,kblk,xpblk)VALUES(?,?,?,?,?,?);";
         values.add(String.valueOf(gameid));
         values.add(String.valueOf(team));
         values.add(String.valueOf(krTD));
@@ -96,7 +96,7 @@ public class MiscDefenseStats {
      */
     public int put() throws DLException {
         int effected;
-        String update = "UPDATE miscdefensestats SET krTD=?,prTD=?,kBlk=?,xpBlk=? WHERE gameid = ? AND team=?;";
+        String update = "UPDATE miscdefensegamestats SET krTD=?,prTD=?,kBlk=?,xpBlk=? WHERE gameid = ? AND team=?;";
         ArrayList<String> values = new ArrayList<>();;
         values.add(String.valueOf(krTD));
         values.add(String.valueOf(prTD));
@@ -118,7 +118,7 @@ public class MiscDefenseStats {
      */
     public int delete() throws DLException {
         int effected;
-        String delete = "DELETE FROM miscdefensestats WHERE gameid =? AND team=?;";
+        String delete = "DELETE FROM miscdefensegamestats WHERE gameid =? AND team=?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(gameid);
         values.add(team);
@@ -131,9 +131,10 @@ public class MiscDefenseStats {
         }
         return effected;
     }
+
     @Override
     public String toString() {
-        return "MiscDefenseStats{" +
+        return "MiscDefenseGameStats{" +
                 "gameid='" + gameid + '\'' +
                 ", team='" + team + '\'' +
                 ", krTD=" + krTD +
