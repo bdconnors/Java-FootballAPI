@@ -399,6 +399,28 @@ public class FootballDatabase {
             throw new DLException(e, "could not load team data");
         }
     }
+    public void loadDefCumStats(String team) throws DLException {
+        try {
+            startTrans();
+            ArrayList<int[]> defStats = msf.getCumDefStatsByTeam(team);
+
+            for (int[] stats : defStats) {
+
+                int[] dStats = {stats[0],stats[1],stats[2],stats[3],stats[4],stats[7],stats[8]};
+                DefenseCumStats dcs = new DefenseCumStats(team,dStats);
+                dcs.post();
+
+                int[] dStatsMisc = {stats[5],stats[6],stats[9],stats[10]};
+                MiscDefenseCumStats mdcs = new MiscDefenseCumStats(team,dStatsMisc);
+                mdcs.post();
+
+            }
+            endTrans();
+        } catch (DLException e) {
+            e.printStackTrace();
+            throw new DLException(e, "could not load team data");
+        }
+    }
     public void loadAllPlayers()throws Exception {
 
         try {
@@ -508,6 +530,20 @@ public class FootballDatabase {
         }
         catch(Exception e)
             {
+            e.printStackTrace();
+        }
+    }
+    public void loadAllDefenseCumStats()throws Exception{
+
+        try {
+            for (String team : teams) {
+                System.out.println("Now Loading Cumulative Defensive stats for team: " + team);
+                loadDefCumStats(team);
+                Thread.sleep(10000);
+            }
+        }
+        catch(Exception e)
+        {
             e.printStackTrace();
         }
     }

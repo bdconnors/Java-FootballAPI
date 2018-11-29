@@ -143,9 +143,39 @@ public class MySportsFeeds {
                 stats[6] = curGame.findPath("KrTD").findPath("#text").asInt();
                 stats[7] = curGame.findPath("PrTD").findPath("#text").asInt();
                 stats[8] = curGame.findPath("Interceptions").findPath("#text").asInt();
-                stats[9] = curGame.findPath("Fumbles").findPath("#text").asInt();
+                stats[9] = curGame.findPath("FumForced").findPath("#text").asInt();
                 stats[10] = curGame.findPath("KB").findPath("#text").asInt();
                 stats[11] = curGame.findPath("XpBlk").findPath("#text").asInt();
+                defStats.add(stats);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return defStats;
+    }
+    public ArrayList<int[]> getCumDefStatsByTeam(String team) {
+
+        ArrayList<int[]> defStats = new ArrayList<>();
+        String reqString = feedString + teamString +"?"+team;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonString = apiRequest(reqString);
+            JsonNode root = mapper.readTree(jsonString);
+            JsonNode defenses = root.findPath("teamstandingsentry");
+            for (int i = 0; i < defenses.size(); i++) {
+                int[] stats = new int[11];
+                JsonNode curDefense = defenses.get(i);
+                stats[0] = curDefense.findPath("stats").findPath("PointsAgainst").findPath("#text").asInt();
+                stats[1] = curDefense.findPath("stats").findPath("Sacks").findPath("#text").asInt();
+                stats[2] = curDefense.findPath("stats").findPath("Safeties").findPath("#text").asInt();
+                stats[3] = curDefense.findPath("stats").findPath("IntTD").findPath("#text").asInt();
+                stats[4] = curDefense.findPath("stats").findPath("FumTD").findPath("#text").asInt();
+                stats[5] = curDefense.findPath("stats").findPath("KrTD").findPath("#text").asInt();
+                stats[6] = curDefense.findPath("stats").findPath("PrTD").findPath("#text").asInt();
+                stats[7] = curDefense.findPath("stats").findPath("Interceptions").findPath("#text").asInt();
+                stats[8] = curDefense.findPath("stats").findPath("FumForced").findPath("#text").asInt();
+                stats[9] = curDefense.findPath("stats").findPath("KB").findPath("#text").asInt();
+                stats[10] = curDefense.findPath("stats").findPath("XpBlk").findPath("#text").asInt();
                 defStats.add(stats);
             }
         } catch (Exception e) {
