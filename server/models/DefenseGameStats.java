@@ -232,3 +232,4 @@ public class DefenseGameStats {
     public void setFum(int fum) {
         this.fum = fum;
     }
+}

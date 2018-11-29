@@ -170,3 +170,4 @@ public class PlayerCumKick {
     public void setXpMd(int xpMd) {
         this.xpMd = xpMd;
     }
+}

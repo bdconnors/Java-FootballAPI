@@ -164,3 +164,4 @@ public class PlayerGameRush {
     public void setRush2pt(int rush2pt) {
         this.rush2pt = rush2pt;
     }
+}

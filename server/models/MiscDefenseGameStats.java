@@ -190,3 +190,4 @@ public class MiscDefenseGameStats {
     public void setXpBlk(int xpBlk) {
         this.xpBlk = xpBlk;
     }
+}

@@ -177,3 +177,4 @@ public class PlayerGameMisc {
     public void setPrTD(int prTD) {
         this.prTD = prTD;
     }
+}

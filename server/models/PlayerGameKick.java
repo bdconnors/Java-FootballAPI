@@ -178,3 +178,4 @@ public class PlayerGameKick {
     public void setXpMd(int xpMd) {
         this.xpMd = xpMd;
     }
+}

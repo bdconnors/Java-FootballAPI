@@ -183,3 +183,4 @@ public class PlayerCumMisc {
     public void setPrTD(int prTD) {
         this.prTD = prTD;
     }
+}

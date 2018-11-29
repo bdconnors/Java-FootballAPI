@@ -2,9 +2,7 @@ package ritdatabaseproject.server.models;
 
 import java.util.ArrayList;
 
-public class MiscDefenseCumStats
-
-{
+public class MiscDefenseCumStats{
     private String team;
     private int krTD;
     private int prTD;

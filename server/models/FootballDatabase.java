@@ -599,3 +599,5 @@ public class FootballDatabase {
          throw new DLException(e, "Could not rollback transaction");
       }
    }
+}   
+   

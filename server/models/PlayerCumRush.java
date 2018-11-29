@@ -156,3 +156,4 @@ public class PlayerCumRush {
     public void setRush2pt(int rush2pt) {
         this.rush2pt = rush2pt;
     }
+}

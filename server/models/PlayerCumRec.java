@@ -166,3 +166,4 @@ public class PlayerCumRec {
     public void setRec2pt(int rec2pt) {
         this.rec2pt = rec2pt;
     }
+}

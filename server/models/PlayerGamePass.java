@@ -191,3 +191,4 @@ public class PlayerGamePass {
     public void setPass2pt(int pass2pt) {
         this.pass2pt = pass2pt;
     }
+}

@@ -158,3 +158,4 @@ public class Game {
     public void setLoc(String loc) {
         this.loc = loc;
     }
+}
