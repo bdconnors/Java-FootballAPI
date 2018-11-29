@@ -1,0 +1,51 @@
+body{
+  font-family: 'Noto Sans SC', sans-serif;
+  font-size: 18px;
+  background: #f4f4f4;
+}
+h2 {
+  font-size: 1.2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.content{
+  width: 60%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 30px;
+}
+.table{
+  font-size: 0.6em;
+  width: 100%;
+  height: 400px;
+  margin: 0 auto;
+}
+.table td, th{
+  min-width: 160px;
+  padding: 5px 10px;
+  text-align: center;
+}
+.table th{
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.table .first-col{
+  text-align: left;
+}
+
+.table .full-width-row{
+  width: 100%;
+}
+.banner{
+  background-image: url('../img/banner-1.jpg');
+  height: 90px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: 0% 70%;
+}
+.stat-filter{
+  width: 150px;
+  margin: 10px 0 30px 0;
+}
