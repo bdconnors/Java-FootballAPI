@@ -385,12 +385,12 @@ public class FootballDatabase {
             for (int[] stats : defStats) {
 
                 int[] dStats = {stats[0],stats[1],stats[2],stats[3],stats[4],stats[5],stats[8],stats[9]};
-                DefenseStats ds = new DefenseStats(team,dStats);
-                ds.post();
+                DefenseGameStats dgs = new DefenseGameStats(team,dStats);
+                dgs.post();
 
                 int[] dStatsMisc = {stats[0],stats[6],stats[7],stats[10],stats[11]};
-                MiscDefenseStats mds = new MiscDefenseStats(team,dStatsMisc);
-                mds.post();
+                MiscDefenseGameStats mdgs = new MiscDefenseGameStats(team,dStatsMisc);
+                mdgs.post();
 
             }
             endTrans();
