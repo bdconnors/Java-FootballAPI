@@ -9,6 +9,10 @@ h2 {
   margin-bottom: 10px;
 }
 
+h3 .section-header{
+  font-size: 0.4em;
+  color: red;
+}
 .content{
   width: 60%;
   height: 100%;
