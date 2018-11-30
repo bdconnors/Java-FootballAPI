@@ -16,8 +16,8 @@ public class Team {
         this.name = name;
         this.abrv = abrv;
     }
-    public Team(String name) {
-        this.name = name;
+    public Team(String abrv) {
+        this.abrv = abrv;
     }
 
     public Team() {

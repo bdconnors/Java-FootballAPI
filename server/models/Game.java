@@ -36,14 +36,12 @@ public class Game {
         try { //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
             ArrayList<String[]> info = db.getData(query, values);
             String[] fields = info.get(1);
-            //set name to the first field value
-            gameID = fields[0];
             //set abrv to the second field value
-            date = fields[1];
-            time = fields[2];
-            homeTeam = fields[3];
-            awayTeam = fields[4];
-            loc = fields[5];
+            date = fields[0];
+            time = fields[1];
+            homeTeam = fields[2];
+            awayTeam = fields[3];
+            loc = fields[4];
         } catch (Exception e) {
             System.out.println("No Record Found");
         }
