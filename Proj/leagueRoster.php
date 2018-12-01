@@ -3,8 +3,6 @@
     <div class="content">
       <h2>League Roster</h2>
       <hr>
-
-
       <div class="container">
         <div class="row">
           <div class="col-sm">
@@ -19,44 +17,92 @@
                   <th>Player</th>
                 </tr>
                 <tr>
-                  <td class="first-col">Team A</td>
-                  <td>vs.</td>
+                  <td class="first-col">QB</td>
+                  <td>Player A</td>
                 </tr>
                 <tr>
-                  <td class="first-col">Team C</td>
-                  <td>vs.</td>
+                  <td class="first-col">RB</td>
+                  <td>Player B</td>
                 </tr>
                 <tr>
-                  <td class="first-col">Team E</td>
-                  <td>vs.</td>
-                </tr>
-                <tr class="table-secondary ">
-                  <th class="first-col" style="padding: 8px 12px;">Week#</th>
-                  <th></th>
+                  <td class="first-col">RB</td>
+                  <td>Player C</td>
                 </tr>
                 <tr>
-                  <th class="first-col">Away</th>
-                  <th>vs.</th>
+                  <td class="first-col">WR</td>
+                  <td>Player D</td>
                 </tr>
                 <tr>
-                  <td class="first-col">Team G</td>
-                  <td>vs.</td>
+                  <td class="first-col">WR</td>
+                  <td>Player E</td>
                 </tr>
                 <tr>
-                  <td class="first-col">Team C</td>
-                  <td>vs.</td>
+                  <td class="first-col">Defense</td>
+                  <td>Player F</td>
                 </tr>
                 <tr>
-                  <td class="first-col">Team I</td>
-                  <td>vs.</td>
+                  <td class="first-col">Flex</td>
+                  <td>Player G</td>
+                </tr>
+                <tr>
+                  <td class="first-col">Kicker</td>
+                  <td>Player H</td>
+                </tr>
+                <tr>
+                  <td class="first-col">TE</td>
+                  <td>Player I</td>
                 </tr>
               </table>
           </div>
-          <div class="col-sm">
-            One of three columns
-          </div>
-          <div class="col-sm">
-            One of three columns
+        </div>
+        <div class="col-sm">
+          <div class="table table-hover">
+            <table cellspacing="0" cellpadding="0">
+              <tr class="table-secondary">
+                <th class="first-col" style="padding: 8px 12px;">Team Name</th>
+                <th></th>
+              </tr>
+              <tr>
+                <th class="first-col">Slot</th>
+                <th>Player</th>
+              </tr>
+              <tr>
+                <td class="first-col">QB</td>
+                <td>Player J</td>
+              </tr>
+              <tr>
+                <td class="first-col">RB</td>
+                <td>Player K</td>
+              </tr>
+              <tr>
+                <td class="first-col">RB</td>
+                <td>Player L</td>
+              </tr>
+              <tr>
+                <td class="first-col">WR</td>
+                <td>Player M</td>
+              </tr>
+              <tr>
+                <td class="first-col">WR</td>
+                <td>Player N</td>
+              </tr>
+              <tr>
+                <td class="first-col">Defense</td>
+                <td>Player O</td>
+              </tr>
+              <tr>
+                <td class="first-col">Flex</td>
+                <td>Player P</td>
+              </tr>
+              <tr>
+                <td class="first-col">Kicker</td>
+                <td>Player Q</td>
+              </tr>
+              <tr>
+                <td class="first-col">TE</td>
+                <td>Player R</td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
