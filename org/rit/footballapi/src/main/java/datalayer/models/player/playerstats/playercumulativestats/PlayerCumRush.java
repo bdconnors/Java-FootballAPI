@@ -8,14 +8,14 @@ public class PlayerCumRush {
     private String playerid;
     private int rushAtt;
     private int rushYds;
+    private int rushTd;
     private int rush2pt;
     private static FootballDatabase db = new FootballDatabase();
 
     public PlayerCumRush(int[] stats) {
         playerid = String.valueOf(stats[0]);
-        rushAtt = stats[1];
-        rushYds = stats[2];
-        rush2pt = stats[3];
+        rushTd = stats[1];
+
     }
     public PlayerCumRush(String playerid)
     {
@@ -28,7 +28,7 @@ public class PlayerCumRush {
     }
     public void fetch() throws DLException {
         //SQL query string
-        String query = "SELECT rushatt,rushyds,rush2pt FROM playergamerush WHERE playerid= ?;";
+        String query = "SELECT rushatt,rushyds,rushTd,rush2pt FROM playergamerush WHERE playerid= ?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(playerid);
 
@@ -39,7 +39,8 @@ public class PlayerCumRush {
             //set name to the first field value
             rushAtt = Integer.parseInt(fields[0]);
             rushYds = Integer.parseInt(fields[1]);
-            rush2pt = Integer.parseInt(fields[2]);
+            rushTd = Integer.parseInt(fields[2]);
+            rush2pt = Integer.parseInt(fields[3]);
 
         } catch (Exception e) {
             System.out.println("No Record Found");
@@ -53,11 +54,12 @@ public class PlayerCumRush {
         int effected;
         ArrayList<String> values = new ArrayList<>();
         //SQL Insert String
-        String insert = "INSERT INTO playercumrush(playerid,rushatt,rushyds,rush2pt)VALUES(?,?,?,?);";
+        String insert = "INSERT INTO playercumrush(playerid,rushatt,rushyds,rushtd,rush2pt)VALUES(?,?,?,?,?);";
         //bind values
         values.add(playerid);
         values.add(String.valueOf(rushAtt));
         values.add(String.valueOf(rushYds));
+        values.add(String.valueOf(rushTd));
         values.add(String.valueOf(rush2pt));
 
         try {
@@ -76,11 +78,12 @@ public class PlayerCumRush {
     public int put() throws DLException {  //effected records
         int effected;
         //SQL Update String
-        String update = "UPDATE playercumrush SET rushatt=?,rushyds=?,rush2pt=? WHERE playerid=?;";
+        String update = "UPDATE playercumrush SET rushatt=?,rushyds=?,rushtd=?,rush2pt=? WHERE playerid=?;";
         ArrayList<String> values = new ArrayList<>();
 
         values.add(String.valueOf(rushAtt));
         values.add(String.valueOf(rushYds));
+        values.add(String.valueOf(rushTd));
         values.add(String.valueOf(rush2pt));
         values.add(playerid);
 
@@ -101,8 +104,6 @@ public class PlayerCumRush {
         String delete = "DELETE FROM playercumrush WHERE playerid=?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(playerid);
-
-
         try {
 
             //perform delete and return number of effected records
@@ -116,17 +117,16 @@ public class PlayerCumRush {
 
         return effected;
     }
-
     @Override
     public String toString() {
         return "PlayerCumRush{" +
                 "playerid='" + playerid + '\'' +
                 ", rushAtt=" + rushAtt +
                 ", rushYds=" + rushYds +
+                ", rushTd=" + rushTd +
                 ", rush2pt=" + rush2pt +
                 '}';
     }
-
     public String getPlayerid() {
         return playerid;
     }
@@ -149,6 +149,14 @@ public class PlayerCumRush {
 
     public void setRushYds(int rushYds) {
         this.rushYds = rushYds;
+    }
+
+    public int getRushTd() {
+        return rushTd;
+    }
+
+    public void setRushTd(int rushTd) {
+        this.rushTd = rushTd;
     }
 
     public int getRush2pt() {

@@ -124,6 +124,24 @@ public class LoadDatabase {
             throw new DLException(e, "could not load players game data");
         }
     }
+    public void loadPlayerRush(String team, String pos) throws Exception {
+        try {
+            ArrayList<int[]> stats = msf.getStatsByTeamPos(team, pos);
+
+            for (int[] curPlayer : stats) {
+
+                int[] rushStats = new int[]{curPlayer[0],curPlayer[1],curPlayer[9]};
+                PlayerGameRush rush = new PlayerGameRush(rushStats);
+                rush.put();
+
+                    }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DLException(e, "could not load players game data");
+        }
+    }
     public void loadCumPlayerStats(String pos) throws DLException {
         try {
 
@@ -204,34 +222,6 @@ public class LoadDatabase {
             throw new DLException(e, "could not load team data");
         }
     }
-    public void loadAllPlayers()throws Exception {
-
-        try {
-            db.startTrans();
-            System.out.println("Loading Active Player Data...This May Take A While...");
-            double loading = 0.0;
-            double time = 50000;
-
-            for(String pos : position)
-            {
-                double perc = loading / 5 * 100;
-                double minutes = (time / 1000) / 60;
-                loadPlayersByPos(pos);
-                loading++;
-                System.out.println("Loading...." + perc + "%");
-                System.out.println("Time Remaining: " + minutes + " minutes");
-                Thread.sleep(15000);
-                time -= 15000;
-            }
-            db.endTrans();
-            System.out.println("Loading...100%");
-            System.out.println("Active Player Data Loaded Successfully!");
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
     public void loadAllGames()throws Exception {
         try {
             db.startTrans();
@@ -273,6 +263,37 @@ public class LoadDatabase {
                     double perc = loading / 160 * 100;
                     double minutes = time / 60;
                     loadPlayerStats(team,pos);
+                    System.out.println(team+" "+pos+" have been successfully loaded");
+                    loading++;
+                    System.out.println("Loading...." + perc + "%");
+                    System.out.println("Time Remaining: " + minutes + " minutes");
+                    Thread.sleep(15000);
+                    time -= 15;
+                }
+            }
+            db.endTrans();
+            System.out.println("Loading...100%");
+            System.out.println("Player Game Stats Loaded Successfully!");
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void loadAllPlayerRush()throws Exception {
+
+        try
+        {  db.startTrans();
+            System.out.println("Loading Player Game Stats...This May Take A While...");
+            double loading = 0.0;
+            double time = 2400;
+            for(String team: teams)
+            {   System.out.println("Now Loading.... "+team+" players");
+                for(String pos : position)
+                {
+                    double perc = loading / 160 * 100;
+                    double minutes = time / 60;
+                    loadPlayerRush(team,pos);
                     System.out.println(team+" "+pos+" have been successfully loaded");
                     loading++;
                     System.out.println("Loading...." + perc + "%");

@@ -8,28 +8,24 @@ public class PlayerGameRush {
     private String playerid;
     private int rushAtt;
     private int rushYds;
+    private int rushTd;
     private int rush2pt;
     private static FootballDatabase db = new FootballDatabase();
 
     public PlayerGameRush(int[] stats) {
         gameid = String.valueOf(stats[0]);
         playerid = String.valueOf(stats[1]);
-        rushAtt = stats[2];
-        rushYds = stats[3];
-        rush2pt = stats[4];
+        rushTd = stats[2];
+
     }
     public PlayerGameRush(String gameid,String playerid)
     {
         this.gameid = gameid;
         this.playerid = playerid;
     }
-    public PlayerGameRush() {
-
-
-    }
     public void fetch() throws DLException {
         //SQL query string
-        String query = "SELECT rushatt,rushyds,rush2pt FROM playergamerush WHERE gameid=? AND playerid= ?;";
+        String query = "SELECT rushatt,rushyds,rushtd,rush2pt FROM playergamerush WHERE gameid=? AND playerid= ?;";
 
         ArrayList<String> values = new ArrayList<>();
         try {
@@ -53,12 +49,13 @@ public class PlayerGameRush {
         int effected;
         ArrayList<String> values = new ArrayList<>();
         //SQL Insert String
-        String insert = "INSERT INTO playergamerush(gameid,playerid,rushatt,rushyds,rush2pt)VALUES(?,?,?,?,?);";
+        String insert = "INSERT INTO playergamerush(gameid,playerid,rushatt,rushyds,rushtd,rush2pt)VALUES(?,?,?,?,?,?);";
         //bind values
         values.add(gameid);
         values.add(playerid);
         values.add(String.valueOf(rushAtt));
         values.add(String.valueOf(rushYds));
+        values.add(String.valueOf(rushTd));
         values.add(String.valueOf(rush2pt));
 
         try {
@@ -77,11 +74,12 @@ public class PlayerGameRush {
     public int put() throws DLException {  //effected records
         int effected;
         //SQL Update String
-        String update = "UPDATE playergamerush SET rushatt=?,rushyds=?,rush2pt=? WHERE gameid = ? AND playerid=?;";
+        String update = "UPDATE playergamerush SET rushatt=?,rushyds=?,rushtd=?,rush2pt=? WHERE gameid = ? AND playerid=?;";
         ArrayList<String> values = new ArrayList<>();
 
         values.add(String.valueOf(rushAtt));
         values.add(String.valueOf(rushYds));
+        values.add(String.valueOf(rushTd));
         values.add(String.valueOf(rush2pt));
         values.add(gameid);
         values.add(playerid);
@@ -104,8 +102,6 @@ public class PlayerGameRush {
         ArrayList<String> values = new ArrayList<>();
         values.add(gameid);
         values.add(playerid);
-
-
         try {
 
             //perform delete and return number of effected records
@@ -119,7 +115,6 @@ public class PlayerGameRush {
 
         return effected;
     }
-
     @Override
     public String toString() {
         return "PlayerGameRush{" +
@@ -127,6 +122,7 @@ public class PlayerGameRush {
                 ", playerid='" + playerid + '\'' +
                 ", rushAtt=" + rushAtt +
                 ", rushYds=" + rushYds +
+                ", rushTd=" + rushTd +
                 ", rush2pt=" + rush2pt +
                 '}';
     }
@@ -161,6 +157,14 @@ public class PlayerGameRush {
 
     public void setRushYds(int rushYds) {
         this.rushYds = rushYds;
+    }
+
+    public int getRushTd() {
+        return rushTd;
+    }
+
+    public void setRushTd(int rushTd) {
+        this.rushTd = rushTd;
     }
 
     public int getRush2pt() {
