@@ -1,0 +1,22 @@
+.card1 {
+  background-color: lightgray;
+  width: 20rem;
+  margin-left: auto;
+}
+.card2 {
+  background-color: lightgray;
+  width: 20rem;
+  margin-right: auto;
+}
+
+.card3 {
+  width: 40rem;
+  margin-left: auto;
+}
+.card4 {
+  width: 40rem;
+  margin-right: auto;
+}
+.table {
+  height: auto;
+}
