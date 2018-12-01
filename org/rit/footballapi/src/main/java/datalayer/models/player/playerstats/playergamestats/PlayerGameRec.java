@@ -1,4 +1,4 @@
-package main.java.datalayer.models.playerstats;
+package main.java.datalayer.models.player.playerstats.playergamestats;
 
 import main.java.datalayer.database.*;
 

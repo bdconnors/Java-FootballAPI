@@ -1,11 +1,11 @@
-package main.java.datalayer.models.playerstats;
+package main.java.datalayer.models.player.playerstats.playergamestats;
 
 import main.java.datalayer.database.*;
 
 import java.util.ArrayList;
 
-public class PlayerCumKick {
-
+public class PlayerGameKick {
+    private String gameid;
     private String playerid;
     private int fgAtt;
     private int fgMd;
@@ -13,28 +13,24 @@ public class PlayerCumKick {
     private int xpMd;
     private static FootballDatabase db = new FootballDatabase();
 
-    public PlayerCumKick(int[] stats) {
-        playerid = String.valueOf(stats[0]);
-        fgAtt = stats[1];
-        fgMd = stats[2];
-        xpAtt = stats[3];
-        xpMd = stats[4];
+    public PlayerGameKick(int[] stats) {
+        gameid = String.valueOf(stats[0]);
+        playerid = String.valueOf(stats[1]);
+        fgAtt = stats[2];
+        fgMd = stats[3];
+        xpAtt = stats[4];
+        xpMd = stats[5];
 
     }
-    public PlayerCumKick(String playerid)
-    {
-        this.playerid = playerid;
-
-    }
-    public PlayerCumKick() {
+    public PlayerGameKick() {
 
 
     }
     public void fetch() throws DLException {
         //SQL query string
-        String query = "SELECT fgatt,fgmd,xpatt,xpmd FROM playercumkick WHERE playerid= ?;";
+        String query = "SELECT fgatt,fgmd,xpatt,xpmd FROM playergamekick WHERE gameid=? AND playerid= ?;";
+
         ArrayList<String> values = new ArrayList<>();
-        values.add(playerid);
         try {
             //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
             ArrayList<String[]> info = db.getData(query, values);
@@ -55,9 +51,10 @@ public class PlayerCumKick {
         int effected;
         ArrayList<String> values = new ArrayList<>();
         //SQL Insert String
-        String insert = "INSERT INTO playercumkick(playerid,fgatt,fgmd,xpatt,xpmd)VALUES(?,?,?,?,?);";
+        String insert = "INSERT INTO playergamekick(gameid,playerid,fgatt,fgmd,xpatt,xpmd)VALUES(?,?,?,?,?,?);";
         //bind values
 
+        values.add(gameid);
         values.add(playerid);
         values.add(String.valueOf(fgAtt));
         values.add(String.valueOf(fgMd));
@@ -80,13 +77,14 @@ public class PlayerCumKick {
     public int put() throws DLException {  //effected records
         int effected;
         //SQL Update String
-        String update = "UPDATE playercumkick SET fgatt=?,fgmd=?,xpatt=?,xpmd=? WHERE playerid=?;";
+        String update = "UPDATE playergamekick SET fgatt=?,fgmd=?,xpatt=?,xpmd=? WHERE gameid = ? AND playerid=?;";
         ArrayList<String> values = new ArrayList<>();
 
         values.add(String.valueOf(fgAtt));
         values.add(String.valueOf(fgMd));
         values.add(String.valueOf(xpAtt));
         values.add(String.valueOf(xpMd));
+        values.add(gameid);
         values.add(playerid);
 
         try {
@@ -103,8 +101,9 @@ public class PlayerCumKick {
         //effected records
         int effected;
         //SQL delete string
-        String delete = "DELETE FROM playercumkick WHERE playerid=?;";
+        String delete = "DELETE FROM playergamekick WHERE gameid =? AND playerid=?;";
         ArrayList<String> values = new ArrayList<>();
+        values.add(gameid);
         values.add(playerid);
 
 
@@ -124,13 +123,22 @@ public class PlayerCumKick {
 
     @Override
     public String toString() {
-        return "PlayerCumKick{" +
-                "playerid='" + playerid + '\'' +
+        return "PlayerGameKick{" +
+                "gameid='" + gameid + '\'' +
+                ", playerid='" + playerid + '\'' +
                 ", fgAtt=" + fgAtt +
                 ", fgMd=" + fgMd +
                 ", xpAtt=" + xpAtt +
                 ", xpMd=" + xpMd +
                 '}';
+    }
+
+    public String getGameid() {
+        return gameid;
+    }
+
+    public void setGameid(String gameid) {
+        this.gameid = gameid;
     }
 
     public String getPlayerid() {

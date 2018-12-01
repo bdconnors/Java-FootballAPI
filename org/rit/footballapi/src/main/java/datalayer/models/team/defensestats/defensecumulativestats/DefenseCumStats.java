@@ -1,4 +1,4 @@
-package main.java.datalayer.models.defensestats;
+package main.java.datalayer.models.team.defensestats.defensecumulativestats;
 
 import main.java.datalayer.database.*;
 
