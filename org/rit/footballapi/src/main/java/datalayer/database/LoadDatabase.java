@@ -21,7 +21,9 @@ public class LoadDatabase {
 
     public LoadDatabase()
     {
-
+        position = new String[]{"WR", "RB", "TE", "QB", "K"};
+        teams = new String[]{"ARI","ATL","BAL","BUF","CAR","CHI","CIN","CLE","DAL","DEN","DET","GB","HOU","IND","JAX",
+                "KC","LAC","LAR","MIA","MIN","NE","NO","NYG","NYJ","OAK","PHI","PIT","SEA","SF","TB","TEN","WAS"};
     }
 
     /**Retrieves data on players of the specified position from an API and loads it into database

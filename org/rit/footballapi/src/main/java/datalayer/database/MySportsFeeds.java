@@ -191,7 +191,7 @@ public class MySportsFeeds {
          for (int i = 0; i < games.size(); i++) {
             JsonNode gamelog = games.get(i);
             if(!gamelog.findPath("player").findPath("ID").isMissingNode()) {
-               int[] stats = new int[22];
+               int[] stats = new int[23];
                stats[0] = gamelog.findPath("game").findPath("id").asInt();
                stats[1] = gamelog.findPath("player").findPath("ID").asInt();
                stats[2] = gamelog.findPath("stats").findPath("PassAttempts").findPath("#text").asInt();
@@ -201,19 +201,20 @@ public class MySportsFeeds {
                stats[6] = gamelog.findPath("stats").findPath("TwoPtPassMade").findPath("#text").asInt();
                stats[7] = gamelog.findPath("stats").findPath("RushAttempts").findPath("#text").asInt();
                stats[8] = gamelog.findPath("stats").findPath("RushYards").findPath("#text").asInt();
-               stats[9] = gamelog.findPath("stats").findPath("TwoPtRushMade").findPath("#text").asInt();
-               stats[10] = gamelog.findPath("stats").findPath("Receptions").findPath("#text").asInt();
-               stats[11] = gamelog.findPath("stats").findPath("RecYards").findPath("#text").asInt();
-               stats[12] = gamelog.findPath("stats").findPath("RecTD").findPath("#text").asInt();
-               stats[13] = gamelog.findPath("stats").findPath("TwoPtPassRec").findPath("#text").asInt();
-               stats[14] = gamelog.findPath("stats").findPath("FgAtt").findPath("#text").asInt();
-               stats[15] = gamelog.findPath("stats").findPath("FgMade").findPath("#text").asInt();
-               stats[16] = gamelog.findPath("stats").findPath("XpAtt").findPath("#text").asInt();
-               stats[17] = gamelog.findPath("stats").findPath("XpMade").findPath("#text").asInt();
-               stats[18] = gamelog.findPath("stats").findPath("PassInt").findPath("#text").asInt();
-               stats[19] = gamelog.findPath("stats").findPath("Fumbles").findPath("#text").asInt();
-               stats[20] = gamelog.findPath("stats").findPath("KrTD").findPath("#text").asInt();
-               stats[21] = gamelog.findPath("stats").findPath("PrTD").findPath("#text").asInt();
+               stats[9] = gamelog.findPath("stats").findPath("RushTD").findPath("#text").asInt();
+               stats[10] = gamelog.findPath("stats").findPath("TwoPtRushMade").findPath("#text").asInt();
+               stats[11] = gamelog.findPath("stats").findPath("Receptions").findPath("#text").asInt();
+               stats[12] = gamelog.findPath("stats").findPath("RecYards").findPath("#text").asInt();
+               stats[13] = gamelog.findPath("stats").findPath("RecTD").findPath("#text").asInt();
+               stats[14] = gamelog.findPath("stats").findPath("TwoPtPassRec").findPath("#text").asInt();
+               stats[15] = gamelog.findPath("stats").findPath("FgAtt").findPath("#text").asInt();
+               stats[16] = gamelog.findPath("stats").findPath("FgMade").findPath("#text").asInt();
+               stats[17] = gamelog.findPath("stats").findPath("XpAtt").findPath("#text").asInt();
+               stats[18] = gamelog.findPath("stats").findPath("XpMade").findPath("#text").asInt();
+               stats[19] = gamelog.findPath("stats").findPath("PassInt").findPath("#text").asInt();
+               stats[20] = gamelog.findPath("stats").findPath("Fumbles").findPath("#text").asInt();
+               stats[21] = gamelog.findPath("stats").findPath("KrTD").findPath("#text").asInt();
+               stats[22] = gamelog.findPath("stats").findPath("PrTD").findPath("#text").asInt();
                pStats.add(stats);
             }
          }
