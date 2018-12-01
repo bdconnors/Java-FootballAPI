@@ -18,6 +18,11 @@ public class PlayerGameRush {
         rushYds = stats[3];
         rush2pt = stats[4];
     }
+    public PlayerGameRush(String gameid,String playerid)
+    {
+        this.gameid = gameid;
+        this.playerid = playerid;
+    }
     public PlayerGameRush() {
 
 

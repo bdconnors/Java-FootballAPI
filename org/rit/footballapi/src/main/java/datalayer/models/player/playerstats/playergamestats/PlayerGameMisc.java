@@ -22,6 +22,11 @@ public class PlayerGameMisc {
         prTD = stats[5];
 
     }
+    public PlayerGameMisc(String gameid, String playerid)
+    {
+        this.gameid = gameid;
+        this.playerid = playerid;
+    }
     public PlayerGameMisc() {
 
 

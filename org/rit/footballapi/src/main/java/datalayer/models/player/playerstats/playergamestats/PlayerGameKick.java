@@ -13,7 +13,8 @@ public class PlayerGameKick {
     private int xpMd;
     private static FootballDatabase db = new FootballDatabase();
 
-    public PlayerGameKick(int[] stats) {
+    public PlayerGameKick(int[] stats)
+    {
         gameid = String.valueOf(stats[0]);
         playerid = String.valueOf(stats[1]);
         fgAtt = stats[2];
@@ -22,8 +23,15 @@ public class PlayerGameKick {
         xpMd = stats[5];
 
     }
-    public PlayerGameKick() {
+    public PlayerGameKick(String playerid,String gameid) {
 
+        this.playerid = playerid;
+        this.gameid = gameid;
+
+
+    }
+    public PlayerGameKick()
+    {
 
     }
     public void fetch() throws DLException {

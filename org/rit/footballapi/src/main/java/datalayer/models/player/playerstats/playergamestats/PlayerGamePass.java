@@ -23,8 +23,15 @@ public class PlayerGamePass {
         passTds = stats[5];
         pass2pt = stats[6];
     }
-    public PlayerGamePass() {
+    public PlayerGamePass(String gameid,String playerid) {
 
+        this.gameid = gameid;
+        this.playerid = playerid;
+
+
+    }
+    public PlayerGamePass()
+    {
 
     }
     public void fetch() throws DLException {
