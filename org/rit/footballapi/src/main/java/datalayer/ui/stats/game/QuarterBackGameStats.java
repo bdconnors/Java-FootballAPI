@@ -1,6 +1,15 @@
 package main.java.datalayer.ui.stats.game;
 
 import main.java.datalayer.database.DLException;
+import main.java.datalayer.database.FootballDatabase;
+
+import java.io.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class QuarterBackGameStats {
 
@@ -20,6 +29,8 @@ public class QuarterBackGameStats {
     private int rushYds;
     private int rushTd;
     private int fum;
+    private static FootballDatabase db = new FootballDatabase();
+
 
     public QuarterBackGameStats(String gameid,String playerid){
 
@@ -33,7 +44,43 @@ public class QuarterBackGameStats {
     }
     public void fetch()throws DLException
     {
+        try
+        {
+            String query = getQuery("qbgamestats");
+            ArrayList<String[]> stats = db.getData(query,new ArrayList<String>() {{add(playerid);add(gameid);}});
+            for(String[] statistics: stats)
+            {
+                for(String stat: statistics)
+                {
+                    System.out.println(stat);
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 
+    }
+    private String getQuery(String filename)throws IOException
+    {
+        String query = null;
+        try {
+            BufferedReader buf = new BufferedReader(new InputStreamReader(new FileInputStream("org/rit/footballapi/src/main/resources/queries/"+filename+".sql")));
+            String line = buf.readLine();
+            StringBuilder sb = new StringBuilder();
+            while (line != null)
+            {
+                sb.append(line).append("\n");
+                line = buf.readLine();
+            }
+            query = sb.toString();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+        return query;
     }
     @Override
     public String toString() {
