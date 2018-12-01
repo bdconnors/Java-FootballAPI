@@ -1,4 +1,4 @@
-package main.java.datalayer.models;
+package main.java.datalayer.models.player;
 
 import main.java.datalayer.database.*;
 import java.util.ArrayList;

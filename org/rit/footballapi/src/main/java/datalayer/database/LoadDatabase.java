@@ -1,9 +1,16 @@
 package main.java.datalayer.database;
 
 import java.util.ArrayList;
-import main.java.datalayer.models.defensestats.*;
-import main.java.datalayer.models.playerstats.*;
-import main.java.datalayer.models.*;
+
+import main.java.datalayer.models.game.Game;
+import main.java.datalayer.models.team.defensestats.defensecumulativestats.DefenseCumStats;
+import main.java.datalayer.models.team.defensestats.defensegamestats.DefenseGameStats;
+import main.java.datalayer.models.team.defensestats.defensecumulativestats.MiscDefenseCumStats;
+import main.java.datalayer.models.team.defensestats.defensegamestats.MiscDefenseGameStats;
+import main.java.datalayer.models.player.Player;
+import main.java.datalayer.models.player.playerstats.playercumulativestats.*;
+import main.java.datalayer.models.player.playerstats.playergamestats.*;
+import main.java.datalayer.models.team.Team;
 
 public class LoadDatabase {
 

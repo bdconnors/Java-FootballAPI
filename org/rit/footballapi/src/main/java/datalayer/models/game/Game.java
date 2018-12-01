@@ -1,4 +1,4 @@
-package main.java.datalayer.models;
+package main.java.datalayer.models.game;
 
 import main.java.datalayer.database.*;
 

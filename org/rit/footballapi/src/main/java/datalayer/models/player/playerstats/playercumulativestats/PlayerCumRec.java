@@ -1,34 +1,35 @@
-package main.java.datalayer.models.playerstats;
-
+package main.java.datalayer.models.player.playerstats.playercumulativestats;
 import main.java.datalayer.database.*;
 
 import java.util.ArrayList;
 
-public class PlayerCumRush {
+public class PlayerCumRec {
     private String playerid;
-    private int rushAtt;
-    private int rushYds;
-    private int rush2pt;
+    private int rec;
+    private int recYds;
+    private int recTd;
+    private int rec2pt;
     private static FootballDatabase db = new FootballDatabase();
 
-    public PlayerCumRush(int[] stats) {
+    public PlayerCumRec(int[] stats) {
         playerid = String.valueOf(stats[0]);
-        rushAtt = stats[1];
-        rushYds = stats[2];
-        rush2pt = stats[3];
+        rec = stats[1];
+        recYds = stats[2];
+        recTd = stats[3];
+        rec2pt = stats[4];
     }
-    public PlayerCumRush(String playerid)
+    public PlayerCumRec(String playerid)
     {
         this.playerid = playerid;
 
     }
-    public PlayerCumRush() {
+    public PlayerCumRec() {
 
 
     }
     public void fetch() throws DLException {
         //SQL query string
-        String query = "SELECT rushatt,rushyds,rush2pt FROM playergamerush WHERE playerid= ?;";
+        String query = "SELECT rec,recyds,rectd,rec2pt FROM playercumrec WHERE playerid= ?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(playerid);
 
@@ -37,10 +38,10 @@ public class PlayerCumRush {
             ArrayList<String[]> info = db.getData(query, values);
             String[] fields = info.get(1);
             //set name to the first field value
-            rushAtt = Integer.parseInt(fields[0]);
-            rushYds = Integer.parseInt(fields[1]);
-            rush2pt = Integer.parseInt(fields[2]);
-
+            rec = Integer.parseInt(fields[0]);
+            recYds = Integer.parseInt(fields[1]);
+            recTd = Integer.parseInt(fields[2]);
+            rec2pt = Integer.parseInt(fields[3]);
         } catch (Exception e) {
             System.out.println("No Record Found");
 
@@ -53,13 +54,14 @@ public class PlayerCumRush {
         int effected;
         ArrayList<String> values = new ArrayList<>();
         //SQL Insert String
-        String insert = "INSERT INTO playercumrush(playerid,rushatt,rushyds,rush2pt)VALUES(?,?,?,?);";
+        String insert = "INSERT INTO playercumrec(playerid,rec,recyds,rectd,rec2pt)VALUES(?,?,?,?,?);";
         //bind values
-        values.add(playerid);
-        values.add(String.valueOf(rushAtt));
-        values.add(String.valueOf(rushYds));
-        values.add(String.valueOf(rush2pt));
 
+        values.add(playerid);
+        values.add(String.valueOf(rec));
+        values.add(String.valueOf(recYds));
+        values.add(String.valueOf(recTd));
+        values.add(String.valueOf(rec2pt));
         try {
             //perform insert and return number of effected
             effected = db.setData(insert, values);
@@ -67,21 +69,20 @@ public class PlayerCumRush {
         } catch (DLException e) {
             effected = -1;
             e.printStackTrace();
-
         }
 
         return effected;
-
     }
     public int put() throws DLException {  //effected records
         int effected;
         //SQL Update String
-        String update = "UPDATE playercumrush SET rushatt=?,rushyds=?,rush2pt=? WHERE playerid=?;";
+        String update = "UPDATE playercumrec SET rec=?,recyds=?,rectd=?,rec2pt=? WHERE playerid=?;";
         ArrayList<String> values = new ArrayList<>();
 
-        values.add(String.valueOf(rushAtt));
-        values.add(String.valueOf(rushYds));
-        values.add(String.valueOf(rush2pt));
+        values.add(String.valueOf(rec));
+        values.add(String.valueOf(recYds));
+        values.add(String.valueOf(recTd));
+        values.add(String.valueOf(rec2pt));
         values.add(playerid);
 
         try {
@@ -98,7 +99,7 @@ public class PlayerCumRush {
         //effected records
         int effected;
         //SQL delete string
-        String delete = "DELETE FROM playercumrush WHERE playerid=?;";
+        String delete = "DELETE FROM playercumrec WHERE playerid=?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(playerid);
 
@@ -119,11 +120,12 @@ public class PlayerCumRush {
 
     @Override
     public String toString() {
-        return "PlayerCumRush{" +
+        return "PlayerCumRec{" +
                 "playerid='" + playerid + '\'' +
-                ", rushAtt=" + rushAtt +
-                ", rushYds=" + rushYds +
-                ", rush2pt=" + rush2pt +
+                ", rec=" + rec +
+                ", recYds=" + recYds +
+                ", recTd=" + recTd +
+                ", rec2pt=" + rec2pt +
                 '}';
     }
 
@@ -135,27 +137,35 @@ public class PlayerCumRush {
         this.playerid = playerid;
     }
 
-    public int getRushAtt() {
-        return rushAtt;
+    public int getRec() {
+        return rec;
     }
 
-    public void setRushAtt(int rushAtt) {
-        this.rushAtt = rushAtt;
+    public void setRec(int rec) {
+        this.rec = rec;
     }
 
-    public int getRushYds() {
-        return rushYds;
+    public int getRecYds() {
+        return recYds;
     }
 
-    public void setRushYds(int rushYds) {
-        this.rushYds = rushYds;
+    public void setRecYds(int recYds) {
+        this.recYds = recYds;
     }
 
-    public int getRush2pt() {
-        return rush2pt;
+    public int getRecTd() {
+        return recTd;
     }
 
-    public void setRush2pt(int rush2pt) {
-        this.rush2pt = rush2pt;
+    public void setRecTd(int recTd) {
+        this.recTd = recTd;
+    }
+
+    public int getRec2pt() {
+        return rec2pt;
+    }
+
+    public void setRec2pt(int rec2pt) {
+        this.rec2pt = rec2pt;
     }
 }

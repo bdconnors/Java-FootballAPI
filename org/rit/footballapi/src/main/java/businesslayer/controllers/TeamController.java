@@ -1,7 +1,7 @@
 package main.java.businesslayer.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import main.java.datalayer.models.Team;
+import main.java.datalayer.models.team.Team;
 
 
 @RestController

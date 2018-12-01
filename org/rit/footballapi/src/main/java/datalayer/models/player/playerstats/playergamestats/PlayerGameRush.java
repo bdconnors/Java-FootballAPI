@@ -1,35 +1,30 @@
-package main.java.datalayer.models.playerstats;
+package main.java.datalayer.models.player.playerstats.playergamestats;
 
 import main.java.datalayer.database.*;
-
 import java.util.ArrayList;
 
-public class PlayerGamePass {
+public class PlayerGameRush {
     private String gameid;
     private String playerid;
-    private int passAtt;
-    private int passComp;
-    private int passYds;
-    private int passTds;
-    private int pass2pt;
+    private int rushAtt;
+    private int rushYds;
+    private int rush2pt;
     private static FootballDatabase db = new FootballDatabase();
 
-    public PlayerGamePass(int[] stats) {
+    public PlayerGameRush(int[] stats) {
         gameid = String.valueOf(stats[0]);
         playerid = String.valueOf(stats[1]);
-        passAtt = stats[2];
-        passComp = stats[3];
-        passYds = stats[4];
-        passTds = stats[5];
-        pass2pt = stats[6];
+        rushAtt = stats[2];
+        rushYds = stats[3];
+        rush2pt = stats[4];
     }
-    public PlayerGamePass() {
+    public PlayerGameRush() {
 
 
     }
     public void fetch() throws DLException {
         //SQL query string
-        String query = "SELECT passatt,passcomp,passyds,passtds,pass2pt FROM playergamepass WHERE gameid=? AND playerid= ?;";
+        String query = "SELECT rushatt,rushyds,rush2pt FROM playergamerush WHERE gameid=? AND playerid= ?;";
 
         ArrayList<String> values = new ArrayList<>();
         try {
@@ -37,11 +32,9 @@ public class PlayerGamePass {
             ArrayList<String[]> info = db.getData(query, values);
             String[] fields = info.get(1);
             //set name to the first field value
-            passAtt = Integer.parseInt(fields[0]);
-            passComp = Integer.parseInt(fields[1]);
-            passYds = Integer.parseInt(fields[2]);
-            passTds = Integer.parseInt(fields[3]);
-            pass2pt = Integer.parseInt(fields[4]);
+            rushAtt = Integer.parseInt(fields[0]);
+            rushYds = Integer.parseInt(fields[1]);
+            rush2pt = Integer.parseInt(fields[2]);
 
         } catch (Exception e) {
             System.out.println("No Record Found");
@@ -55,16 +48,13 @@ public class PlayerGamePass {
         int effected;
         ArrayList<String> values = new ArrayList<>();
         //SQL Insert String
-        String insert = "INSERT INTO playergamepass(gameid,playerid,passatt,passcomp,passyds,passtds,pass2pt)VALUES(?,?,?,?,?,?,?);";
+        String insert = "INSERT INTO playergamerush(gameid,playerid,rushatt,rushyds,rush2pt)VALUES(?,?,?,?,?);";
         //bind values
-
         values.add(gameid);
         values.add(playerid);
-        values.add(String.valueOf(passAtt));
-        values.add(String.valueOf(passComp));
-        values.add(String.valueOf(passYds));
-        values.add(String.valueOf(passTds));
-        values.add(String.valueOf(pass2pt));
+        values.add(String.valueOf(rushAtt));
+        values.add(String.valueOf(rushYds));
+        values.add(String.valueOf(rush2pt));
 
         try {
             //perform insert and return number of effected
@@ -82,15 +72,12 @@ public class PlayerGamePass {
     public int put() throws DLException {  //effected records
         int effected;
         //SQL Update String
-        String update = "UPDATE playergamepass SET passatt=?,passcomp=?,passyds=?,passtds=?,pass2pt=? WHERE gameid = ? AND playerid=?;";
+        String update = "UPDATE playergamerush SET rushatt=?,rushyds=?,rush2pt=? WHERE gameid = ? AND playerid=?;";
         ArrayList<String> values = new ArrayList<>();
 
-
-        values.add(String.valueOf(passAtt));
-        values.add(String.valueOf(passComp));
-        values.add(String.valueOf(passYds));
-        values.add(String.valueOf(passTds));
-        values.add(String.valueOf(pass2pt));
+        values.add(String.valueOf(rushAtt));
+        values.add(String.valueOf(rushYds));
+        values.add(String.valueOf(rush2pt));
         values.add(gameid);
         values.add(playerid);
 
@@ -108,10 +95,12 @@ public class PlayerGamePass {
         //effected records
         int effected;
         //SQL delete string
-        String delete = "DELETE FROM playergamepass WHERE gameid =? AND playerid=?;";
+        String delete = "DELETE FROM playergamerush WHERE gameid =? AND playerid=?;";
         ArrayList<String> values = new ArrayList<>();
         values.add(gameid);
         values.add(playerid);
+
+
         try {
 
             //perform delete and return number of effected records
@@ -125,16 +114,15 @@ public class PlayerGamePass {
 
         return effected;
     }
+
     @Override
     public String toString() {
-        return "PlayerGamePass{" +
+        return "PlayerGameRush{" +
                 "gameid='" + gameid + '\'' +
                 ", playerid='" + playerid + '\'' +
-                ", passAtt=" + passAtt +
-                ", passComp=" + passComp +
-                ", passYds=" + passYds +
-                ", passTds=" + passTds +
-                ", pass2pt=" + pass2pt +
+                ", rushAtt=" + rushAtt +
+                ", rushYds=" + rushYds +
+                ", rush2pt=" + rush2pt +
                 '}';
     }
 
@@ -154,43 +142,27 @@ public class PlayerGamePass {
         this.playerid = playerid;
     }
 
-    public int getPassAtt() {
-        return passAtt;
+    public int getRushAtt() {
+        return rushAtt;
     }
 
-    public void setPassAtt(int passAtt) {
-        this.passAtt = passAtt;
+    public void setRushAtt(int rushAtt) {
+        this.rushAtt = rushAtt;
     }
 
-    public int getPassComp() {
-        return passComp;
+    public int getRushYds() {
+        return rushYds;
     }
 
-    public void setPassComp(int passComp) {
-        this.passComp = passComp;
+    public void setRushYds(int rushYds) {
+        this.rushYds = rushYds;
     }
 
-    public int getPassYds() {
-        return passYds;
+    public int getRush2pt() {
+        return rush2pt;
     }
 
-    public void setPassYds(int passYds) {
-        this.passYds = passYds;
-    }
-
-    public int getPassTds() {
-        return passTds;
-    }
-
-    public void setPassTds(int passTds) {
-        this.passTds = passTds;
-    }
-
-    public int getPass2pt() {
-        return pass2pt;
-    }
-
-    public void setPass2pt(int pass2pt) {
-        this.pass2pt = pass2pt;
+    public void setRush2pt(int rush2pt) {
+        this.rush2pt = rush2pt;
     }
 }

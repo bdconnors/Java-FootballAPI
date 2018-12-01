@@ -1,9 +1,11 @@
-package main.java.datalayer.models.playerstats;
+package main.java.datalayer.models.player.playerstats.playergamestats;
+
 import main.java.datalayer.database.*;
 
 import java.util.ArrayList;
 
-public class PlayerCumPass {
+public class PlayerGamePass {
+    private String gameid;
     private String playerid;
     private int passAtt;
     private int passComp;
@@ -12,29 +14,24 @@ public class PlayerCumPass {
     private int pass2pt;
     private static FootballDatabase db = new FootballDatabase();
 
-    public PlayerCumPass(int[] stats) {
-        playerid = String.valueOf(stats[0]);
-        passAtt = stats[1];
-        passComp = stats[2];
-        passYds = stats[3];
-        passTds = stats[4];
-        pass2pt = stats[5];
+    public PlayerGamePass(int[] stats) {
+        gameid = String.valueOf(stats[0]);
+        playerid = String.valueOf(stats[1]);
+        passAtt = stats[2];
+        passComp = stats[3];
+        passYds = stats[4];
+        passTds = stats[5];
+        pass2pt = stats[6];
     }
-    public PlayerCumPass(String playerid)
-    {
-        this.playerid = playerid;
-
-    }
-    public PlayerCumPass() {
+    public PlayerGamePass() {
 
 
     }
     public void fetch() throws DLException {
         //SQL query string
-        String query = "SELECT passatt,passcomp,passyds,passtds,pass2pt FROM playercumpass WHERE playerid= ?;";
-        ArrayList<String> values = new ArrayList<>();
-        values.add(playerid);
+        String query = "SELECT passatt,passcomp,passyds,passtds,pass2pt FROM playergamepass WHERE gameid=? AND playerid= ?;";
 
+        ArrayList<String> values = new ArrayList<>();
         try {
             //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
             ArrayList<String[]> info = db.getData(query, values);
@@ -58,8 +55,10 @@ public class PlayerCumPass {
         int effected;
         ArrayList<String> values = new ArrayList<>();
         //SQL Insert String
-        String insert = "INSERT INTO playercumpass(playerid,passatt,passcomp,passyds,passtds,pass2pt)VALUES(?,?,?,?,?,?);";
+        String insert = "INSERT INTO playergamepass(gameid,playerid,passatt,passcomp,passyds,passtds,pass2pt)VALUES(?,?,?,?,?,?,?);";
         //bind values
+
+        values.add(gameid);
         values.add(playerid);
         values.add(String.valueOf(passAtt));
         values.add(String.valueOf(passComp));
@@ -83,7 +82,7 @@ public class PlayerCumPass {
     public int put() throws DLException {  //effected records
         int effected;
         //SQL Update String
-        String update = "UPDATE playercumpass SET passatt=?,passcomp=?,passyds=?,passtds=?,pass2pt=? WHERE playerid=?;";
+        String update = "UPDATE playergamepass SET passatt=?,passcomp=?,passyds=?,passtds=?,pass2pt=? WHERE gameid = ? AND playerid=?;";
         ArrayList<String> values = new ArrayList<>();
 
 
@@ -92,6 +91,7 @@ public class PlayerCumPass {
         values.add(String.valueOf(passYds));
         values.add(String.valueOf(passTds));
         values.add(String.valueOf(pass2pt));
+        values.add(gameid);
         values.add(playerid);
 
         try {
@@ -108,8 +108,9 @@ public class PlayerCumPass {
         //effected records
         int effected;
         //SQL delete string
-        String delete = "DELETE FROM playercumpass WHERE playerid=?;";
+        String delete = "DELETE FROM playergamepass WHERE gameid =? AND playerid=?;";
         ArrayList<String> values = new ArrayList<>();
+        values.add(gameid);
         values.add(playerid);
         try {
 
@@ -124,17 +125,25 @@ public class PlayerCumPass {
 
         return effected;
     }
-
     @Override
     public String toString() {
-        return "PlayerCumPass{" +
-                "playerid='" + playerid + '\'' +
+        return "PlayerGamePass{" +
+                "gameid='" + gameid + '\'' +
+                ", playerid='" + playerid + '\'' +
                 ", passAtt=" + passAtt +
                 ", passComp=" + passComp +
                 ", passYds=" + passYds +
                 ", passTds=" + passTds +
                 ", pass2pt=" + pass2pt +
                 '}';
+    }
+
+    public String getGameid() {
+        return gameid;
+    }
+
+    public void setGameid(String gameid) {
+        this.gameid = gameid;
     }
 
     public String getPlayerid() {

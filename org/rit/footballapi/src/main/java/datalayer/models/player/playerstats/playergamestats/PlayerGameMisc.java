@@ -1,50 +1,45 @@
-package main.java.datalayer.models.playerstats;
+package main.java.datalayer.models.player.playerstats.playergamestats;
 
 import main.java.datalayer.database.*;
+
 import java.util.ArrayList;
 
-public class PlayerCumMisc {
+public class PlayerGameMisc {
+    private String gameid;
     private String playerid;
-    private int gplayed;
     private int intThr;
     private int fum;
     private int krTD;
     private int prTD;
     private static FootballDatabase db = new FootballDatabase();
 
-    public PlayerCumMisc(int[] stats) {
-        playerid = String.valueOf(stats[0]);
-        gplayed = stats[1];
+    public PlayerGameMisc(int[] stats) {
+        gameid = String.valueOf(stats[0]);
+        playerid = String.valueOf(stats[1]);
         intThr = stats[2];
         fum = stats[3];
         krTD = stats[4];
         prTD = stats[5];
 
     }
-    public PlayerCumMisc(String playerid)
-    {
-        this.playerid = playerid;
-
-    }
-    public PlayerCumMisc() {
+    public PlayerGameMisc() {
 
 
     }
     public void fetch() throws DLException {
         //SQL query string
-        String query = "SELECT gplayed,intthr,fum,krtd,prtd FROM playercummisc WHERE playerid= ?;";
+        String query = "SELECT intthr,fum,krtd,prtd FROM playergamemisc WHERE gameid=? AND playerid= ?;";
+
         ArrayList<String> values = new ArrayList<>();
-        values.add(playerid);
         try {
             //returns a ArrayList<String[]> filled with info that corresponds to the query statement and number of fields
             ArrayList<String[]> info = db.getData(query, values);
             String[] fields = info.get(1);
             //set name to the first field value
-            gplayed =  Integer.parseInt(fields[0]);
-            intThr = Integer.parseInt(fields[1]);
-            fum = Integer.parseInt(fields[2]);
-            krTD = Integer.parseInt(fields[3]);
-            prTD = Integer.parseInt(fields[4]);
+            intThr = Integer.parseInt(fields[0]);
+            fum = Integer.parseInt(fields[1]);
+            krTD = Integer.parseInt(fields[2]);
+            prTD = Integer.parseInt(fields[3]);
         } catch (Exception e) {
             System.out.println("No Record Found");
 
@@ -57,11 +52,11 @@ public class PlayerCumMisc {
         int effected;
         ArrayList<String> values = new ArrayList<>();
         //SQL Insert String
-        String insert = "INSERT INTO playercummisc(playerid,gplayed,intthr,fum,krtd,prtd)VALUES(?,?,?,?,?,?);";
+        String insert = "INSERT INTO playergamemisc(gameid,playerid,intthr,fum,krtd,prtd)VALUES(?,?,?,?,?,?);";
         //bind values
 
+        values.add(gameid);
         values.add(playerid);
-        values.add(String.valueOf(gplayed));
         values.add(String.valueOf(intThr));
         values.add(String.valueOf(fum));
         values.add(String.valueOf(krTD));
@@ -83,13 +78,13 @@ public class PlayerCumMisc {
     public int put() throws DLException {  //effected records
         int effected;
         //SQL Update String
-        String update = "UPDATE playercummisc SET gplayed=?,intthr=?,fum=?,krtd=?,prtd=? WHERE playerid=?;";
+        String update = "UPDATE playergamemisc SET intthr=?,fum=?,krtd=?,prtd=? WHERE gameid = ? AND playerid=?;";
         ArrayList<String> values = new ArrayList<>();
-        values.add(String.valueOf(gplayed));
         values.add(String.valueOf(intThr));
         values.add(String.valueOf(fum));
         values.add(String.valueOf(krTD));
         values.add(String.valueOf(prTD));
+        values.add(gameid);
         values.add(playerid);
 
         try {
@@ -106,8 +101,9 @@ public class PlayerCumMisc {
         //effected records
         int effected;
         //SQL delete string
-        String delete = "DELETE FROM playercummisc WHERE playerid=?;";
+        String delete = "DELETE FROM playergamemisc WHERE gameid =? AND playerid=?;";
         ArrayList<String> values = new ArrayList<>();
+        values.add(gameid);
         values.add(playerid);
 
 
@@ -124,17 +120,24 @@ public class PlayerCumMisc {
 
         return effected;
     }
-
     @Override
     public String toString() {
-        return "PlayerCumMisc{" +
-                "playerid='" + playerid + '\'' +
-                ", gplayed=" + gplayed +
+        return "PlayerStats{" +
+                "gameid='" + gameid + '\'' +
+                ", playerid='" + playerid + '\'' +
                 ", intThr=" + intThr +
                 ", fum=" + fum +
                 ", krTD=" + krTD +
                 ", prTD=" + prTD +
                 '}';
+    }
+
+    public String getGameid() {
+        return gameid;
+    }
+
+    public void setGameid(String gameid) {
+        this.gameid = gameid;
     }
 
     public String getPlayerid() {
@@ -143,14 +146,6 @@ public class PlayerCumMisc {
 
     public void setPlayerid(String playerid) {
         this.playerid = playerid;
-    }
-
-    public int getGplayed() {
-        return gplayed;
-    }
-
-    public void setGplayed(int gplayed) {
-        this.gplayed = gplayed;
     }
 
     public int getIntThr() {
