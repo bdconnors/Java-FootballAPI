@@ -2,24 +2,20 @@ package main.java.datalayer.ui.stats.game;
 
 import main.java.datalayer.database.DLException;
 import main.java.datalayer.database.FootballDatabase;
-
 import java.io.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 
 public class QuarterBackGameStats {
 
     private String gameid;
     private String playerid;
+    private String jNumber;
+    private String position;
     private String fName;
     private String lName;
     private String team;
-    private String position;
-    private String jNumber;
     private int passAtt;
     private int passComp;
     private int passYds;
@@ -48,7 +44,21 @@ public class QuarterBackGameStats {
         {
             String query = getQuery("qbgamestats","main/resources/queries/");
             ArrayList<String[]> stats = db.getData(query,new ArrayList<String>() {{add(playerid);add(gameid);}});
-
+            String[] qbgamestats = stats.get(1);
+            jNumber = qbgamestats[0];
+            position = qbgamestats[1];
+            fName = qbgamestats[2];
+            lName = qbgamestats[3];
+            team = qbgamestats[4];
+            passAtt = Integer.parseInt(qbgamestats[5]);
+            passComp = Integer.parseInt(qbgamestats[6]);
+            passYds = Integer.parseInt(qbgamestats[7]);
+            passTds = Integer.parseInt(qbgamestats[8]);
+            intThr = Integer.parseInt(qbgamestats[9]);
+            rushAtt = Integer.parseInt(qbgamestats[10]);
+            rushYds = Integer.parseInt(qbgamestats[11]);
+            rushTd = Integer.parseInt(qbgamestats[12]);
+            fum = Integer.parseInt(qbgamestats[13]);
         }
         catch(Exception e)
         {
