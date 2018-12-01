@@ -46,15 +46,9 @@ public class QuarterBackGameStats {
     {
         try
         {
-            String query = getQuery("qbgamestats");
+            String query = getQuery("qbgamestats","main/resources/queries/");
             ArrayList<String[]> stats = db.getData(query,new ArrayList<String>() {{add(playerid);add(gameid);}});
-            for(String[] statistics: stats)
-            {
-                for(String stat: statistics)
-                {
-                    System.out.println(stat);
-                }
-            }
+
         }
         catch(Exception e)
         {
@@ -62,11 +56,11 @@ public class QuarterBackGameStats {
         }
 
     }
-    private String getQuery(String filename)throws IOException
+    private String getQuery(String filename,String filepath)throws IOException
     {
         String query = null;
         try {
-            BufferedReader buf = new BufferedReader(new InputStreamReader(new FileInputStream("org/rit/footballapi/src/main/resources/queries/"+filename+".sql")));
+            BufferedReader buf = new BufferedReader(new InputStreamReader(new FileInputStream(filepath+filename+".sql")));
             String line = buf.readLine();
             StringBuilder sb = new StringBuilder();
             while (line != null)
