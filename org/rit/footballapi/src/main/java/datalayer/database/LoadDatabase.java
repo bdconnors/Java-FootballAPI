@@ -262,6 +262,35 @@ public class LoadDatabase {
             e.printStackTrace();
         }
     }
+    public void loadAllRunningBacks()throws Exception {
+
+        try
+        {  db.startTrans();
+            System.out.println("Loading Player Game Stats...This May Take A While...");
+            double loading = 0.0;
+            double time = 1920;
+            for(String team: teams)
+            {   System.out.println("Now Loading.... "+team+" players");
+
+                    double perc = loading / 160 * 100;
+                    double minutes = time / 60;
+                    loadPlayerStats(team,"rb");
+                    System.out.println(team+"RBs have been successfully loaded");
+                    loading++;
+                    System.out.println("Loading...." + perc + "%");
+                    System.out.println("Time Remaining: " + minutes + " minutes");
+                    Thread.sleep(12000);
+                    time -= 12;
+            }
+            db.endTrans();
+            System.out.println("Loading...100%");
+            System.out.println("Player Game Stats Loaded Successfully!");
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
     public void loadAllCumStats()throws Exception {
 
         try
