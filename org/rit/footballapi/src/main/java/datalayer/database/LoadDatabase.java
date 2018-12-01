@@ -274,7 +274,7 @@ public class LoadDatabase {
                     double perc = loading / 160 * 100;
                     double minutes = time / 60;
                     loadPlayerStats(team,"rb");
-                    System.out.println(team+"RBs have been successfully loaded");
+                    System.out.println(team+" RBs have been successfully loaded");
                     loading++;
                     System.out.println("Loading...." + perc + "%");
                     System.out.println("Time Remaining: " + minutes + " minutes");

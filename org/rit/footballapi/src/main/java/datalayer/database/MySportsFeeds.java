@@ -182,7 +182,7 @@ public class MySportsFeeds {
    public ArrayList<int[]> getStatsByTeamPos(String team, String pos) {
    
       ArrayList<int[]> pStats = new ArrayList<>();
-      String reqString = feedString + playerTeamGameString + team + "&" + positionString + pos+"&"+"force=false";
+      String reqString = feedString + playerTeamGameString + team + "&" + positionString + pos;
       try {
          ObjectMapper mapper = new ObjectMapper();
          String jsonString = apiRequest(reqString);
