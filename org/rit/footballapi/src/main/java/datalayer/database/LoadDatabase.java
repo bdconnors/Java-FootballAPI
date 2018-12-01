@@ -2,15 +2,15 @@ package main.java.datalayer.database;
 
 import java.util.ArrayList;
 
-import main.java.datalayer.models.game.Game;
-import main.java.datalayer.models.team.defensestats.defensecumulativestats.DefenseCumStats;
-import main.java.datalayer.models.team.defensestats.defensegamestats.DefenseGameStats;
-import main.java.datalayer.models.team.defensestats.defensecumulativestats.MiscDefenseCumStats;
-import main.java.datalayer.models.team.defensestats.defensegamestats.MiscDefenseGameStats;
-import main.java.datalayer.models.player.Player;
-import main.java.datalayer.models.player.playerstats.playercumulativestats.*;
-import main.java.datalayer.models.player.playerstats.playergamestats.*;
-import main.java.datalayer.models.team.Team;
+import main.java.datalayer.database.tables.Game;
+import main.java.datalayer.database.tables.stats.cumulative.defense.DefenseCumStats;
+import main.java.datalayer.database.tables.stats.cumulative.player.*;
+import main.java.datalayer.database.tables.stats.game.defense.DefenseGameStats;
+import main.java.datalayer.database.tables.stats.cumulative.defense.MiscDefenseCumStats;
+import main.java.datalayer.database.tables.stats.game.defense.MiscDefenseGameStats;
+import main.java.datalayer.database.tables.Player;
+import main.java.datalayer.database.tables.Team;
+import main.java.datalayer.database.tables.stats.game.player.*;
 
 public class LoadDatabase {
 

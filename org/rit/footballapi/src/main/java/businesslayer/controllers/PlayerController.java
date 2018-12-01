@@ -1,7 +1,7 @@
 package main.java.businesslayer.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import main.java.datalayer.models.player.Player;
+import main.java.datalayer.database.tables.Player;
 
 
 @RestController
