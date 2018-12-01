@@ -236,7 +236,7 @@ public class MySportsFeeds {
          for(int i = 0; i<players.size(); i++)
          {
             JsonNode player = players.get(i);
-            int[] stats = new int[22];
+            int[] stats = new int[23];
             stats[0] = player.findPath("ID").asInt();
             stats[1] = player.findPath("stats").findPath("PassAttempts").findPath("#text").asInt();
             stats[2] = player.findPath("stats").findPath("PassCompletions").findPath("#text").asInt();
@@ -245,20 +245,21 @@ public class MySportsFeeds {
             stats[5] = player.findPath("stats").findPath("TwoPtPassMade").findPath("#text").asInt();
             stats[6] = player.findPath("stats").findPath("RushAttempts").findPath("#text").asInt();
             stats[7] = player.findPath("stats").findPath("RushYards").findPath("#text").asInt();
-            stats[8] = player.findPath("stats").findPath("TwoPtRushMade").findPath("#text").asInt();
-            stats[9] = player.findPath("stats").findPath("Receptions").findPath("#text").asInt();
-            stats[10] = player.findPath("stats").findPath("RecYards").findPath("#text").asInt();
-            stats[11] = player.findPath("stats").findPath("RecTD").findPath("#text").asInt();
-            stats[12] = player.findPath("stats").findPath("TwoPtPassRec").findPath("#text").asInt();
-            stats[13] = player.findPath("stats").findPath("FgAtt").findPath("#text").asInt();
-            stats[14] = player.findPath("stats").findPath("FgMade").findPath("#text").asInt();
-            stats[15] = player.findPath("stats").findPath("XpAtt").findPath("#text").asInt();
-            stats[16] = player.findPath("stats").findPath("XpMade").findPath("#text").asInt();
-            stats[17] = player.findPath("stats").findPath("GamesPlayed").findPath("#text").asInt();
-            stats[18] = player.findPath("stats").findPath("PassInt").findPath("#text").asInt();
-            stats[19] = player.findPath("stats").findPath("Fumbles").findPath("#text").asInt();
-            stats[20] = player.findPath("stats").findPath("KrTD").findPath("#text").asInt();
-            stats[21] = player.findPath("stats").findPath("PrTD").findPath("#text").asInt();
+            stats[8] = player.findPath("stats").findPath("RushTD").findPath("#text").asInt();
+            stats[9] = player.findPath("stats").findPath("TwoPtRushMade").findPath("#text").asInt();
+            stats[10] = player.findPath("stats").findPath("Receptions").findPath("#text").asInt();
+            stats[11] = player.findPath("stats").findPath("RecYards").findPath("#text").asInt();
+            stats[12] = player.findPath("stats").findPath("RecTD").findPath("#text").asInt();
+            stats[13] = player.findPath("stats").findPath("TwoPtPassRec").findPath("#text").asInt();
+            stats[14] = player.findPath("stats").findPath("FgAtt").findPath("#text").asInt();
+            stats[15] = player.findPath("stats").findPath("FgMade").findPath("#text").asInt();
+            stats[16] = player.findPath("stats").findPath("XpAtt").findPath("#text").asInt();
+            stats[17] = player.findPath("stats").findPath("XpMade").findPath("#text").asInt();
+            stats[18] = player.findPath("stats").findPath("GamesPlayed").findPath("#text").asInt();
+            stats[19] = player.findPath("stats").findPath("PassInt").findPath("#text").asInt();
+            stats[20] = player.findPath("stats").findPath("Fumbles").findPath("#text").asInt();
+            stats[21] = player.findPath("stats").findPath("KrTD").findPath("#text").asInt();
+            stats[22] = player.findPath("stats").findPath("PrTD").findPath("#text").asInt();
             pStats.add(stats);
          }
       }

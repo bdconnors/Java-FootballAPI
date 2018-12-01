@@ -124,20 +124,20 @@ public class LoadDatabase {
             throw new DLException(e, "could not load players game data");
         }
     }
-    public void loadPlayerRush(String team, String pos) throws Exception {
+    public void loadCumRushStats(String pos) throws DLException {
         try {
-            ArrayList<int[]> stats = msf.getStatsByTeamPos(team, pos);
+
+            ArrayList<int[]> stats = msf.getOverallPlayerStats(pos);
 
             for (int[] curPlayer : stats) {
 
-                int[] rushStats = new int[]{curPlayer[0],curPlayer[1],curPlayer[9]};
-                PlayerGameRush rush = new PlayerGameRush(rushStats);
-                rush.put();
+                    int[] rushStats = {curPlayer[0],curPlayer[8]};
+                    PlayerCumRush rush = new PlayerCumRush(rushStats);
+                    rush.put();
 
-                    }
+                }
 
-
-        } catch (Exception e) {
+        } catch (DLException e) {
             e.printStackTrace();
             throw new DLException(e, "could not load players game data");
         }
@@ -286,22 +286,20 @@ public class LoadDatabase {
         {  db.startTrans();
             System.out.println("Loading Player Game Stats...This May Take A While...");
             double loading = 0.0;
-            double time = 2400;
-            for(String team: teams)
-            {   System.out.println("Now Loading.... "+team+" players");
+            double time = 75;
+
                 for(String pos : position)
                 {
                     double perc = loading / 160 * 100;
                     double minutes = time / 60;
-                    loadPlayerRush(team,pos);
-                    System.out.println(team+" "+pos+" have been successfully loaded");
+                    loadCumRushStats(pos);
+                    System.out.println(pos +" have been successfully loaded");
                     loading++;
                     System.out.println("Loading...." + perc + "%");
                     System.out.println("Time Remaining: " + minutes + " minutes");
                     Thread.sleep(15000);
                     time -= 15;
                 }
-            }
             db.endTrans();
             System.out.println("Loading...100%");
             System.out.println("Player Game Stats Loaded Successfully!");
