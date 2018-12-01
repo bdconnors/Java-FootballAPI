@@ -1,4 +1,4 @@
-package main.java.footballapi.database;
+package main.java.footballapidata.database;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

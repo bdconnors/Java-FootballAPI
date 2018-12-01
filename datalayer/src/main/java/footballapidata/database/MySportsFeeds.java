@@ -1,4 +1,4 @@
-package main.java.footballapi.database;
+package main.java.footballapidata.database;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

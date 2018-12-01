@@ -1,6 +1,4 @@
-package main.java.footballapi.database;
-
-import main.java.footballapi.database.DLException;
+package main.java.footballapidata.database;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

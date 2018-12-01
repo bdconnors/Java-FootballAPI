@@ -1,4 +1,4 @@
-package main.java.footballapi.database;
+package main.java.footballapidata.database;
 
 import java.sql.*;
 import java.util.ArrayList;

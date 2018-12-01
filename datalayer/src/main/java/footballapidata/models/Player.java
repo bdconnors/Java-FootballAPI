@@ -1,6 +1,6 @@
-package main.java.footballapi.models;
+package main.java.footballapidata.models;
 
-import main.java.footballapi.database.*;
+import main.java.footballapidata.database.*;
 import java.util.ArrayList;
 
 public class Player {

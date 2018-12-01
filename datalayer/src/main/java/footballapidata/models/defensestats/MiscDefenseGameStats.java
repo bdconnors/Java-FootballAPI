@@ -1,6 +1,6 @@
-package main.java.footballapi.models.defensestats;
+package main.java.footballapidata.models.defensestats;
 
-import main.java.footballapi.database.*;
+import main.java.footballapidata.database.*;
 import java.util.ArrayList;
 
 /**Represents defensive statistics acrued by an NFL team during a game

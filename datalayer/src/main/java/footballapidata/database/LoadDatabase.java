@@ -1,9 +1,9 @@
-package main.java.footballapi.database;
+package main.java.footballapidata.database;
 
 import java.util.ArrayList;
-import main.java.footballapi.models.defensestats.*;
-import main.java.footballapi.models.playerstats.*;
-import main.java.footballapi.models.*;
+import main.java.footballapidata.models.defensestats.*;
+import main.java.footballapidata.models.playerstats.*;
+import main.java.footballapidata.models.*;
 
 public class LoadDatabase {
 
