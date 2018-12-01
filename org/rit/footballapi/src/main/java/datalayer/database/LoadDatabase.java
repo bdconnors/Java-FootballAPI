@@ -94,30 +94,29 @@ public class LoadDatabase {
 
                 String playerQuery= "Select * from player where playerid = '"+curPlayer[1]+"';";
                 String playerGameQuery = "Select * from playergamepass where gameid = '"+curPlayer[0]+"'AND playerid = '"+curPlayer[1]+"';";
-                if(existsInDB(playerQuery))
-                {
-                    if (!existsInDB(playerGameQuery)) {
+
+
                         int[] passStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[2], curPlayer[3], curPlayer[4], curPlayer[5], curPlayer[6]};
                         PlayerGamePass pass = new PlayerGamePass(passStats);
-                        pass.post();
+                        pass.put();
 
                         int[] rushStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[7], curPlayer[8], curPlayer[9]};
                         PlayerGameRush rush = new PlayerGameRush(rushStats);
-                        rush.post();
+                        rush.put();
 
                         int[] recStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[10], curPlayer[11], curPlayer[12], curPlayer[13]};
                         PlayerGameRec rec = new PlayerGameRec(recStats);
-                        rec.post();
+                        rec.put();
 
                         int[] kickStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[14], curPlayer[15], curPlayer[16], curPlayer[17]};
                         PlayerGameKick kick = new PlayerGameKick(kickStats);
-                        kick.post();
+                        kick.put();
 
                         int[] miscStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[18], curPlayer[19], curPlayer[20], curPlayer[21]};
                         PlayerGameMisc misc = new PlayerGameMisc(miscStats);
-                        misc.post();
-                    }
-                }
+                        misc.put();
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();
