@@ -82,4 +82,136 @@ public class RunningBackGameStats {
         }
         return query;
     }
+
+    @Override
+    public String toString() {
+        return "RunningBackGameStats{" +
+                "gameid='" + gameid + '\'' +
+                ", playerid='" + playerid + '\'' +
+                ", jNumber='" + jNumber + '\'' +
+                ", position='" + position + '\'' +
+                ", fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", team='" + team + '\'' +
+                ", rushAtt=" + rushAtt +
+                ", rushYds=" + rushYds +
+                ", rushTd=" + rushTd +
+                ", rec=" + rec +
+                ", recYds=" + recYds +
+                ", recTd=" + recTd +
+                ", fum=" + fum +
+                '}';
+    }
+
+    public String getGameid() {
+        return gameid;
+    }
+
+    public void setGameid(String gameid) {
+        this.gameid = gameid;
+    }
+
+    public String getPlayerid() {
+        return playerid;
+    }
+
+    public void setPlayerid(String playerid) {
+        this.playerid = playerid;
+    }
+
+    public String getjNumber() {
+        return jNumber;
+    }
+
+    public void setjNumber(String jNumber) {
+        this.jNumber = jNumber;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getfName() {
+        return fName;
+    }
+
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public String getlName() {
+        return lName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
+
+    public int getRushAtt() {
+        return rushAtt;
+    }
+
+    public void setRushAtt(int rushAtt) {
+        this.rushAtt = rushAtt;
+    }
+
+    public int getRushYds() {
+        return rushYds;
+    }
+
+    public void setRushYds(int rushYds) {
+        this.rushYds = rushYds;
+    }
+
+    public int getRushTd() {
+        return rushTd;
+    }
+
+    public void setRushTd(int rushTd) {
+        this.rushTd = rushTd;
+    }
+
+    public int getRec() {
+        return rec;
+    }
+
+    public void setRec(int rec) {
+        this.rec = rec;
+    }
+
+    public int getRecYds() {
+        return recYds;
+    }
+
+    public void setRecYds(int recYds) {
+        this.recYds = recYds;
+    }
+
+    public int getRecTd() {
+        return recTd;
+    }
+
+    public void setRecTd(int recTd) {
+        this.recTd = recTd;
+    }
+
+    public int getFum() {
+        return fum;
+    }
+
+    public void setFum(int fum) {
+        this.fum = fum;
+    }
 }
