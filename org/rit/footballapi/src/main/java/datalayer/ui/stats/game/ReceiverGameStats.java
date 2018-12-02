@@ -21,7 +21,7 @@ public class ReceiverGameStats {
     private int rushYds;
     private int rushTd;
     private int fum;
-
+    private String path = "main/resources/queries/stats/game/";
     private static FootballDatabase db = new FootballDatabase();
 
 
@@ -36,9 +36,23 @@ public class ReceiverGameStats {
 
     }
 
-    public void fetch() throws DLException {
+    public void fetch(String type) throws DLException {
         try {
-            String query = getQuery("wrtegamestats", "main/resources/queries/");
+
+            String filename = null;
+            String filepath = null;
+
+            if(type.equals("all"))
+            {
+                filename = "wrteall.sql";
+                filepath = path+"all/";
+            }
+            if(type.equals("specific"))
+            {
+                filename ="wrtespecific.sql";
+                filepath = path+"specific/";
+            }
+            String query = getQuery(filename,filepath);
             ArrayList<String[]> stats = db.getData(query, new ArrayList<String>(){{add(playerid);add(gameid);}});
             String[] rbgamestats = stats.get(1);
             jNumber = rbgamestats[0];

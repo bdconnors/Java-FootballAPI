@@ -4,5 +4,5 @@ INNER JOIN playergamerush ON player.playerid = playergamerush.playerid
 INNER JOIN playergamerec ON playergamerush.playerid = playergamerec.playerid AND playergamerush.gameid = playergamerec.gameid
 INNER JOIN playergamemisc ON player.playerid = playergamemisc.playerid AND playergamerush.gameid = playergamemisc.gameid
 INNER JOIN game ON game.gameid = playergamerush.gameid
-WHERE firstname = "saquon" AND lastname = "barkley"
+WHERE firstname = ? AND lastname = ?
 GROUP BY game.date;

@@ -25,6 +25,7 @@ public class QuarterBackGameStats {
     private int rushYds;
     private int rushTd;
     private int fum;
+    private String path = "main/resources/queries/stats/game/";
     private static FootballDatabase db = new FootballDatabase();
 
 
@@ -38,11 +39,24 @@ public class QuarterBackGameStats {
     {
 
     }
-    public void fetch()throws DLException
+    public void fetch(String type)throws DLException
     {
         try
         {
-            String query = getQuery("qbgamestats","main/resources/queries/");
+            String filename = null;
+            String filepath = null;
+
+            if(type.equals("all"))
+            {
+                filename = "qball.sql";
+                filepath = path+"all/";
+            }
+            if(type.equals("specific"))
+            {
+                filename ="qbspecific.sql";
+                filepath = path+"specific/";
+            }
+            String query = getQuery(filename,filepath);
             ArrayList<String[]> stats = db.getData(query,new ArrayList<String>() {{add(playerid);add(gameid);}});
             String[] qbgamestats = stats.get(1);
             jNumber = qbgamestats[0];
