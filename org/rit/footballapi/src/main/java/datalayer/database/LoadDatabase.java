@@ -108,11 +108,11 @@ public class LoadDatabase {
                         PlayerGameRec rec = new PlayerGameRec(recStats);
                         rec.put();
 
-                        int[] kickStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[14], curPlayer[15], curPlayer[16], curPlayer[17]};
+                        int[] kickStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[15], curPlayer[16], curPlayer[17], curPlayer[18]};
                         PlayerGameKick kick = new PlayerGameKick(kickStats);
                         kick.put();
 
-                        int[] miscStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[18], curPlayer[19], curPlayer[20], curPlayer[21]};
+                        int[] miscStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[19], curPlayer[20], curPlayer[21], curPlayer[22]};
                         PlayerGameMisc misc = new PlayerGameMisc(miscStats);
                         misc.put();
 
