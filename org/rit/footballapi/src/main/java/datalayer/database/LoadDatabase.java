@@ -104,7 +104,7 @@ public class LoadDatabase {
                         PlayerGameRush rush = new PlayerGameRush(rushStats);
                         rush.put();
 
-                        int[] recStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[10], curPlayer[11], curPlayer[12], curPlayer[13]};
+                        int[] recStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[11], curPlayer[12], curPlayer[13], curPlayer[14]};
                         PlayerGameRec rec = new PlayerGameRec(recStats);
                         rec.put();
 
