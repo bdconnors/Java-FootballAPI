@@ -1,5 +1,5 @@
 package main.java.datalayer.ui.stats.cumulative;
 
-public class WideReceiverCumStats {
+public class ReceiverCumStats {
 
 }

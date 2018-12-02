@@ -100,7 +100,7 @@ public class LoadDatabase {
                         PlayerGamePass pass = new PlayerGamePass(passStats);
                         pass.put();
 
-                        int[] rushStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[7], curPlayer[8], curPlayer[9]};
+                        int[] rushStats = new int[]{curPlayer[0], curPlayer[1], curPlayer[7], curPlayer[8], curPlayer[9],curPlayer[10]};
                         PlayerGameRush rush = new PlayerGameRush(rushStats);
                         rush.put();
 
@@ -138,7 +138,7 @@ public class LoadDatabase {
                     PlayerCumPass pass = new PlayerCumPass(passStats);
                     pass.post();
 
-                    int[] rushStats = {curPlayer[0], curPlayer[6], curPlayer[7], curPlayer[8]};
+                    int[] rushStats = {curPlayer[0], curPlayer[6], curPlayer[7], curPlayer[8],curPlayer[9]};
                     PlayerCumRush rush = new PlayerCumRush(rushStats);
                     rush.post();
 

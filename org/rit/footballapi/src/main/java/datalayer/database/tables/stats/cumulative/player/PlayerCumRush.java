@@ -14,7 +14,10 @@ public class PlayerCumRush {
 
     public PlayerCumRush(int[] stats) {
         playerid = String.valueOf(stats[0]);
-        rushTd = stats[1];
+        rushAtt = stats[1];
+        rushYds = stats[2];
+        rushTd = stats[3];
+        rush2pt = stats[4];
 
     }
     public PlayerCumRush(String playerid)

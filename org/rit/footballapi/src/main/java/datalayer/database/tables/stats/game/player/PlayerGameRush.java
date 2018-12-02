@@ -15,7 +15,10 @@ public class PlayerGameRush {
     public PlayerGameRush(int[] stats) {
         gameid = String.valueOf(stats[0]);
         playerid = String.valueOf(stats[1]);
-        rushTd = stats[2];
+        rushAtt = stats[2];
+        rushYds = stats[3];
+        rushTd  = stats[4];
+        rush2pt  = stats[5];
 
     }
     public PlayerGameRush(String gameid,String playerid)
