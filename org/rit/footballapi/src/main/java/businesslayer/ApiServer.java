@@ -23,15 +23,7 @@ class ApiServer implements ApplicationListener<ApplicationReadyEvent> {
     public static void main(String[] args) {
          int port = 22222;
         SpringApplication.run(ApiServer.class, "--server.port="+port);
-        Scanner scan = new Scanner(System.in);
-        System.out.println("\n Press Any Key To Stop Spring Server...");
-        String exit = null;
-        
-        while(exit == null)
-        {
-            exit = scan.nextLine();
-        }
-        System.exit(0);
+
     }
 
     @Override

@@ -20,10 +20,10 @@ public class FootballDatabase {
    /** Creates a FootballDatabase with predefined information
     */
    public FootballDatabase() {
-      uri = "jdbc:mysql://localhost/football?autoReconnect=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+      uri = "jdbc:mysql://localhost/iste330t03?autoReconnect=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
       driver = "com.mysql.cj.jdbc.Driver";
-      user = "root";
-      password = "student";
+      user = "iste330t03";
+      password = "reallysudden";
    }
    /** Creates a FootballDatabase database with user specified information
     * @param uri The connection string used to connect to database

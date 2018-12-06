@@ -1,0 +1,262 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.1.0.RELEASE)
+
+2018-12-06 02:33:13.212  INFO 2631 --- [           main] main.java.businesslayer.ApiServer        : Starting ApiServer on ist-serenity with PID 2631 (/home/iste330t03/repos/ritdatabaseproject/org/rit/footballapi/src started by iste330t03 in /home/iste330t03/repos/ritdatabaseproject/org/rit/footballapi/src)
+2018-12-06 02:33:13.229  INFO 2631 --- [           main] main.java.businesslayer.ApiServer        : No active profile set, falling back to default profiles: default
+2018-12-06 02:33:16.066  INFO 2631 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 22222 (http)
+2018-12-06 02:33:16.150  INFO 2631 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-12-06 02:33:16.150  INFO 2631 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2018-12-06 02:33:16.161  INFO 2631 --- [           main] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+2018-12-06 02:33:16.353  INFO 2631 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-12-06 02:33:16.353  INFO 2631 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2998 ms
+2018-12-06 02:33:16.411  INFO 2631 --- [           main] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2018-12-06 02:33:16.434  INFO 2631 --- [           main] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-12-06 02:33:16.435  INFO 2631 --- [           main] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-12-06 02:33:16.435  INFO 2631 --- [           main] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2018-12-06 02:33:16.435  INFO 2631 --- [           main] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-12-06 02:33:16.951  INFO 2631 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2018-12-06 02:33:17.571  INFO 2631 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 22222 (http) with context path ''
+2018-12-06 02:33:17.597  INFO 2631 --- [           main] main.java.businesslayer.ApiServer        : Started ApiServer in 5.502 seconds (JVM running for 6.552)
+129.21.17.50:22222
+ Press Any Key To Stop Spring Server...
+Exception in thread "main" java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at main.java.businesslayer.ApiServer.main(ApiServer.java:32)
+2018-12-06 02:33:24.488  INFO 2631 --- [io-22222-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2018-12-06 02:33:24.489  INFO 2631 --- [io-22222-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2018-12-06 02:33:24.495  INFO 2631 --- [io-22222-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitWR
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitWR
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitWR
+hitWR
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitWR
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitWR
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitQB
+hitRB
+hitWR
+hitTE
+hitK
+hitWR
+hitWR
+2018-12-06 14:39:18.211  INFO 2631 --- [       Thread-3] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'

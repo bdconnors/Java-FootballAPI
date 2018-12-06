@@ -14,6 +14,7 @@ public class DBInterface extends FootballDatabase {
 
     public ArrayList<String[]> results = null;
 
+
     public void fetch()throws DLException
     {
         try
@@ -26,6 +27,19 @@ public class DBInterface extends FootballDatabase {
         }
 
     }
+    public int post()throws DLException
+    {   int effected = 0;
+        try
+        {
+           effected = setData(query,bindValues);
+        }
+        catch(Exception e)
+        {   effected = -1;
+            e.printStackTrace();
+        }
+
+        return effected;
+    }
     @JsonIgnore
     public String getQuery() {
         return query;
@@ -36,7 +50,7 @@ public class DBInterface extends FootballDatabase {
         String line;
         try
         {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("org/rit/footballapi/src/main/resources/queries/" + query));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("main/resources/queries/" + query));
             while((line = bufferedReader.readLine()) !=null)
             {
                 sb.append(line);
@@ -66,4 +80,5 @@ public class DBInterface extends FootballDatabase {
     public void setResults(ArrayList<String[]> results) {
         this.results = results;
     }
+
 }
