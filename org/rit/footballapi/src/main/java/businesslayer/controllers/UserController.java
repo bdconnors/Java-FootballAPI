@@ -15,7 +15,7 @@ public class UserController {
 
 
     @CrossOrigin(origins = "*",allowedHeaders ="*")
-    @RequestMapping(value="user/login", method = RequestMethod.GET)
+    @RequestMapping(value="User/login", method = RequestMethod.GET)
     @ResponseBody
     public User login(@RequestParam(required = false,value ="userName")String userName, @RequestParam(required = false,value ="password") String password)
     {
@@ -31,7 +31,7 @@ public class UserController {
         return user;
     }
     @CrossOrigin(origins = "*",allowedHeaders ="*")
-    @RequestMapping(value="create", method = RequestMethod.GET)
+    @RequestMapping(value="User/create", method = RequestMethod.GET)
     @ResponseBody
     public User create(@RequestParam(value ="userName")String userName, @RequestParam(value ="password") String password, @RequestParam(value ="accessLevel") String accessLevel)
     {
