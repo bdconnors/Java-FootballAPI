@@ -4,7 +4,8 @@ body {
   background: #f4f4f4;
 }
 h2 {
-  font-size: 1.2em;
+  font-size: 1.5em;
+  font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 10px;
 }
