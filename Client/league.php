@@ -27,7 +27,7 @@
             <div class="col-sm-10"><h4 style="text-align: center; margin: 20px 5px;">Create a League</h4></div>
             <form>
               <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-3 col-form-label">League Name</label>
+                <label for="inputEmail3" class="col-sm-4 col-form-label">League Name</label>
                 <div class="col-sm-10">
                   <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
                 </div>
