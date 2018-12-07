@@ -2,6 +2,8 @@ package main.java.datalayer.database;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Optional;
+
 /** Object used to perform operations on MySQL football statistics database.
  * @author Brandon Connors
  * @author bdc5435@rit.edu
@@ -81,11 +83,6 @@ public class FootballDatabase {
          ResultSet rs = stmnt.executeQuery();
          ResultSetMetaData rsmd = rs.getMetaData();
          int colCount = rsmd.getColumnCount();
-         String[] colNameRow = new String[colCount];
-         for (int i = 0; i < colCount; i++) {
-            colNameRow[i] = rsmd.getColumnName(i + 1);
-         }
-         data.add(colNameRow);
          while (rs.next()) {
             String[] valueRow = new String[colCount];
             for (int i = 1; i <= colCount; i++) {
@@ -166,9 +163,11 @@ public class FootballDatabase {
    private PreparedStatement prepare(String query, ArrayList<String> list) throws DLException {
       try {
          PreparedStatement stmnt = conn.prepareStatement(query);
-         for (int i = 0; i < list.size(); i++) {
-            String value = list.get(i);
-            stmnt.setString(i + 1, value);
+         if(list != null) {
+             for (int i = 0; i < list.size(); i++) {
+                 String value = list.get(i);
+                 stmnt.setString(i + 1, value);
+             }
          }
          return stmnt;
       } catch (Exception e) {
