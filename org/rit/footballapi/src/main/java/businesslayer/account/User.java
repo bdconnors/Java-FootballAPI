@@ -22,8 +22,17 @@ public class User extends main.java.datalayer.account.User {
     }
     public boolean login()throws DLException
     {
-        return successfullLogin = super.login();
-
+        try
+        {
+            super.login();
+            successfullLogin = true;
+        }
+        catch (Exception e)
+        {
+            successfullLogin = false;
+            e.printStackTrace();
+        }
+        return successfullLogin;
     }
     public boolean createUser()throws DLException
     {

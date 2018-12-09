@@ -76,7 +76,7 @@ public class DBInterface extends FootballDatabase {
         String line;
         try
         {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("main/resources/queries/" + query));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("org/rit/footballapi/src/main/resources/queries/" + query));
             while((line = bufferedReader.readLine()) !=null)
             {
                 sb.append(line);

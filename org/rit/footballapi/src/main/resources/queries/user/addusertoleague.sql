@@ -1,1 +1,1 @@
-UPDATE league SET roster1 = ? WHERE leagueid = ?;
+UPDATE league SET ? = ? WHERE leagueid = ?;
