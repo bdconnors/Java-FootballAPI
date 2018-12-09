@@ -1,67 +1,66 @@
-body{
-  font-family: 'Noto Sans SC', sans-serif;
+body {
+  font-family: "Open Sans", sans-serif;
   font-size: 18px;
   background: #f4f4f4;
 }
 h2 {
-  font-size: 1.2em;
+  font-size: 1.5em;
+  font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 10px;
 }
 
-h3 .section-header{
+h3 .section-header {
   font-size: 0.4em;
   color: red;
 }
-.content{
-  width: 60%;
+.content {
   height: 100%;
   margin: 0 auto;
   padding: 30px;
 }
-.table{
-  font-size: 0.6em;
+.table {
   width: 100%;
   height: 400px;
   margin: 0 auto;
 }
-.table td, th{
-  min-width: 160px;
+.table td,
+.table th {
+  min-width: 7vw;
   padding: 5px 10px;
   text-align: center;
 }
-.table th{
+.table th {
   text-transform: uppercase;
   text-align: center;
 }
 
-.table .first-col{
+.table .first-col {
   text-align: left;
 }
 
-.table .full-width-row{
+.table .full-width-row {
   width: 100%;
 }
-.banner{
-  background-image: url('../img/banner-1.jpg');
+.banner {
+  background-image: url("../img/banner-1.jpg");
   height: 90px;
   overflow: hidden;
   background-repeat: no-repeat;
   background-position: 0% 70%;
 }
-.stat-filter{
-  width: 150px;
+.stat-filter {
   margin: 10px 0 30px 0;
 }
-.btn{
+.btn {
   margin: 5px 10px;
   padding: 5px;
 }
-.label{
+.label {
   font-size: 0.8em;
 }
-.container{
+.container {
   margin: 20px;
   padding: 10px;
-  border: solid 0.5px #333;
+  /* border: solid 0.5px #333; */
 }
