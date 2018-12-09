@@ -1,0 +1,1 @@
+SELECT rosterid FROM roster where userid= ? AND leagueid = ?;

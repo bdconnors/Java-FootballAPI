@@ -1,0 +1,1 @@
+INSERT INTO roster(leagueid,userid)VALUES(?,?);

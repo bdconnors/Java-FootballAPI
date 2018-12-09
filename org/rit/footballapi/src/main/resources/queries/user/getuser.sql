@@ -1,1 +1,1 @@
-SELECT password,access FROM users WHERE userName = ?;
+SELECT password,access,userid FROM users WHERE userName = ?;

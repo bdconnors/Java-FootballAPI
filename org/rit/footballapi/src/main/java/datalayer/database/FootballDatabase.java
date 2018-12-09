@@ -41,7 +41,7 @@ public class FootballDatabase {
    /** Creates a connection to database
     * @return A boolean representing a successful or unsuccessful connection
     */
-   private boolean connect() throws DLException {
+   public boolean connect() throws DLException {
       boolean status = false;
       try {
          if (conn == null || conn.getAutoCommit()) {

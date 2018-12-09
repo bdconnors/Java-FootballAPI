@@ -40,6 +40,32 @@ public class DBInterface extends FootballDatabase {
 
         return effected;
     }
+    public int delete()throws DLException
+    {   int effected = 0;
+        try
+        {
+            effected = setData(query,bindValues);
+        }
+        catch(Exception e)
+        {   effected = -1;
+            e.printStackTrace();
+        }
+
+        return effected;
+    }
+    public int put()throws DLException
+    {   int effected = 0;
+        try
+        {
+            effected = setData(query,bindValues);
+        }
+        catch(Exception e)
+        {   effected = -1;
+            e.printStackTrace();
+        }
+
+        return effected;
+    }
     @JsonIgnore
     public String getQuery() {
         return query;
