@@ -15,7 +15,7 @@ public class DefenseController {
     public static final String BASE_URL = "footballapi";
 
     @CrossOrigin(origins = "*",allowedHeaders ="*")
-    @RequestMapping(value="/Defenses", method = RequestMethod.GET)
+    @RequestMapping(value="Players/Defenses", method = RequestMethod.GET)
     @ResponseBody
     public AllDefensesCumulative getAllDefenses()
     {
@@ -36,7 +36,7 @@ public class DefenseController {
     }
 
     @CrossOrigin(origins = "*",allowedHeaders ="*")
-    @RequestMapping(value="Defenses/{team}", method = RequestMethod.GET)
+    @RequestMapping(value="Players/Defenses/{team}", method = RequestMethod.GET)
     @ResponseBody
     public Defense getPlayer(@PathVariable(value ="team")String team, @RequestParam(required = false,value ="gameid") String gameid)
     {
