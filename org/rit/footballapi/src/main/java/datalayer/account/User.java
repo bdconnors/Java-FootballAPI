@@ -75,18 +75,24 @@ public class User extends DBInterface {
        }
         return succesfulLeagueRequest;
     }
-    public boolean acceptRequest(String userid,String leagueid)throws DLException
+    public boolean respondToRequest(String userid,String leagueid,boolean accept)throws DLException
     {
         boolean acceptSuccessful = false;
         try
-        {      startTrans();
-               prepareQuery("user/getrequest.sql",leagueid,userid);
-               fetch();
-               prepareQuery("user/deleterequest.sql",getQueryResult()[0]);
-               delete();
-               prepareQuery("user/addusertoroster.sql", leagueid, userid);
-               acceptSuccessful = successUpdate(post());
-               endTrans();
+        {
+               if(!(accessLevel.equals("STD")))
+               {
+                   startTrans();
+                   prepareQuery("user/getrequest.sql", leagueid, userid);
+                   fetch();
+                   prepareQuery("user/deleterequest.sql", getQueryResult()[0]);
+                   delete();
+                   if(accept == true) {
+                       prepareQuery("user/addusertoroster.sql", leagueid, userid);
+                       acceptSuccessful = successUpdate(post());
+                   }
+                   endTrans();
+               }
         }
         catch (Exception e)
         {   rollbackTrans();

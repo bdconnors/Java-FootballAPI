@@ -42,9 +42,9 @@ public class User extends main.java.datalayer.account.User {
     {
         return successfullLeagueRequest = super.leagueRequest(leagueid);
     }
-    public boolean acceptRequest(String userid,String leagueid)throws DLException
+    public boolean acceptRequest(String userid,String leagueid,boolean accept)throws DLException
     {
-        return successfullLeagueJoin = super.acceptRequest(userid,leagueid);
+        return successfullLeagueJoin = super.respondToRequest(userid,leagueid,accept);
     }
 
 
