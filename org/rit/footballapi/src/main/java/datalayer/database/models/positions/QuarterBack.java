@@ -50,12 +50,12 @@ public class QuarterBack extends Player {
         if (getGameID() == null) {
             setgPlayed(stats[0]);setJerseyNumber(stats[1]);setPos(stats[2]);setfName(stats[3]);setlName(stats[4]);
             setTeam(stats[5]);setPassatt(stats[6]);setPasscomp(stats[7]);setPassyds(stats[8]);setPasstds(stats[9]);
-            setRushatt(stats[10]);setRushyds(stats[11]);setRushtd(stats[12]);setFum(stats[13]);
+            setIntthr(stats[10]);setRushatt(stats[11]);setRushyds(stats[12]);setRushtd(stats[13]);setFum(stats[14]);
         } else {
             setDate(stats[0]);setHomeTeam(stats[1]);setAwayTeam(stats[2]);setJerseyNumber(stats[3]);setPos(stats[4]);
             setfName(stats[5]);setlName(stats[6]);setTeam(stats[7]);setPassatt(stats[8]);setPasscomp(stats[9]);
-            setPassyds(stats[10]);setPasstds(stats[11]);setRushatt(stats[12]);setRushyds(stats[13]);setRushtd(stats[14]);
-            setFum(stats[15]);
+            setPassyds(stats[10]);setPasstds(stats[11]);setIntthr(stats[12]);setRushatt(stats[13]);setRushyds(stats[14]);
+            setRushtd(stats[15]);setFum(stats[16]);
         }
     }
 
