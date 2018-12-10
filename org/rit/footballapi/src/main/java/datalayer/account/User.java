@@ -77,9 +77,9 @@ public class User extends DBInterface {
     }
     public boolean respondToRequest(String userid,String leagueid,boolean accept)throws DLException
     {
-        boolean acceptSuccessful = false;
+        boolean responseSuccesful = false;
         try
-        {
+        {      login();
                if(!(accessLevel.equals("STD")))
                {
                    startTrans();
@@ -89,7 +89,10 @@ public class User extends DBInterface {
                    delete();
                    if(accept == true) {
                        prepareQuery("user/addusertoroster.sql", leagueid, userid);
-                       acceptSuccessful = successUpdate(post());
+                       responseSuccesful = successUpdate(post());
+                   }else
+                   {
+                       responseSuccesful = true;
                    }
                    endTrans();
                }
@@ -98,7 +101,7 @@ public class User extends DBInterface {
         {   rollbackTrans();
             e.printStackTrace();
         }
-        return acceptSuccessful;
+        return responseSuccesful;
     }    
     public boolean successUpdate(int update)
     {

@@ -7,7 +7,7 @@ public class User extends main.java.datalayer.account.User {
     public boolean successfullLogin;
     public boolean successfullUserCreation;
     public boolean successfullLeagueRequest;
-    public boolean successfullLeagueJoin;
+    public boolean successfullRequestResponse;
     public User(String userName)
     {
         super(userName);
@@ -42,9 +42,9 @@ public class User extends main.java.datalayer.account.User {
     {
         return successfullLeagueRequest = super.leagueRequest(leagueid);
     }
-    public boolean acceptRequest(String userid,String leagueid,boolean accept)throws DLException
+    public boolean respondToRequest(String userid,String leagueid,boolean accept)throws DLException
     {
-        return successfullLeagueJoin = super.respondToRequest(userid,leagueid,accept);
+        return successfullRequestResponse = super.respondToRequest(userid,leagueid,accept);
     }
 
 

@@ -63,11 +63,17 @@ public class UserController {
         return user;
     }
     @CrossOrigin(origins = "*",allowedHeaders ="*")
-    @RequestMapping(value="User/acceptReq", method = RequestMethod.GET)
+    @RequestMapping(value="User/respondToReq", method = RequestMethod.GET)
     @ResponseBody
-    public User acceptRequest(@RequestParam(value ="userName")String userName,@RequestParam(value ="userid")String userid, @RequestParam(value ="leagueid") String leagueid,@RequestParam(value ="accept")boolean accept)
+    public User acceptRequest(
+            @RequestParam(value ="userName")String userName,
+            @RequestParam(value ="pass") String pass,
+            @RequestParam(value ="userid")String userid,
+            @RequestParam(value ="leagueid") String leagueid,
+            @RequestParam(value ="accept")boolean accept
+    )
     {
-        user = new User(userName);
+        user = new User(userName,pass);
         try {
             user.respondToRequest(userid,leagueid,accept);
         }
