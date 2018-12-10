@@ -3,5 +3,5 @@ SELECT playercummisc.gplayed,player.jerseynumber,player.pos,player.firstname,pla
  INNER JOIN playercumrec ON player.playerid = playercumrec.playerid
  INNER JOIN playercumrush ON playercumrec.playerid = playercumrush.playerid
  INNER JOIN playercummisc ON player.playerid = playercummisc.playerid
- WHERE pos = "te";
+ WHERE pos = "te"
  Order BY playercumrec.recyds DESC;

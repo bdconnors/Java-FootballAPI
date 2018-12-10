@@ -57,8 +57,8 @@ import java.util.ArrayList;
         public void setStats(String[] stats){
 
             if (getGameID() == null) {
-               setPa(stats[0]);setSck(stats[1]);setIntc(stats[2]);setFum(stats[3]);setSfty(stats[4]);setInttd(stats[5]);
-               setFumtd(stats[6]);setKrtd(stats[7]);setPrtd(stats[8]);setKblk(stats[9]);setXpblk(stats[10]);
+               setTeam(stats[0]);setPa(stats[1]);setSck(stats[2]);setIntc(stats[3]);setFum(stats[4]);setSfty(stats[5]);setInttd(stats[6]);
+               setFumtd(stats[7]);setKrtd(stats[8]);setPrtd(stats[9]);setKblk(stats[10]);setXpblk(stats[11]);
 
             } else {
 
