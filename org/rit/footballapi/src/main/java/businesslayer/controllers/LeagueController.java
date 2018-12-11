@@ -3,6 +3,7 @@ package main.java.businesslayer.controllers;
 import main.java.datalayer.database.League;
 import main.java.datalayer.database.models.AllLeagueRequests;
 import main.java.datalayer.database.models.AllLeagues;
+import main.java.datalayer.database.models.AllRosters;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -43,6 +44,22 @@ public class LeagueController {
         }
 
         return lr;
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "Leagues/{leagueid}", method = RequestMethod.GET)
+    @ResponseBody
+    public AllRosters getAllRostersByLeague(@PathVariable(value="leagueid")String leagueid) {
+
+        AllRosters rosters = new AllRosters(leagueid);
+        try {
+
+            rosters.fetch();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rosters;
     }
 
 }

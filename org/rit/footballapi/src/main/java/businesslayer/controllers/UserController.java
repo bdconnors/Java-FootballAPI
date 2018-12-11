@@ -1,6 +1,7 @@
 package main.java.businesslayer.controllers;
 
 import main.java.businesslayer.account.User;
+import main.java.datalayer.database.DLException;
 import main.java.datalayer.database.models.Player;
 import main.java.datalayer.database.models.positions.AllPlayersCumulative;
 import main.java.datalayer.database.models.positions.Receiver;
@@ -71,7 +72,7 @@ public class UserController {
             @RequestParam(value ="userid")String userid,
             @RequestParam(value ="leagueid") String leagueid,
             @RequestParam(value ="accept")boolean accept
-    )
+    )throws DLException
     {
         user = new User(userName,pass);
         try {
@@ -84,6 +85,47 @@ public class UserController {
 
         return user;
     }
+    @CrossOrigin(origins = "*",allowedHeaders ="*")
+    @RequestMapping(value="User/createTeam", method = RequestMethod.GET)
+    @ResponseBody
+    public User acceptRequest(
+            @RequestParam(value ="userName")String userName,
+            @RequestParam(value ="pass")String pass,
+            @RequestParam(value ="rosterid")String rosterid,
+            @RequestParam(value ="leagueid")String leagueid,
+            @RequestParam(value ="userid") String userid,
+            @RequestParam(value ="teamname") String teamname,
+            @RequestParam(value ="qb")String qb,
+            @RequestParam(value ="rb1")String rb1,
+            @RequestParam(value ="rb2")String rb2,
+            @RequestParam(value ="wr1")String wr1,
+            @RequestParam(value ="wr2")String wr2,
+            @RequestParam(value ="te")String te,
+            @RequestParam(value ="flex")String flex,
+            @RequestParam(value ="def")String def,
+            @RequestParam(value ="k")String k
+    )
+    {
+        String[] players = new String[13];
+        players[0] = rosterid;players[1] = leagueid;players[2] = userid;
+        players[3] = teamname;players[4] = qb;players[5] = rb1;
+        players[6] = rb2;players[7] = wr1;players[8] = wr2;
+        players[9] = te;players[10] = flex;players[11] = def;
+        players[12] = k;
 
+        User user = new User(userName,pass);
+        try
+        {
+            user.login();
+            user.createRoster(players);
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
 
 }

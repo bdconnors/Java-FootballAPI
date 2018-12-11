@@ -1,13 +1,16 @@
 package main.java.datalayer.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import main.java.datalayer.database.*;
+import main.java.datalayer.database.models.Roster;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class User extends DBInterface {
 
+    private String userid;
     private String userName;
     private int password;
     private String accessLevel;
@@ -102,7 +105,12 @@ public class User extends DBInterface {
             e.printStackTrace();
         }
         return responseSuccesful;
-    }    
+    }
+    public boolean createRoster(String[] players)throws DLException
+    {
+       Roster roster = new Roster(players);
+       return successUpdate(roster.put());
+    }
     public boolean successUpdate(int update)
     {
         if(update >= 1)
@@ -125,5 +133,12 @@ public class User extends DBInterface {
         String[] info = results.get(0);
         return info;
     }
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getUserid() {
+        return userid;
+    }
 
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 }

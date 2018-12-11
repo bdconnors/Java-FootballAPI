@@ -1,15 +1,16 @@
 package main.java.datalayer.database.models;
 import main.java.datalayer.database.DBInterface;
 import main.java.datalayer.database.DLException;
+import main.java.datalayer.database.League;
+
 import java.util.ArrayList;
 
-public class Roster extends DBInterface {
+public class Roster extends League {
     /*
        Roster Class to hold information for each user's team rosters
     */
-    public String userID;
-    public String leagueID;
     public String rosterID;
+    public String teamname;
     public String qb;
     public String rb1;
     public String rb2;
@@ -18,12 +19,12 @@ public class Roster extends DBInterface {
     public String te;
     public String flex;
     public String def;
-    public String kicker;
+    public String k;
 
     public Roster(String userID) {
         // default constructor for roster
-        setUserID(userID);
-        query = "/user/roster.sql";
+        setUserid(userID);
+        query = "/user/getroster.sql";
         bindValues = new ArrayList<String>() {{ add(userID); }};
     }
 
@@ -33,32 +34,43 @@ public class Roster extends DBInterface {
     }
     public void fetch()throws DLException
     {
-
         setQuery(query);
         setBindValues(bindValues);
         super.fetch();
         setRoster(super.getResults().get(0));
     }
-
-    public void setRoster(String[] players){
-
-
+    public int put()throws DLException
+    {
+        setQuery("/user/populateroster.sql");
+        setBindValues(new ArrayList<String>(){{
+            add(teamname);add(qb);add(rb1);add(rb2);
+            add(wr1);add(wr2);add(te);add(flex);add(def);
+            add(k);add(rosterID);
+        }});
+        return super.put();
     }
-
-    public String getUserID() {
-        return userID;
+    public int post()throws DLException
+    {
+        setQuery("/user/createloadedroster.sql");
+        setBindValues(new ArrayList<String>(){{
+            add(getLeagueid());add(getUserid());add(teamname);
+            add(qb);add(rb1);add(rb2);add(wr1);add(wr2);
+            add(te);add(flex);add(def);add(k);
+        }});
+        return super.put();
     }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public int delete()throws DLException
+    {
+        setQuery("/user/deleteroster.sql");
+        setBindValues(new ArrayList<String>(){{add(rosterID);}});
+        return super.delete();
     }
-
-    public String getLeagueID() {
-        return leagueID;
-    }
-
-    public void setLeagueID(String leagueID) {
-        this.leagueID = leagueID;
+    public void setRoster(String[] players)
+    {
+        setRosterID(players[0]);setLeagueid(players[1]);setUserid(players[2]);
+        setTeamname(players[3]);setQb(players[4]);setRb1(players[5]);setRb2(players[6]);
+        setWr1(players[7]);setWr2(players[8]);setTe(players[9]);setFlex(players[10]);
+        setDef(players[11]);setK(players[12]);
     }
 
     public String getRosterID() {
@@ -133,12 +145,20 @@ public class Roster extends DBInterface {
         this.def = def;
     }
 
-    public String getKicker() {
-        return kicker;
+    public String getTeamname() {
+        return teamname;
     }
 
-    public void setKicker(String kicker) {
-        this.kicker = kicker;
+    public void setTeamname(String teamname) {
+        this.teamname = teamname;
+    }
+
+    public String getK() {
+        return k;
+    }
+
+    public void setK(String k) {
+        this.k = k;
     }
 }
 

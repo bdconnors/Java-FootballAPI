@@ -1,6 +1,9 @@
 package main.java.datalayer.database;
 
-public class League extends DBInterface {
+import com.fasterxml.jackson.annotation.JsonInclude;
+import main.java.datalayer.account.User;
+
+public class League extends User {
 
     public String leagueid;
     public String scoring;
@@ -22,6 +25,7 @@ public class League extends DBInterface {
         setLeagueid(leagueInfo[0]);setScoring(leagueInfo[1]);
         setLeaguename(leagueInfo[2]);setNumTeams(leagueInfo[3]);
     }
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLeagueid() {
         return leagueid;
     }
@@ -29,7 +33,7 @@ public class League extends DBInterface {
     public void setLeagueid(String leagueid) {
         this.leagueid = leagueid;
     }
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getScoring() {
         return scoring;
     }
@@ -37,7 +41,7 @@ public class League extends DBInterface {
     public void setScoring(String scoring) {
         this.scoring = scoring;
     }
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLeaguename() {
         return leaguename;
     }
@@ -45,7 +49,7 @@ public class League extends DBInterface {
     public void setLeaguename(String leaguename) {
         this.leaguename = leaguename;
     }
-
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getNumTeams() {
         return numTeams;
     }

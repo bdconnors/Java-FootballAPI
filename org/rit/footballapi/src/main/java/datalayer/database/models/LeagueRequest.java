@@ -24,7 +24,6 @@ public class LeagueRequest extends DBInterface {
         setLeagueid(requestinfo[2]);setUserName(requestinfo[3]);
         setLeagueName(requestinfo[4]);
     }
-
     public String getRequestid() {
         return requestid;
     }
