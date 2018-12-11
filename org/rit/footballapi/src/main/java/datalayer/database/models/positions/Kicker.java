@@ -19,14 +19,22 @@ public class Kicker extends Player {
         }};
     }
 
-    public Kicker(String playerid, String gameid) {
+    public Kicker(String playerid, int gameid) {
         setPlayerid(playerid);
-        setGameID(gameid);
+        setGameID(String.valueOf(gameid));
         query = "stats/game/specific/kgamespecific.sql";
         bindValues = new ArrayList<String>() {{
             add(getPlayerid());
             add(getGameID());
         }};
+    }
+    public Kicker(String fname,String lname)
+    {
+        setfName(fname);
+        setlName(lname);
+        query = "stats/cumulative/kbyname.sql";
+        bindValues = new ArrayList<String>()
+        {{add(getfName());add(getlName());}};
     }
     public Kicker(String[] stats)
     {

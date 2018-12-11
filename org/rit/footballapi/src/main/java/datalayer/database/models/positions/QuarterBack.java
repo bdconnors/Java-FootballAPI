@@ -24,14 +24,22 @@ public class QuarterBack extends Player {
         }};
     }
 
-    public QuarterBack(String playerid, String gameid) {
+    public QuarterBack(String playerid, int gameid) {
         setPlayerid(playerid);
-        setGameID(gameid);
+        setGameID(String.valueOf(gameid));
         query = "stats/game/specific/qbgamespecific.sql";
         bindValues = new ArrayList<String>() {{
             add(getPlayerid());
             add(getGameID());
         }};
+    }
+    public QuarterBack(String fname,String lname)
+    {
+        setfName(fname);
+        setlName(lname);
+        query = "stats/cumulative/qbbyname.sql";
+        bindValues = new ArrayList<String>()
+        {{add(getfName());add(getlName());}};
     }
     public QuarterBack(String[] stats)
     {

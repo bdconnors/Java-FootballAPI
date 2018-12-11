@@ -25,15 +25,23 @@ public class Receiver extends Player {
           query = "stats/cumulative/wrtecumulative.sql";
           bindValues = new ArrayList<String>(){{add(getPlayerid());}};
     }
-    public Receiver(String playerid, String gameid)
+    public Receiver(String playerid, int gameid)
     {
         setPlayerid(playerid);
-        setGameID(gameid);
+        setGameID(String.valueOf(gameid));
         query = "stats/game/specific/wrtegamespecific.sql";
         bindValues = new ArrayList<String>()
          {{add(getPlayerid());
            add(getGameID());
          }};
+    }
+    public Receiver(String fname,String lname)
+    {
+        setfName(fname);
+        setlName(lname);
+        query = "stats/cumulative/wrtebyname.sql";
+        bindValues = new ArrayList<String>()
+        {{add(getfName());add(getlName());}};
     }
     public Receiver(String[] stats)
     {

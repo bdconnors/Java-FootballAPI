@@ -23,15 +23,23 @@ public class RunningBack extends Player {
         query = "stats/cumulative/rbcumulative.sql";
         bindValues = new ArrayList<String>(){{add(getPlayerid());}};
     }
-    public RunningBack(String playerid, String gameid)
+    public RunningBack(String playerid, int gameid)
     {
         setPlayerid(playerid);
-        setGameID(gameid);
+        setGameID(String.valueOf(gameid));
         query = "stats/game/specific/rbgamespecific.sql";
         bindValues = new ArrayList<String>()
         {{add(getPlayerid());
             add(getGameID());
         }};
+    }
+    public RunningBack(String fname,String lname)
+    {
+        setfName(fname);
+        setlName(lname);
+        query = "stats/cumulative/rbbyname.sql";
+        bindValues = new ArrayList<String>()
+        {{add(getfName());add(getlName());}};
     }
     public RunningBack(String[] stats)
     {
