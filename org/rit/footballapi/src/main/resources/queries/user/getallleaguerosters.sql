@@ -1,1 +1,0 @@
-SELECT * FROM roster WHERE leagueid = ?;

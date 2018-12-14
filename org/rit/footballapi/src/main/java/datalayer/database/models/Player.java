@@ -25,76 +25,41 @@ public class Player extends Game {
     }
     public Player(String playerid) {
         this.playerid = playerid;
+        query="playerinfo.sql";
+        bindValues = new ArrayList<String>(){{add(playerid);}};
 
     }
 
     public Player() {
 
     }
+
     @Override
-    public String toString() {
-        return "Player{" +
-                "playerid='" + playerid + '\'' +
-                ", fName='" + fName + '\'' +
-                ", lName='" + lName + '\'' +
-                ", team='" + team + '\'' +
-                ", pos='" + pos + '\'' +
-                ", jerseyNumber='" + jerseyNumber + '\'' +
-                '}';
+    public void fetch() throws DLException {
+
+        setQuery(query);
+        setBindValues(bindValues);
+        super.fetch();
     }
+
     public String getPlayerid() {
         return playerid;
     }
-
+    public void setInfo()
+    {
+        playerid = getResults().get(0)[0];
+        fName = getResults().get(0)[1];
+        lName = getResults().get(0)[2];
+        team= getResults().get(0)[3];
+        pos = getResults().get(0)[4];
+        jerseyNumber = getResults().get(0)[5];
+    }
     public void setPlayerid(String playerid) {
         this.playerid = playerid;
-    }
-    public void setStats()throws DLException
-    { }
-    @JsonIgnore
-    public ArrayList<String[]> getQBCumulative()throws DLException
-    {   System.out.println("hitQB");
-        setQuery("stats/cumulative/allqb.sql");
-        super.fetch();
-        ArrayList<String[]> results = getResults();
-        return results;
-    }
-    @JsonIgnore
-    public ArrayList<String[]> getWRCumulative()throws DLException
-    {   System.out.println("hitWR");
-        setQuery("stats/cumulative/allwr.sql");
-       super.fetch();
-        ArrayList<String[]> results = getResults();
-        return results;
-    }
-    @JsonIgnore
-    public ArrayList<String[]> getRBCumulative()throws DLException
-    {   System.out.println("hitRB");
-        setQuery("stats/cumulative/allrb.sql");
-        super.fetch();
-        ArrayList<String[]> results = getResults();
-        return results;
-    }
-    @JsonIgnore
-    public ArrayList<String[]> getTECumulative()throws DLException
-    {   System.out.println("hitTE");
-        setQuery("stats/cumulative/allte.sql");
-        super.fetch();
-        ArrayList<String[]> results = getResults();
-        return results;
-    }
-    @JsonIgnore
-    public ArrayList<String[]> getKCumulative()throws DLException
-    {   System.out.println("hitK");
-        setQuery("stats/cumulative/allk.sql");
-        super.fetch();
-        ArrayList<String[]> results = getResults();
-        return results;
     }
     public String getfName() {
         return fName;
     }
-
     public void setfName(String fName) {
         this.fName = fName;
     }

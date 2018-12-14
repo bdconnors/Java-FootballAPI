@@ -7,8 +7,10 @@ public class User extends main.java.datalayer.account.User {
     public boolean successfullLogin;
     public boolean successfullUserCreation;
     public boolean successfullLeagueRequest;
-    public boolean successfullRequestResponse;
-    public boolean successfullRosterCreation;
+    public boolean successfullLeagueRequestResponse;
+    public int successfullPlayerAdd;
+    public boolean successfullTradeRequest;
+    public boolean isSuccessfullTradeRequestReponse;
     public User(String userName)
     {
         super(userName);
@@ -39,17 +41,27 @@ public class User extends main.java.datalayer.account.User {
     {
        return successfullUserCreation = super.createUser();
     }
-    public boolean leagueRequest(String leagueid)throws DLException
+    public boolean leagueRequest(String leagueid,String teamname)throws DLException
     {
-        return successfullLeagueRequest = super.leagueRequest(leagueid);
+        return successfullLeagueRequest = super.leagueRequest(leagueid,teamname);
     }
-    public boolean respondToRequest(String userid,String leagueid,boolean accept)throws DLException
+    public boolean respondToLeagueRequest(String requestid,boolean accept)throws DLException
     {
-        return successfullRequestResponse = super.respondToRequest(userid,leagueid,accept);
+        return successfullLeagueRequestResponse = super.respondToLeagueRequest(requestid,accept);
     }
-    public boolean createRoster(String[] players)throws DLException
+    public boolean addPlayer(String teamid,String playerid)throws DLException
     {
-        return successfullRosterCreation = super.createRoster(players);
+        if(super.addPlayer(teamid,playerid))
+        { successfullPlayerAdd++; }
+        return true;
+    }
+      public boolean tradeRequest(String teamid, String partnerid, String toTrade,String toReceive)throws DLException
+    {
+        return successfullTradeRequest = super.tradeRequest(teamid,partnerid,toTrade,toReceive);
+    }
+    public boolean respondToTradeRequest(String tradeid,boolean accept)throws DLException
+    {
+        return isSuccessfullTradeRequestReponse = super.respondToTradeRequest(tradeid,accept);
     }
 
 

@@ -1,0 +1,1 @@
+SELECT leagueid,userid,teamname FROM leaguerequest WHERE tradeid =?;

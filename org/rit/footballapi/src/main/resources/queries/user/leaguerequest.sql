@@ -1,1 +1,1 @@
-INSERT INTO leaguerequest(userid,leagueid)VALUES(?,?);
+INSERT INTO leaguerequest(userid,leagueid,teamname)VALUES(?,?,?);

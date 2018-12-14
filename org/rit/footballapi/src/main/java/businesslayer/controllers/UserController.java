@@ -34,7 +34,10 @@ public class UserController {
     @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/create", method = RequestMethod.GET)
     @ResponseBody
-    public User create(@RequestParam(value ="userName")String userName, @RequestParam(value ="password") String password, @RequestParam(value ="accessLevel") String accessLevel)
+    public User create(
+            @RequestParam(value ="userName")String userName,
+            @RequestParam(value ="password") String password,
+            @RequestParam(value ="accessLevel") String accessLevel)
     {
         user = new User(userName,password,accessLevel);
         try {
@@ -50,11 +53,15 @@ public class UserController {
     @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/leagueReq", method = RequestMethod.GET)
     @ResponseBody
-    public User leagueReq(@RequestParam(value ="userName")String userName, @RequestParam(value ="leagueid") String leagueid)
+    public User leagueReq(
+            @RequestParam(value ="userName")String userName,
+            @RequestParam(value ="pass")String pass,
+            @RequestParam(value ="leagueid") String leagueid,
+            @RequestParam(value ="teamname")String teamname)
     {
-        user = new User(userName);
+        user = new User(userName,pass);
         try {
-            user.leagueRequest(leagueid);
+            user.leagueRequest(leagueid,teamname);
         }
         catch(Exception e)
         {
@@ -64,19 +71,18 @@ public class UserController {
         return user;
     }
     @CrossOrigin(origins = "*",allowedHeaders ="*")
-    @RequestMapping(value="User/respondToReq", method = RequestMethod.GET)
+    @RequestMapping(value="User/respondToLeagueReq", method = RequestMethod.GET)
     @ResponseBody
     public User acceptRequest(
             @RequestParam(value ="userName")String userName,
             @RequestParam(value ="pass") String pass,
-            @RequestParam(value ="userid")String userid,
-            @RequestParam(value ="leagueid") String leagueid,
+            @RequestParam(value ="requestid") String requestid,
             @RequestParam(value ="accept")boolean accept
     )throws DLException
     {
         user = new User(userName,pass);
         try {
-            user.respondToRequest(userid,leagueid,accept);
+            user.respondToLeagueRequest(requestid,accept);
         }
         catch(Exception e)
         {
@@ -86,39 +92,66 @@ public class UserController {
         return user;
     }
     @CrossOrigin(origins = "*",allowedHeaders ="*")
-    @RequestMapping(value="User/createTeam", method = RequestMethod.GET)
+    @RequestMapping(value="User/addPlayers", method = RequestMethod.GET)
     @ResponseBody
-    public User acceptRequest(
+    public User loadRoster(
             @RequestParam(value ="userName")String userName,
             @RequestParam(value ="pass")String pass,
-            @RequestParam(value ="rosterid")String rosterid,
-            @RequestParam(value ="leagueid")String leagueid,
-            @RequestParam(value ="userid") String userid,
-            @RequestParam(value ="teamname") String teamname,
-            @RequestParam(value ="qb")String qb,
-            @RequestParam(value ="rb1")String rb1,
-            @RequestParam(value ="rb2")String rb2,
-            @RequestParam(value ="wr1")String wr1,
-            @RequestParam(value ="wr2")String wr2,
-            @RequestParam(value ="te")String te,
-            @RequestParam(value ="flex")String flex,
-            @RequestParam(value ="def")String def,
-            @RequestParam(value ="k")String k
+            @RequestParam(value ="teamid")String teamid,
+            @RequestParam(value ="players")String[] players
     )
     {
-        String[] players = new String[13];
-        players[0] = rosterid;players[1] = leagueid;players[2] = userid;
-        players[3] = teamname;players[4] = qb;players[5] = rb1;
-        players[6] = rb2;players[7] = wr1;players[8] = wr2;
-        players[9] = te;players[10] = flex;players[11] = def;
-        players[12] = k;
+
 
         User user = new User(userName,pass);
         try
         {
             user.login();
-            user.createRoster(players);
+            for(String player:players)
+            {
+                user.addPlayer(teamid,player);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 
+        return user;
+    }
+    @CrossOrigin(origins = "*",allowedHeaders ="*")
+    @RequestMapping(value="User/tradeReq", method = RequestMethod.GET)
+    @ResponseBody
+    public User tradeReq(   @RequestParam(value ="userName")String userName,
+                            @RequestParam(value ="pass") String pass,
+                            @RequestParam(value ="teamid") String teamid,
+                            @RequestParam(value ="partnerid")String partnerid,
+                            @RequestParam(value ="toTrade")String toTrade,
+                            @RequestParam(value ="toReceive")String toReceive)
+    {
+        user = new User(userName,pass);
+        try {
+            user.tradeRequest(teamid,partnerid,toTrade,toReceive);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+    @CrossOrigin(origins = "*",allowedHeaders ="*")
+    @RequestMapping(value="User/respondToTradeReq", method = RequestMethod.GET)
+    @ResponseBody
+    public User respondToTradeReq(   @RequestParam(value ="userName")String userName,
+                            @RequestParam(value ="pass") String pass,
+                            @RequestParam(value ="tradeid")String tradeid,
+                            @RequestParam(value ="accept")boolean accept)
+    {
+        user = new User(userName,pass);
+        try {
+            user.respondToTradeRequest(tradeid,accept);
         }
         catch(Exception e)
         {

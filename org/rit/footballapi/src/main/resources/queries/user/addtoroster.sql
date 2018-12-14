@@ -1,0 +1,1 @@
+INSERT INTO teamplayers(teamid,playerid)VALUES(?,?);

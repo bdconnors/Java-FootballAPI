@@ -1,1 +1,0 @@
-SELECT requestid FROM leaguerequest WHERE leagueid =? AND userid=?;

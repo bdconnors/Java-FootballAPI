@@ -21,9 +21,9 @@ public class Receiver extends Player {
 
     public Receiver(String playerid)
     {
-          setPlayerid(playerid);
-          query = "stats/cumulative/wrtecumulative.sql";
-          bindValues = new ArrayList<String>(){{add(getPlayerid());}};
+        setPlayerid(playerid);
+        query = "stats/cumulative/wrtecumulative.sql";
+        bindValues = new ArrayList<String>(){{add(getPlayerid());}};
     }
     public Receiver(String playerid, int gameid)
     {
@@ -49,8 +49,8 @@ public class Receiver extends Player {
     }
     public void fetch()throws DLException
     {
-        setQuery(query);
-        setBindValues(bindValues);
+        super.query = this.query;
+        super.bindValues = this.bindValues;
         super.fetch();
         setStats(super.getResults().get(0));
     }

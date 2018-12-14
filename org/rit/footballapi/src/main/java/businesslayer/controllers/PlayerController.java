@@ -14,7 +14,7 @@ public class PlayerController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/Players", method = RequestMethod.GET)
     @ResponseBody
-    public Player getAllPlayers() {
+    public AllPlayersCumulative getAllPlayers() {
 
         AllPlayersCumulative players = new AllPlayersCumulative();
 
@@ -32,20 +32,20 @@ public class PlayerController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "Players/{pos}", method = RequestMethod.GET)
     @ResponseBody
-    public Player getPos(@PathVariable(required = false, value = "pos") String pos) {
+    public AllPlayersCumulative getPos(@PathVariable(required = false, value = "pos") String pos) {
 
         AllPlayersCumulative players = new AllPlayersCumulative();
 
         try {
-            if (pos.equals("wr")) {
+            if (pos.equalsIgnoreCase("wr")) {
                 players.allWR();
-            } else if (pos.equals("qb")) {
+            } else if (pos.equalsIgnoreCase("qb")) {
                 players.allQB();
-            } else if (pos.equals("te")) {
+            } else if (pos.equalsIgnoreCase("te")){
                 players.allTE();
-            } else if (pos.equals("rb")) {
+            } else if (pos.equalsIgnoreCase("rb")) {
                 players.allRB();
-            } else if (pos.equals("k")) {
+            } else if (pos.equalsIgnoreCase("k")) {
                 players.allK();
             }
 

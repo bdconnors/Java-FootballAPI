@@ -20,16 +20,18 @@ public class AllRosters extends League {
     }
     public void fetch()throws DLException
     {
-        setQuery("/user/getallleaguerosters.sql");
+        setQuery("/user/getallteams.sql");
         setBindValues(new ArrayList<String>(){{add(getLeagueid());}});
         super.fetch();
         Roster roster = null;
-        ArrayList<String[]> rosters = getResults();
-        for(String[] players:rosters)
+        ArrayList<String[]> teams = getResults();
+        for(String[] team:teams)
         {
-            roster = new Roster(players);
+            roster = new Roster(team[0]);
+            roster.fetch();
             AllLeagueRosters.add(roster);
         }
+
 
     }
 

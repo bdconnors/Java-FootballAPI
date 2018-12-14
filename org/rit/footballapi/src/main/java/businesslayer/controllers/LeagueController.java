@@ -4,6 +4,7 @@ import main.java.datalayer.database.League;
 import main.java.datalayer.database.models.AllLeagueRequests;
 import main.java.datalayer.database.models.AllLeagues;
 import main.java.datalayer.database.models.AllRosters;
+import main.java.datalayer.database.models.Roster;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -61,5 +62,20 @@ public class LeagueController {
 
         return rosters;
     }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "Leagues/Team/{teamid}", method = RequestMethod.GET)
+    @ResponseBody
+    public Roster getRoster(@PathVariable(value="teamid")String teamid){
 
+        Roster roster = new Roster(teamid);
+        try {
+
+            roster.fetch();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return roster;
+    }
 }

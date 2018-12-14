@@ -1,0 +1,1 @@
+delete from traderequest where tradeid = ?;

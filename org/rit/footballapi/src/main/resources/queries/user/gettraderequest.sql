@@ -1,0 +1,1 @@
+SELECT teamid,partnerid,toTrade,toReceive FROM traderequest WHERE tradeid = ?;

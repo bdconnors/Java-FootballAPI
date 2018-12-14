@@ -42,8 +42,8 @@ public class Kicker extends Player {
     }
     public void fetch()throws DLException
     {
-        setQuery(query);
-        setBindValues(bindValues);
+        super.query = this.query;
+        super.bindValues = this.bindValues;
         super.fetch();
         setStats(super.getResults().get(0));
     }

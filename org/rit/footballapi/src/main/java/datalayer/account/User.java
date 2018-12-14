@@ -40,6 +40,7 @@ public class User extends DBInterface {
             fetch();
             getQueryResult()[0].equals(String.valueOf(password));
             accessLevel = getQueryResult()[1];
+            userid = getQueryResult()[2];
             successfulLogin = true;
         }
         catch(Exception e)
@@ -60,16 +61,42 @@ public class User extends DBInterface {
 
          return successfulUserCreation;
     }
-    public boolean leagueRequest(String leagueid)throws DLException
+    public boolean tradeRequest(String teamid,String partnerid, String toTrade,String toReceive)throws DLException
+    {
+        login();
+        prepareQuery("user/traderequest.sql",teamid,partnerid,toTrade,toReceive);
+        return successUpdate(post());
+
+    }
+    public boolean respondToTradeRequest(String tradeid,boolean accept)throws DLException
+    {
+        boolean succesfulTrade = false;
+        login();
+        prepareQuery("user/gettraderequest.sql",tradeid);
+        fetch();
+        String[] request = getQueryResult();
+        startTrans();
+        prepareQuery("user/deletetraderequest.sql",tradeid);
+        succesfulTrade = successUpdate(put());
+        if(accept == true)
+        {
+            prepareQuery("user/accepttrade.sql", request[0], request[3]);
+            put();
+            prepareQuery("user/accepttrade.sql", request[1], request[2]);
+            succesfulTrade = successUpdate(put());
+        }
+        endTrans();
+
+        return succesfulTrade;
+    }
+    public boolean leagueRequest(String leagueid,String teamname)throws DLException
     {
         boolean succesfulLeagueRequest = false;
        try {
-             prepareQuery("/user/getuser.sql", userName);
-             fetch();
-             prepareQuery("user/leaguerequest.sql", getQueryResult()[2], leagueid);
-             startTrans();
+             login();
+             prepareQuery("user/leaguerequest.sql",userid,leagueid,teamname);
              succesfulLeagueRequest = successUpdate(post());
-             endTrans();
+
        }
        catch (Exception e)
        {
@@ -78,7 +105,7 @@ public class User extends DBInterface {
        }
         return succesfulLeagueRequest;
     }
-    public boolean respondToRequest(String userid,String leagueid,boolean accept)throws DLException
+    public boolean respondToLeagueRequest(String requestid,boolean accept)throws DLException
     {
         boolean responseSuccesful = false;
         try
@@ -86,12 +113,12 @@ public class User extends DBInterface {
                if(!(accessLevel.equals("STD")))
                {
                    startTrans();
-                   prepareQuery("user/getrequest.sql", leagueid, userid);
+                   prepareQuery("user/getleaguerequest.sql",requestid);
                    fetch();
-                   prepareQuery("user/deleterequest.sql", getQueryResult()[0]);
+                   prepareQuery("user/deleterequest.sql", requestid);
                    delete();
                    if(accept == true) {
-                       prepareQuery("user/addusertoroster.sql", leagueid, userid);
+                       prepareQuery("user/createuserteam.sql",getQueryResult()[0], getQueryResult()[1],getQueryResult()[2]);
                        responseSuccesful = successUpdate(post());
                    }else
                    {
@@ -106,10 +133,10 @@ public class User extends DBInterface {
         }
         return responseSuccesful;
     }
-    public boolean createRoster(String[] players)throws DLException
+    public boolean addPlayer(String teamid,String playerid)throws DLException
     {
-       Roster roster = new Roster(players);
-       return successUpdate(roster.put());
+       Roster roster = new Roster(teamid,playerid);
+       return successUpdate(roster.post());
     }
     public boolean successUpdate(int update)
     {

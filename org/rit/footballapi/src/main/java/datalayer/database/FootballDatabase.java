@@ -20,7 +20,7 @@ public class FootballDatabase {
    /** Creates a FootballDatabase with predefined information
     */
    public FootballDatabase() {
-      uri = "jdbc:mysql://localhost/iste330t03?autoReconnect=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+      uri = "jdbc:mysql://localhost/football?autoReconnect=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
       driver = "com.mysql.cj.jdbc.Driver";
       user = "root";
       password = "student";
