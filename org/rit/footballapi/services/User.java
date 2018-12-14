@@ -1,4 +1,4 @@
-package org.rit.footballapi.ui;
+package org.rit.footballapi.services;
 
 
 import org.rit.footballapi.util.DLException;

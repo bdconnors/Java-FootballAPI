@@ -1,6 +1,6 @@
 package org.rit.footballapi.controllers;
 
-import org.rit.footballapi.ui.User;
+import org.rit.footballapi.services.User;
 import org.rit.footballapi.util.DLException;
 import org.springframework.web.bind.annotation.*;
 
