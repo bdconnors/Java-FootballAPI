@@ -8,23 +8,29 @@ import java.util.ArrayList;
 
 public class PlayerService {
 
-    public MultiplePlayers players;
+    public ArrayList<Player> players;
+
     public PlayerService()
     {}
     public void getPlayersByPos(String pos)throws DLException
     {
-        players = new MultiplePlayers(pos);
+        MultiplePlayers players = new MultiplePlayers(pos);
+        this.players = players.getPlayer();
     }
     public void getAllPlayers()throws DLException
     {
-        players = new MultiplePlayers();
+        MultiplePlayers players = new MultiplePlayers();
+        this.players = players.getPlayer();
     }
     public void getPlayerByID(String playerid)throws DLException
     {
-        players = new MultiplePlayers(Integer.parseInt(playerid));
+        MultiplePlayers players = new MultiplePlayers(Integer.parseInt(playerid));
+        this.players = players.getPlayer();
     }
     public void getPlayerByName(String pos,String fname,String lname)throws DLException
     {
-        players = new MultiplePlayers(pos,fname,lname);
+        MultiplePlayers players = new MultiplePlayers(pos,fname,lname);
+        this.players = players.getPlayer();
     }
+
 }

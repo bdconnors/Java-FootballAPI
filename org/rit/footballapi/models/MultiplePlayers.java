@@ -11,10 +11,12 @@ public class MultiplePlayers extends DBInterface {
 
     public MultiplePlayers(String pos)throws DLException {
 
-        if(pos.equalsIgnoreCase("Wr"))
+        if(pos.equalsIgnoreCase("wr"))
             allWR();
         else if(pos.equalsIgnoreCase("te"))
             allTE();
+        else if(pos.equalsIgnoreCase("rb"))
+            allRB();
         else if(pos.equalsIgnoreCase("qb"))
             allQB();
         else if(pos.equalsIgnoreCase("k"))
@@ -87,9 +89,11 @@ public class MultiplePlayers extends DBInterface {
         setQuery("allwr.sql");
         super.fetch();
         players = getResults();
-        for(String[] player : players) {
+        for(String[] player : players)
+        {
             play = new Receiver(player);
-        }       this.player.add(play);
+            this.player.add(play);
+        }
     }
     public void allQB() throws DLException {
 
