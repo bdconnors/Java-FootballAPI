@@ -53,15 +53,15 @@ public class Receiver extends Player {
     public void setStats(String[] stats){
 
         if (getGameID() == null)
-        { setgPlayed(stats[0]);setJerseyNumber(stats[1]);setPos(stats[2]);setfName(stats[3]);setlName(stats[4]);
-          setTeam(stats[5]);setRec(stats[6]);setRecyds(stats[7]);setRectd(stats[8]);setRushatt(stats[9]);
-          setRushyds(stats[10]);setRushtd(stats[11]);setFum(stats[12]);
+        { setPlayerid(stats[0]);setgPlayed(stats[1]);setJerseyNumber(stats[2]);setPos(stats[3]);setfName(stats[4]);
+          setlName(stats[5]);setTeam(stats[6]);setRec(stats[7]);setRecyds(stats[8]);setRectd(stats[9]);
+          setRushatt(stats[10]);setRushyds(stats[11]);setRushtd(stats[12]);setFum(stats[13]);
         }
         else
         {
-            setDate(stats[0]);setHomeTeam(stats[1]);setAwayTeam(stats[2]);setJerseyNumber(stats[3]);setPos(stats[4]);
-            setfName(stats[5]);setlName(stats[6]);setTeam(stats[7]);setRec(stats[8]);setRecyds(stats[9]);
-            setRectd(stats[10]);setRushatt(stats[11]);setRushyds(stats[12]);setRushtd(stats[13]);setFum(stats[14]);
+            setPlayerid(stats[0]);setDate(stats[1]);setHomeTeam(stats[2]);setAwayTeam(stats[3]);setJerseyNumber(stats[4]);
+            setPos(stats[5]);setfName(stats[6]);setlName(stats[7]);setTeam(stats[8]);setRec(stats[9]);setRecyds(stats[10]);
+            setRectd(stats[11]);setRushatt(stats[12]);setRushyds(stats[13]);setRushtd(stats[14]);setFum(stats[15]);
         }
     }
     public String getRec() { return rec; }

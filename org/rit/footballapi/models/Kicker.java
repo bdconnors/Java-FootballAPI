@@ -49,13 +49,13 @@ public class Kicker extends Player {
     public void setStats(String[] stats){
 
         if (getGameID() == null) {
-            setgPlayed(stats[0]);setJerseyNumber(stats[1]);setPos(stats[2]);setfName(stats[3]);setlName(stats[4]);
-            setTeam(stats[5]);setFgatt(stats[6]);setFgmd(stats[7]);setXpatt(stats[9]);
-            setXpmd(stats[9]);
+            setPlayerid(stats[0]);setgPlayed(stats[1]);setJerseyNumber(stats[2]);setPos(stats[3]);setfName(stats[4]);
+            setlName(stats[5]);setTeam(stats[6]);setFgatt(stats[7]);setFgmd(stats[8]);setXpatt(stats[9]);
+            setXpmd(stats[10]);
         } else {
-            setDate(stats[0]);setHomeTeam(stats[1]);setAwayTeam(stats[2]);setJerseyNumber(stats[3]);setPos(stats[4]);
-            setfName(stats[5]);setlName(stats[6]);setTeam(stats[7]);setFgatt(stats[8]);setFgmd(stats[9]);
-            setXpatt(stats[10]);setXpmd(stats[11]);
+            setPlayerid(stats[0]);setDate(stats[1]);setHomeTeam(stats[2]);setAwayTeam(stats[3]);setJerseyNumber(stats[4]);
+            setPos(stats[5]);setfName(stats[6]);setlName(stats[7]);setTeam(stats[8]);setFgatt(stats[9]);setFgmd(stats[10]);
+            setXpatt(stats[11]);setXpmd(stats[12]);
         }
     }
 

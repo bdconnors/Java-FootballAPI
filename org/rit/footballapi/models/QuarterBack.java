@@ -56,14 +56,15 @@ public class QuarterBack extends Player {
 
 
         if (getGameID() == null) {
-            setgPlayed(stats[0]);setJerseyNumber(stats[1]);setPos(stats[2]);setfName(stats[3]);setlName(stats[4]);
-            setTeam(stats[5]);setPassatt(stats[6]);setPasscomp(stats[7]);setPassyds(stats[8]);setPasstds(stats[9]);
-            setIntthr(stats[10]);setRushatt(stats[11]);setRushyds(stats[12]);setRushtd(stats[13]);setFum(stats[14]);
+            setPlayerid(stats[0]);setgPlayed(stats[1]);setJerseyNumber(stats[2]);setPos(stats[3]);setfName(stats[4]);
+            setlName(stats[5]);setTeam(stats[6]);setPassatt(stats[7]);setPasscomp(stats[8]);setPassyds(stats[9]);
+            setPasstds(stats[10]);setIntthr(stats[11]);setRushatt(stats[12]);setRushyds(stats[13]);setRushtd(stats[14]);
+            setFum(stats[15]);
         } else {
-            setDate(stats[0]);setHomeTeam(stats[1]);setAwayTeam(stats[2]);setJerseyNumber(stats[3]);setPos(stats[4]);
-            setfName(stats[5]);setlName(stats[6]);setTeam(stats[7]);setPassatt(stats[8]);setPasscomp(stats[9]);
-            setPassyds(stats[10]);setPasstds(stats[11]);setIntthr(stats[12]);setRushatt(stats[13]);setRushyds(stats[14]);
-            setRushtd(stats[15]);setFum(stats[16]);
+            setPlayerid(stats[0]);setDate(stats[1]);setHomeTeam(stats[2]);setAwayTeam(stats[3]);setJerseyNumber(stats[4]);
+            setPos(stats[5]);setfName(stats[6]);setlName(stats[7]);setTeam(stats[8]);setPassatt(stats[9]);setPasscomp(stats[10]);
+            setPassyds(stats[11]);setPasstds(stats[12]);setIntthr(stats[13]);setRushatt(stats[14]);setRushyds(stats[15]);
+            setRushtd(stats[16]);setFum(stats[17]);
         }
     }
 

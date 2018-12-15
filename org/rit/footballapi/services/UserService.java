@@ -3,7 +3,7 @@ package org.rit.footballapi.services;
 
 import org.rit.footballapi.util.DLException;
 
-public class User extends org.rit.footballapi.models.User {
+public class UserService extends org.rit.footballapi.models.User {
 
     public boolean successfullLogin;
     public boolean successfullUserCreation;
@@ -12,15 +12,15 @@ public class User extends org.rit.footballapi.models.User {
     public int successfullPlayerAdd;
     public boolean successfullTradeRequest;
     public boolean isSuccessfullTradeRequestReponse;
-    public User(String userName)
+    public UserService(String userName)
     {
         super(userName);
     }
-    public User(String userName,String password)
+    public UserService(String userName, String password)
     {
         super(userName,password.hashCode());
     }
-    public User(String userName,String password,String AccessLevel)
+    public UserService(String userName, String password, String AccessLevel)
     {
         super(userName,password.hashCode(),AccessLevel);
     }
@@ -28,8 +28,10 @@ public class User extends org.rit.footballapi.models.User {
     {
         try
         {
-            super.login();
-            successfullLogin = true;
+            if(super.login())successfullLogin = true;
+            else successfullLogin = false;
+
+
         }
         catch (Exception e)
         {

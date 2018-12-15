@@ -55,15 +55,15 @@ public class RunningBack extends Player {
 
 
         if (getGameID() == null)
-        {   setgPlayed(stats[0]);setJerseyNumber(stats[1]);setPos(stats[2]);setfName(stats[3]);setlName(stats[4]);
-            setTeam(stats[5]);setRushatt(stats[6]);setRushyds(stats[7]);setRushtd(stats[8]);setRec(stats[9]);
-            setRecyds(stats[10]);setRectd(stats[11]);setFum(stats[12]);
+        {   setPlayerid(stats[0]);setgPlayed(stats[1]);setJerseyNumber(stats[2]);setPos(stats[3]);setfName(stats[4]);
+            setlName(stats[5]);setTeam(stats[6]);setRushatt(stats[7]);setRushyds(stats[8]);setRushtd(stats[9]);
+            setRec(stats[10]);setRecyds(stats[11]);setRectd(stats[12]);setFum(stats[13]);
         }
         else
         {
-            setDate(stats[0]);setHomeTeam(stats[1]);setAwayTeam(stats[2]);setJerseyNumber(stats[3]);setPos(stats[4]);
-            setfName(stats[5]);setlName(stats[6]);setTeam(stats[7]);setRushatt(stats[8]);setRushyds(stats[9]);
-            setRushtd(stats[10]);setRec(stats[11]);setRecyds(stats[12]);setRectd(stats[13]);setFum(stats[14]);
+            setPlayerid(stats[0]);setDate(stats[1]);setHomeTeam(stats[2]);setAwayTeam(stats[3]);setJerseyNumber(stats[4]);
+            setPos(stats[5]);setfName(stats[6]);setlName(stats[7]);setTeam(stats[8]);setRushatt(stats[9]);setRushyds(stats[10]);
+            setRushtd(stats[11]);setRec(stats[12]);setRecyds(stats[13]);setRectd(stats[14]);setFum(stats[15]);
         }
     }
     public String getRec() { return rec; }

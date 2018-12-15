@@ -1,6 +1,6 @@
 package org.rit.footballapi.controllers;
 
-import org.rit.footballapi.services.User;
+import org.rit.footballapi.services.UserService;
 import org.rit.footballapi.util.DLException;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     public static final String BASE_URL = "footballapi";
-    public User user = null;
+    public UserService user = null;
 
     @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/login", method = RequestMethod.GET)
     @ResponseBody
-    public User login(@RequestParam(required = false,value ="userName")String userName, @RequestParam(required = false,value ="password") String password)
+    public UserService login(@RequestParam(required = false,value ="userName")String userName, @RequestParam(required = false,value ="password") String password)
     {
-        User user = new User(userName,password);
+        UserService user = new UserService(userName,password);
         try {
             user.login();
         }
@@ -31,12 +31,12 @@ public class UserController {
     @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/create", method = RequestMethod.GET)
     @ResponseBody
-    public User create(
+    public UserService create(
             @RequestParam(value ="userName")String userName,
             @RequestParam(value ="password") String password,
             @RequestParam(value ="accessLevel") String accessLevel)
     {
-        user = new User(userName,password,accessLevel);
+        user = new UserService(userName,password,accessLevel);
         try {
             user.createUser();
         }
@@ -50,13 +50,13 @@ public class UserController {
     @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/leagueReq", method = RequestMethod.GET)
     @ResponseBody
-    public User leagueReq(
+    public UserService leagueReq(
             @RequestParam(value ="userName")String userName,
             @RequestParam(value ="pass")String pass,
             @RequestParam(value ="leagueid") String leagueid,
             @RequestParam(value ="teamname")String teamname)
     {
-        user = new User(userName,pass);
+        user = new UserService(userName,pass);
         try {
             user.leagueRequest(leagueid,teamname);
         }
@@ -70,14 +70,14 @@ public class UserController {
     @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/respondToLeagueReq", method = RequestMethod.GET)
     @ResponseBody
-    public User acceptRequest(
+    public UserService acceptRequest(
             @RequestParam(value ="userName")String userName,
             @RequestParam(value ="pass") String pass,
             @RequestParam(value ="requestid") String requestid,
             @RequestParam(value ="accept")boolean accept
     )throws DLException
     {
-        user = new User(userName,pass);
+        user = new UserService(userName,pass);
         try {
             user.respondToLeagueRequest(requestid,accept);
         }
@@ -91,7 +91,7 @@ public class UserController {
     @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/addPlayers", method = RequestMethod.GET)
     @ResponseBody
-    public User loadRoster(
+    public UserService loadRoster(
             @RequestParam(value ="userName")String userName,
             @RequestParam(value ="pass")String pass,
             @RequestParam(value ="teamid")String teamid,
@@ -100,7 +100,7 @@ public class UserController {
     {
 
 
-        User user = new User(userName,pass);
+        UserService user = new UserService(userName,pass);
         try
         {
             user.login();
@@ -119,14 +119,14 @@ public class UserController {
     @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/tradeReq", method = RequestMethod.GET)
     @ResponseBody
-    public User tradeReq(   @RequestParam(value ="userName")String userName,
-                            @RequestParam(value ="pass") String pass,
-                            @RequestParam(value ="teamid") String teamid,
-                            @RequestParam(value ="partnerid")String partnerid,
-                            @RequestParam(value ="toTrade")String toTrade,
-                            @RequestParam(value ="toReceive")String toReceive)
+    public UserService tradeReq(@RequestParam(value ="userName")String userName,
+                                @RequestParam(value ="pass") String pass,
+                                @RequestParam(value ="teamid") String teamid,
+                                @RequestParam(value ="partnerid")String partnerid,
+                                @RequestParam(value ="toTrade")String toTrade,
+                                @RequestParam(value ="toReceive")String toReceive)
     {
-        user = new User(userName,pass);
+        user = new UserService(userName,pass);
         try {
             user.tradeRequest(teamid,partnerid,toTrade,toReceive);
         }
@@ -141,12 +141,12 @@ public class UserController {
     @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/respondToTradeReq", method = RequestMethod.GET)
     @ResponseBody
-    public User respondToTradeReq(   @RequestParam(value ="userName")String userName,
-                            @RequestParam(value ="pass") String pass,
-                            @RequestParam(value ="tradeid")String tradeid,
-                            @RequestParam(value ="accept")boolean accept)
+    public UserService respondToTradeReq(@RequestParam(value ="userName")String userName,
+                                         @RequestParam(value ="pass") String pass,
+                                         @RequestParam(value ="tradeid")String tradeid,
+                                         @RequestParam(value ="accept")boolean accept)
     {
-        user = new User(userName,pass);
+        user = new UserService(userName,pass);
         try {
             user.respondToTradeRequest(tradeid,accept);
         }

@@ -1,4 +1,4 @@
-SELECT playercummisc.gplayed,jerseynumber,pos,player.firstname,player.lastname,team,passatt,passcomp,passyds,passtds,intthr,rushatt,rushyds,rushtd,playercumrush.rushyds,playercumrush.rushtd,playercummisc.fum
+SELECT player.playerid,playercummisc.gplayed,jerseynumber,pos,player.firstname,player.lastname,team,passatt,passcomp,passyds,passtds,intthr,rushatt,rushyds,rushtd,playercumrush.rushyds,playercumrush.rushtd,playercummisc.fum
  FROM player
  INNER JOIN playercumpass ON player.playerid = playercumpass.playerid
  INNER JOIN playercumrush ON playercumpass.playerid = playercumrush.playerid

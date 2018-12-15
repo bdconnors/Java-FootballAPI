@@ -6,8 +6,8 @@ import org.rit.footballapi.util.DLException;
 import java.util.ArrayList;
 
 public class Player extends Game {
-    private String gPlayed;
     private String playerid;
+    private String gPlayed;
     private String fName;
     private String lName;
     private String team;
