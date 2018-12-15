@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class User extends DBInterface {
 
-    private String userid;
+    public String userid;
     private String userName;
     private int password;
     private String accessLevel;
@@ -20,9 +20,9 @@ public class User extends DBInterface {
         this.userName = userName;
         this.password = password;
     }
-    public User(String userName)
+    public User(String userid)
     {
-        this.userName = userName;
+        this.userid = userid;
     }
     public User(String userName,int password,String accessLevel)
     {
@@ -93,7 +93,6 @@ public class User extends DBInterface {
     {
         boolean succesfulLeagueRequest = false;
        try {
-             login();
              prepareQuery("leaguerequest.sql",userid,leagueid,teamname);
              succesfulLeagueRequest = successUpdate(post());
 

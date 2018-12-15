@@ -52,11 +52,10 @@ public class UserController {
     @ResponseBody
     public UserService leagueReq(
             @RequestParam(value ="userName")String userName,
-            @RequestParam(value ="pass")String pass,
             @RequestParam(value ="leagueid") String leagueid,
             @RequestParam(value ="teamname")String teamname)
     {
-        user = new UserService(userName,pass);
+        user = new UserService(userName);
         try {
             user.leagueRequest(leagueid,teamname);
         }
