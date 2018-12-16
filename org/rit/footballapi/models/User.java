@@ -122,7 +122,7 @@ public class User extends DBInterface {
         boolean responseSuccesful = false;
         try
         {
-               if(checkAdmin())
+               if(checkManager())
                {
                    startTrans();
                    prepareQuery("getleaguerequest.sql",requestid);
