@@ -50,7 +50,7 @@ public class User extends DBInterface {
                     teamid = getQueryResult()[0];
                     leagueid = getQueryResult()[1];
                 }
-                else if(accessLevel.equals("MNGR"))
+                else if(isManager())
                 {
                     prepareQuery("getmanagersleague.sql",userid);
                     fetch();
@@ -148,7 +148,7 @@ public class User extends DBInterface {
         boolean responseSuccesful = false;
         try
         {
-               if(accessLevel.equals("MNGR"))
+               if(isManager())
                {
                    startTrans();
                    prepareQuery("getleaguerequest.sql",requestid);
@@ -174,11 +174,24 @@ public class User extends DBInterface {
     }
     public boolean addPlayer(String teamid,String playerid)throws DLException
     {   Roster roster = null;
-       if(accessLevel.equals("MNGR")) {
+       if(isManager()) {
            roster = new Roster(teamid, playerid);
            return successUpdate(roster.post());
        }
        return false;
+    }
+    public boolean isManager()throws DLException
+    {
+      boolean isManager = false;
+      prepareQuery("getuserbyid.sql",userid);
+      fetch();
+      if(getQueryResult()[0].equals("MNGR"))
+      {
+         isManager = true;
+      }
+      
+      return isManager;
+    
     }
     public boolean setRoster(String teamid)throws DLException
     {
