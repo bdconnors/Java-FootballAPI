@@ -1,8 +1,9 @@
 package org.rit.footballapi.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.rit.footballapi.util.DBInterface;
 
-public class League extends User {
+public class League extends DBInterface {
 
     public String leagueid;
     public String scoring;
