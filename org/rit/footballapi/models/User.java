@@ -48,12 +48,18 @@ public class User extends DBInterface {
                     fetch();
                     teamid = getQueryResult()[0];
                 }
+                else if(accessLevel.equals("MNGR"))
+                {
+                    prepareQuery("getmanagersleague.sql",userid);
+                    fetch();
+                    teamid = getQueryResult()[0];
+                }
             }
 
         }
         catch(Exception e)
         {
-            successfulLogin = false;
+          successfulLogin = false;
         }
         return successfulLogin;
     }
@@ -76,7 +82,10 @@ public class User extends DBInterface {
         try {
             prepareQuery("getteamid.sql", userid);
             fetch();
-            hasTeam = true;
+            if(getQueryResult()== null)
+            {hasTeam = true;}
+            else
+            { hasTeam = false; }
         }
         catch(Exception e)
         {
