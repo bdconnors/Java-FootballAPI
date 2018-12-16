@@ -1,14 +1,18 @@
 package org.rit.footballapi.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.rit.footballapi.util.DBInterface;
 import org.rit.footballapi.util.DLException;
 
 import java.util.ArrayList;
 
-public class Roster extends League {
+public class Roster extends DBInterface {
     /*
        Roster Class to hold information for each user's team rosters
     */
     public String teamid;
+    public String teamname;
+
     public ArrayList<Player> players= new ArrayList<>();
 
     public Roster(String teamid) {
@@ -23,6 +27,8 @@ public class Roster extends League {
         query = "addtoroster.sql";
         bindValues = new ArrayList<String>(){{add(teamid);add(playerid);}};
     }
+    public Roster()
+    {}
     public void fetch()throws DLException
     {
        setQuery(query);
@@ -50,5 +56,20 @@ public class Roster extends League {
         }
     }
 
+    public String getTeamid() {
+        return teamid;
+    }
+
+    public void setTeamid(String teamid) {
+        this.teamid = teamid;
+    }
+
+    public String getTeamname() {
+        return teamname;
+    }
+
+    public void setTeamname(String teamname) {
+        this.teamname = teamname;
+    }
 }
 

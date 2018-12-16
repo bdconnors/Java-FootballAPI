@@ -6,12 +6,13 @@ import java.util.ArrayList;
 
 public class AllRosters extends League {
 
-    ArrayList<Roster> AllLeagueRosters = new ArrayList<>();
+    ArrayList<Roster> allLeagueRosters = new ArrayList<>();
 
     public AllRosters(String leagueid)
     {
         this.leagueid = leagueid;
     }
+
     public AllRosters()
     {
 
@@ -27,17 +28,32 @@ public class AllRosters extends League {
         {
             roster = new Roster(team[0]);
             roster.fetch();
-            AllLeagueRosters.add(roster);
+            allLeagueRosters.add(roster);
         }
 
 
     }
+    public void getUnset()throws DLException
+    {
+        setQuery("getunsetrosters.sql");
+        setBindValues(new ArrayList<String>(){{add(leagueid);}});
+        super.fetch();
+        ArrayList<String[]> teams = getResults();
+        Roster roster = null;
+        for(String[] team : teams)
+        {
+            roster = new Roster();
+            roster.setTeamid(team[0]);
+            roster.setTeamname(team[1]);
+            allLeagueRosters.add(roster);
+        }
+    }
 
     public ArrayList<Roster> getAllLeagueRosters() {
-        return AllLeagueRosters;
+        return allLeagueRosters;
     }
 
     public void setAllLeagueRosters(ArrayList<Roster> allLeagueRosters) {
-        AllLeagueRosters = allLeagueRosters;
+        this.allLeagueRosters = allLeagueRosters;
     }
 }

@@ -1,0 +1,1 @@
+SELECT teamid,teamname FROM userteam WHERE rosterunset = 0 AND leagueid = ?;

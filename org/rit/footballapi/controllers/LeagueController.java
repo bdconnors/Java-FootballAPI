@@ -46,6 +46,22 @@ public class LeagueController {
         return lr;
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "Leagues/unset/{leagueid}", method = RequestMethod.GET)
+    @ResponseBody
+    public AllRosters getUnsetRosters(@PathVariable(value="leagueid")String leagueid){
+
+        AllRosters rosters = new AllRosters(leagueid);
+        try {
+
+            rosters.getUnset();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rosters;
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "Leagues/{leagueid}", method = RequestMethod.GET)
     @ResponseBody
     public AllRosters getAllRostersByLeague(@PathVariable(value="leagueid")String leagueid) {
