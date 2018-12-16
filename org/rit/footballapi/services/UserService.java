@@ -11,7 +11,8 @@ public class UserService extends org.rit.footballapi.models.User {
     public boolean successfullLeagueRequestResponse;
     public int successfullPlayerAdd;
     public boolean successfullTradeRequest;
-    public boolean isSuccessfullTradeRequestReponse;
+    public boolean successfullRosterSet;
+    public boolean successfullTradeRequestReponse;
     public UserService(String userid) { super(userid); }
     public UserService(String userName, String password)
     {
@@ -62,7 +63,11 @@ public class UserService extends org.rit.footballapi.models.User {
     }
     public boolean respondToTradeRequest(String tradeid,boolean accept)throws DLException
     {
-        return isSuccessfullTradeRequestReponse = super.respondToTradeRequest(tradeid,accept);
+        return successfullTradeRequestReponse = super.respondToTradeRequest(tradeid,accept);
+    }
+    public boolean setRoster(String teamid)throws DLException
+    {
+        return successfullRosterSet = super.setRoster(teamid);
     }
 
 
