@@ -17,6 +17,13 @@ function loginSubmit() {
     if (json.successfullLogin) {
       //makes session cookie and bind it to user
       document.cookie = "session = " + json.userid;
+
+      //check if user is a League Manager
+      if (json.leagueManaged != null) {
+        //add leagueId to cookie
+        document.cookie = "leagueid = " + json.leagueManaged;
+      }
+
       //redirect to main page
       window.location.href = "index.php";
     } else {
