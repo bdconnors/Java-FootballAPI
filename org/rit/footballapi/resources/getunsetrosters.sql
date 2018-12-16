@@ -1,1 +1,1 @@
-SELECT teamid,teamname FROM userteam WHERE rosterunset = 0 AND leagueid = ?;
+SELECT teamid,teamname FROM userteam WHERE rosterset = 0 AND leagueid = ?;

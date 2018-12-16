@@ -120,11 +120,12 @@ public class UserController {
         UserService user = new UserService(userid);
         try
         {
-            user.login();
             for(String player:players)
             {
                 user.addPlayer(teamid,player);
             }
+
+            user.setRoster(teamid);
         }
         catch(Exception e)
         {

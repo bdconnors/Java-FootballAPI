@@ -166,11 +166,17 @@ public class User extends DBInterface {
     }
     public boolean addPlayer(String teamid,String playerid)throws DLException
     {   Roster roster = null;
-       if(checkAdmin()) {
+       if(checkManager()) {
            roster = new Roster(teamid, playerid);
            return successUpdate(roster.post());
        }
        return false;
+    }
+    public boolean setRoster(String teamid)throws DLException
+    {
+        prepareQuery("rosterset.sql",teamid);
+        return successUpdate(put());
+
     }
     public boolean successUpdate(int update)
     {
