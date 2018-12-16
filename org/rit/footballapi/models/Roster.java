@@ -12,7 +12,7 @@ public class Roster extends DBInterface {
     */
     public String teamid;
     public String teamname;
-  
+
     public ArrayList<Player> players= new ArrayList<>();
 
     public Roster(String teamid) {
