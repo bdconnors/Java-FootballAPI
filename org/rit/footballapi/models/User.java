@@ -13,9 +13,8 @@ public class User extends DBInterface {
     public String userid;
     private String userName;
     private int password;
-    private String accessLevel;
+    public String accessLevel;
     public String teamid;
-    public String leagueManaged;
 
     public User(String userName,int password)
     {
@@ -48,18 +47,13 @@ public class User extends DBInterface {
                 {   prepareQuery("getteamid.sql",userid);
                     fetch();
                     teamid = getQueryResult()[0];
-                    if (checkManager())
-                    {
-                        prepareQuery("getmanagersleague.sql", userid);
-                        fetch();
-                        leagueManaged = getQueryResult()[0];
-                    }
                 }
             }
 
         }
         catch(Exception e)
-        {   rollbackTrans();
+        {
+            successfulLogin = false;
         }
         return successfulLogin;
     }
@@ -229,12 +223,6 @@ public class User extends DBInterface {
     public void setUserid(String userid) {
         this.userid = userid;
     }
-    public String getLeagueManaged() {
-        return leagueManaged;
-    }
-    public void setLeagueManaged(String leagueManaged) {
-        this.leagueManaged = leagueManaged;
-    }
 
     public String getTeamid() {
         return teamid;
@@ -242,5 +230,13 @@ public class User extends DBInterface {
 
     public void setTeamid(String teamid) {
         this.teamid = teamid;
+    }
+
+    public String getAccessLevel() {
+        return accessLevel;
+    }
+
+    public void setAccessLevel(String accessLevel) {
+        this.accessLevel = accessLevel;
     }
 }
