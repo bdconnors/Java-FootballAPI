@@ -14,6 +14,7 @@ public class User extends DBInterface {
     private String userName;
     private int password;
     private String accessLevel;
+    public String teamid;
     public String leagueManaged;
 
     public User(String userName,int password)
@@ -40,14 +41,19 @@ public class User extends DBInterface {
         {   prepareQuery("getuser.sql",userName);
             fetch();
             if(getQueryResult()[0].equals(String.valueOf(password)));
-            {
-                accessLevel = getQueryResult()[1];
+            {   accessLevel = getQueryResult()[1];
                 userid = getQueryResult()[2];
                 successfulLogin = true;
-                if (checkManager())
-                {   prepareQuery("getmanagersleague.sql",userid);
+                if(hasTeam())
+                {   prepareQuery("getteamid.sql",userid);
                     fetch();
-                    leagueManaged = getQueryResult()[0];
+                    teamid = getQueryResult()[0];
+                    if (checkManager())
+                    {
+                        prepareQuery("getmanagersleague.sql", userid);
+                        fetch();
+                        leagueManaged = getQueryResult()[0];
+                    }
                 }
             }
 
@@ -69,6 +75,21 @@ public class User extends DBInterface {
         catch(Exception e){rollbackTrans(); e.printStackTrace();}
 
          return successfulUserCreation;
+    }
+    public boolean hasTeam()throws DLException
+    {
+        boolean hasTeam = false;
+        try {
+            prepareQuery("getteamid.sql", userid);
+            fetch();
+            hasTeam = true;
+        }
+        catch(Exception e)
+        {
+           hasTeam = false;
+        }
+
+        return hasTeam;
     }
     public boolean tradeRequest(String teamid,String partnerid, String toTrade,String toReceive)throws DLException
     {
@@ -122,7 +143,7 @@ public class User extends DBInterface {
         boolean responseSuccesful = false;
         try
         {
-               if(checkAdmin())
+               if(checkManager())
                {
                    startTrans();
                    prepareQuery("getleaguerequest.sql",requestid);
@@ -213,5 +234,13 @@ public class User extends DBInterface {
     }
     public void setLeagueManaged(String leagueManaged) {
         this.leagueManaged = leagueManaged;
+    }
+
+    public String getTeamid() {
+        return teamid;
+    }
+
+    public void setTeamid(String teamid) {
+        this.teamid = teamid;
     }
 }

@@ -20,6 +20,7 @@ public class UserController {
         UserService user = new UserService(userName,password);
         try {
             user.login();
+
         }
         catch(Exception e)
         {

@@ -10,9 +10,10 @@ public class UserService extends org.rit.footballapi.models.User {
     public boolean successfullLeagueRequest;
     public boolean successfullLeagueRequestResponse;
     public int successfullPlayerAdd;
-    public boolean successfullTradeRequest;
     public boolean successfullRosterSet;
+    public boolean successfullTradeRequest;
     public boolean successfullTradeRequestReponse;
+
     public UserService(String userid) { super(userid); }
     public UserService(String userName, String password)
     {

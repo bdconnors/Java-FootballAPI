@@ -1,0 +1,1 @@
+SELECT teamid FROM userteam WHERE userid = ?;
