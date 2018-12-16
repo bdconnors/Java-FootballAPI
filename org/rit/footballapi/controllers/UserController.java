@@ -48,6 +48,26 @@ public class UserController {
         return user;
     }
     @CrossOrigin(origins = "*",allowedHeaders ="*")
+    @RequestMapping(value="User/createLeague", method = RequestMethod.GET)
+    @ResponseBody
+    public UserService create(
+            @RequestParam(value ="userid")String userid,
+            @RequestParam(value ="leaguename")String leaguename,
+            @RequestParam(value ="numteams") String numteams,
+            @RequestParam(value ="scoring") String scoring)
+    {
+        user = new UserService(userid);
+        try {
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+    @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/leagueReq", method = RequestMethod.GET)
     @ResponseBody
     public UserService leagueReq(
