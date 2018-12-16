@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class DBInterface extends  FootballDatabase{
+public class DBInterface extends  FootballDatabase {
 
     public String query = null;
 
@@ -17,57 +17,51 @@ public class DBInterface extends  FootballDatabase{
     public ArrayList<String[]> results = null;
 
 
-    public void fetch()throws DLException
-    {
-        try
-        {
-            results = getData(query,bindValues);
-        }
-        catch(Exception e)
-        {
+    public void fetch() throws DLException {
+        try {
+            results = getData(query, bindValues);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    public int post()throws DLException
-    {   int effected = 0;
-        try
-        {
-           effected = setData(query,bindValues);
-        }
-        catch(Exception e)
-        {   effected = -1;
+
+    public int post() throws DLException {
+        int effected = 0;
+        try {
+            effected = setData(query, bindValues);
+        } catch (Exception e) {
+            effected = -1;
             e.printStackTrace();
         }
 
         return effected;
     }
-    public int delete()throws DLException
-    {   int effected = 0;
-        try
-        {
-            effected = setData(query,bindValues);
-        }
-        catch(Exception e)
-        {   effected = -1;
+
+    public int delete() throws DLException {
+        int effected = 0;
+        try {
+            effected = setData(query, bindValues);
+        } catch (Exception e) {
+            effected = -1;
             e.printStackTrace();
         }
 
         return effected;
     }
-    public int put()throws DLException
-    {   int effected = 0;
-        try
-        {
-            effected = setData(query,bindValues);
-        }
-        catch(Exception e)
-        {   effected = -1;
+
+    public int put() throws DLException {
+        int effected = 0;
+        try {
+            effected = setData(query, bindValues);
+        } catch (Exception e) {
+            effected = -1;
             e.printStackTrace();
         }
 
         return effected;
     }
+
     @JsonIgnore
     public String getQuery() {
         return query;
@@ -76,22 +70,19 @@ public class DBInterface extends  FootballDatabase{
     public void setQuery(String query) throws DLException {
         StringBuilder sb = new StringBuilder();
         String line;
-        try
-        {
+        try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("org/rit/footballapi/resources/" + query));
-            while((line = bufferedReader.readLine()) !=null)
-            {
+            while ((line = bufferedReader.readLine()) != null) {
                 sb.append(line);
             }
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
 
         this.query = sb.toString();
     }
+
     @JsonIgnore
     public ArrayList<String> getBindValues() {
         return bindValues;
@@ -100,6 +91,7 @@ public class DBInterface extends  FootballDatabase{
     public void setBindValues(ArrayList<String> bindValues) {
         this.bindValues = bindValues;
     }
+
     @JsonIgnore
     public ArrayList<String[]> getResults() {
         return results;

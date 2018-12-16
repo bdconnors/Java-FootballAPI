@@ -1,1 +1,1 @@
-INSERT INTO traderequest(teamid,partnerid,playertotrade,playertoreceive)VALUES(?,?,?,?);
+INSERT INTO traderequest(teamid,partnerid,totrade,toreceive)VALUES(?,?,?,?);

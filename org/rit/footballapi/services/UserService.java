@@ -33,8 +33,6 @@ public class UserService extends org.rit.footballapi.models.User {
                 userid = super.getUserid();
             }
             else successfullLogin = false;
-
-
         }
         catch (Exception e)
         {

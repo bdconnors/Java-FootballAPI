@@ -51,11 +51,11 @@ public class UserController {
     @RequestMapping(value="User/leagueReq", method = RequestMethod.GET)
     @ResponseBody
     public UserService leagueReq(
-            @RequestParam(value ="userName")String userName,
+            @RequestParam(value ="userid")String userid,
             @RequestParam(value ="leagueid") String leagueid,
             @RequestParam(value ="teamname")String teamname)
     {
-        user = new UserService(userName);
+        user = new UserService(userid);
         try {
             user.leagueRequest(leagueid,teamname);
         }
@@ -70,13 +70,12 @@ public class UserController {
     @RequestMapping(value="User/respondToLeagueReq", method = RequestMethod.GET)
     @ResponseBody
     public UserService acceptRequest(
-            @RequestParam(value ="userName")String userName,
-            @RequestParam(value ="pass") String pass,
+            @RequestParam(value ="userid")String userid,
             @RequestParam(value ="requestid") String requestid,
             @RequestParam(value ="accept")boolean accept
     )throws DLException
     {
-        user = new UserService(userName,pass);
+        user = new UserService(userid);
         try {
             user.respondToLeagueRequest(requestid,accept);
         }
@@ -91,15 +90,14 @@ public class UserController {
     @RequestMapping(value="User/addPlayers", method = RequestMethod.GET)
     @ResponseBody
     public UserService loadRoster(
-            @RequestParam(value ="userName")String userName,
-            @RequestParam(value ="pass")String pass,
+            @RequestParam(value ="userid")String userid,
             @RequestParam(value ="teamid")String teamid,
             @RequestParam(value ="players")String[] players
     )
     {
 
 
-        UserService user = new UserService(userName,pass);
+        UserService user = new UserService(userid);
         try
         {
             user.login();
@@ -118,14 +116,13 @@ public class UserController {
     @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/tradeReq", method = RequestMethod.GET)
     @ResponseBody
-    public UserService tradeReq(@RequestParam(value ="userName")String userName,
-                                @RequestParam(value ="pass") String pass,
+    public UserService tradeReq(@RequestParam(value ="userid")String userid,
                                 @RequestParam(value ="teamid") String teamid,
                                 @RequestParam(value ="partnerid")String partnerid,
                                 @RequestParam(value ="toTrade")String toTrade,
                                 @RequestParam(value ="toReceive")String toReceive)
     {
-        user = new UserService(userName,pass);
+        user = new UserService(userid);
         try {
             user.tradeRequest(teamid,partnerid,toTrade,toReceive);
         }
@@ -140,12 +137,11 @@ public class UserController {
     @CrossOrigin(origins = "*",allowedHeaders ="*")
     @RequestMapping(value="User/respondToTradeReq", method = RequestMethod.GET)
     @ResponseBody
-    public UserService respondToTradeReq(@RequestParam(value ="userName")String userName,
-                                         @RequestParam(value ="pass") String pass,
+    public UserService respondToTradeReq(@RequestParam(value ="userid")String userid,
                                          @RequestParam(value ="tradeid")String tradeid,
                                          @RequestParam(value ="accept")boolean accept)
     {
-        user = new UserService(userName,pass);
+        user = new UserService(userid);
         try {
             user.respondToTradeRequest(tradeid,accept);
         }
