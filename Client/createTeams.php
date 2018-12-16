@@ -9,7 +9,7 @@
           <div class="col-2">
             <div class="col-sm-2 label">Owner</div>
             <div class="col-sm-10">
-              <select class="form-control form-control-sm">
+              <select class="form-control form-control-sm" id="owners">
                 <option value="negative">--</option>
               </select>
             </div>
@@ -17,7 +17,7 @@
           <div class="col-4">
             <div class="col-sm-2 label">QB</div>
             <div class="col-sm-10">
-              <select class="form-control form-control-sm" id="setQBs-1">
+              <select class="form-control form-control-sm" id="setQBs">
                 <option value="negative">--</option>
               </select>
             </div>
@@ -25,7 +25,7 @@
           <div class="col-4">
             <div class="col-sm-2 label">WR</div>
             <div class="col-sm-10">
-              <select class="form-control form-control-sm" id="setWRs1-1">
+              <select class="form-control form-control-sm" id="setWRs1">
                 <option value="negative">--</option>
               </select>
             </div>
@@ -36,7 +36,7 @@
           <div class="col-4">
             <div class="col-sm-2 label">Defense</div>
             <div class="col-sm-10">
-              <select class="form-control form-control-sm" id="setDEF-1">
+              <select class="form-control form-control-sm" id="setDEF">
                 <option value="negative">--</option>
               </select>
             </div>
@@ -44,7 +44,7 @@
           <div class="col-4">
             <div class="col-sm-2 label">WR</div>
             <div class="col-sm-10">
-              <select class="form-control form-control-sm" id="setWRs2-1">
+              <select class="form-control form-control-sm" id="setWRs2">
                 <option value="negative">--</option>
               </select>
             </div>
@@ -55,7 +55,7 @@
           <div class="col-4">
             <div class="col-sm-2 label">Kicker</div>
             <div class="col-sm-10">
-              <select class="form-control form-control-sm" id="setKICKER-1">
+              <select class="form-control form-control-sm" id="setKICKER">
                 <option value="negative">--</option>
               </select>
             </div>
@@ -63,7 +63,7 @@
           <div class="col-4">
             <div class="col-sm-2 label">RB</div>
             <div class="col-sm-10">
-              <select class="form-control form-control-sm" id="setRBs1-1">
+              <select class="form-control form-control-sm" id="setRBs1">
                 <option value="negative">--</option>
               </select>
             </div>
@@ -74,7 +74,7 @@
           <div class="col-4">
             <div class="col-sm-2 label">TE</div>
             <div class="col-sm-10">
-              <select class="form-control form-control-sm" id="setTEs-1">
+              <select class="form-control form-control-sm" id="setTEs">
                 <option value="negative">--</option>
               </select>
             </div>
@@ -82,7 +82,7 @@
           <div class="col-4">
             <div class="col-sm-2 label">RB</div>
             <div class="col-sm-10">
-              <select class="form-control form-control-sm" id="setRBs2-1">
+              <select class="form-control form-control-sm" id="setRBs2">
                 <option value="negative">--</option>
               </select>
             </div>
@@ -93,7 +93,7 @@
           <div class="col-4">
             <div class="col-sm-2 label">Flex</div>
             <div class="col-sm-10">
-              <select class="form-control form-control-sm" id="setFLEX-1">
+              <select class="form-control form-control-sm" id="setFLEX">
                 <option value="negative">--</option>
               </select>
             </div>
@@ -101,7 +101,7 @@
           <div class="col-4"></div>
         </div>
         <div class="row">
-          <div class="col-2"><button type="button" class="btn btn-secondary btn-sm ml-2 mr-2" onclick="setTeamBtnClick(1)">Set Team</button></div>
+          <div class="col-2"><button type="button" class="btn btn-primary btn-sm ml-2 mr-2" onclick="setTeamBtnClick()">Set Team</button></div>
         </div>
       </div>
     </div>
@@ -115,26 +115,27 @@
       var reqBaseFlex = "http://serenity.ist.rit.edu:22222/footballapi/Players/flex";
 
       $(document).ready(function(){
-        setPlayers(reqBaseQB,'#setQBs-1');
-        setPlayers(reqBaseRB,'#setRBs1-1');
-        setPlayers(reqBaseRB,'#setRBs2-1');
-        setPlayers(reqBaseWR,'#setWRs1-1');
-        setPlayers(reqBaseWR,'#setWRs2-1');
-        setPlayers(reqBaseTE,'#setTEs-1');
-        setDef(reqBaseDefense,'#setDEF-1');
-        setPlayers(reqBaseKicker,'#setKICKER-1');
-        setPlayers(reqBaseFlex,'#setFLEX-1');
+        getOwners();
+        setPlayers(reqBaseQB,'#setQBs');
+        setPlayers(reqBaseRB,'#setRBs1');
+        setPlayers(reqBaseRB,'#setRBs2');
+        setPlayers(reqBaseWR,'#setWRs1');
+        setPlayers(reqBaseWR,'#setWRs2');
+        setPlayers(reqBaseTE,'#setTEs');
+        setDef(reqBaseDefense,'#setDEF');
+        setPlayers(reqBaseKicker,'#setKICKER');
+        setPlayers(reqBaseFlex,'#setFLEX');
       })
 
-      //get league name
+      //get players name and populate the dropdowns
       function setPlayers(requestString, dropDownID){
         $.getJSON(requestString)
         .done(function( json ) {
           $.each( json.players, function( i, item ) {
-            if(dropDownID == '#setDEF-1'){
+            if(dropDownID == '#setDEF'){
               $(dropDownID).append($('<option></option>').val(item.team).html(item.team));
             } else {
-              $(dropDownID).append($('<option></option>').val(item.fName + " " + item.lName).html(item.fName + " " + item.lName));
+              $(dropDownID).append($('<option></option>').val(item.playerid).html(item.fName + " " + item.lName));
             }
           });
         });
@@ -144,24 +145,49 @@
         $.getJSON(requestString)
         .done(function( json ) {
           $.each( json.allDefenses, function( i, item ) {
-            if(dropDownID == '#setDEF-1'){
+            if(dropDownID == '#setDEF'){
               $(dropDownID).append($('<option></option>').val(item.team).html(item.team));
             } else {
-              $(dropDownID).append($('<option></option>').val(item.fName + " " + item.lName).html(item.fName + " " + item.lName));
+              $(dropDownID).append($('<option></option>').val(item.playerid).html(item.fName + " " + item.lName));
             }
           });
         });
       };
 
-      function setTeamBtnClick(teamNum){
-        for(var i = 1; i < 2; i++){
-          if($('#setQBs-' + i).val() == "negative" || $('#setRBs1-' + i).val() == "negative" || $('#setRBs2-' + i).val() == "negative" || $('#setWRs1-' + i).val() == "negative" || $('#setWRs2-' + i).val() == "negative" || $('#setTEs-' + i).val() == "negative" || $('#setDEF-' + i).val() == "negative" || $('#setKICKER-' + i).val() == "negative" || $('#setFLEX-' + i).val() == "negative")
-          {
-            alert("Please Select An Actual Player for team #" + teamNum);
-            //console.log(leagueNamesAndIds["Test League"])
-          } else{
-          }
+      //set team btn pressed check to see if all dropdowns have a value and if so create the team
+      function setTeamBtnClick(){
+        if($('#setQBs').val() == "negative" || $('#setRBs1').val() == "negative" || $('#setRBs2').val() == "negative" || $('#setWRs1').val() == "negative" || $('#setWRs2').val() == "negative" || $('#setTEs').val() == "negative" || $('#setDEF').val() == "negative" || $('#setKICKER').val() == "negative" || $('#setFLEX').val() == "negative" || $('#owners').val() == "negative")
+        {
+          alert("Please Select An Actual Player");
+        } else{
+          //create the team
+          var teamid = $("#owners").val();
+          var userid = GetCookie("session");
+          //var createTeam = "http://serenity.ist.rit.edu:22222/footballapi/User/addPlayers?userid="+userid+"&teamid="+teamid+"&players="+$('#setQBs').val()+"&players="+$('#setRBs1').val()+"&players="+$('#setRBs2').val()+"&players="+$('#setWRs1').val()+"&players="+$('#setWRs2').val()+"&players="+$('#setTEs').val()+"&players="+$('#setDEF').val()+"&players="+$('#setKICKER').val()+"&players="+$('#setFLEX').val()
+          var createTeam = "http://serenity.ist.rit.edu:22222/footballapi/User/addPlayers?userid="+userid+"&teamid="+teamid+"&players="+$('#setQBs').val()+"&players="+$('#setRBs1').val()+"&players="+$('#setRBs2').val()+"&players="+$('#setWRs1').val()+"&players="+$('#setWRs2').val()+"&players="+$('#setTEs').val()+"&players="+$('#setKICKER').val()+"&players="+$('#setFLEX').val()
+          $.getJSON(createTeam).done(function( json ) {
+            //alert user if worked or not
+            if(json.successfullRosterSet){
+              alert("You Have Set A Team! :)");
+            } else{
+              alert("Sorry the team could not be set! Please Try Again.");
+            }
+            location.reload();
+          });
         }
+      };
+
+      //get owner names/ids and put them in the dropdown
+      function getOwners(){
+        var leaguemanagerid = GetCookie("leagueid");
+        $.getJSON("http://serenity.ist.rit.edu:22222/footballapi/Leagues/unset/"+leaguemanagerid)
+        .done(function( json ) {
+          $.each( json.allLeagueRosters, function( i, item ) {
+            console.log(json.allLeagueRosters);
+            console.log("inside");
+            $("#owners").append($('<option></option>').val(item.teamid).html(item.teamname));
+          });
+        });
       }
         
     </script>
