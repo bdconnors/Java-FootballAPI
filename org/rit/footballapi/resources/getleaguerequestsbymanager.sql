@@ -1,1 +1,1 @@
-SELECT * FROM leaguerequest WHERE leagueid = (SELECT leagueid FROM league WHERE mngr = ?);
+SELECT * FROM leaguerequest WHERE leagueid = ?;

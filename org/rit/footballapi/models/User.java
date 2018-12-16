@@ -45,7 +45,7 @@ public class User extends DBInterface {
                 userid = getQueryResult()[2];
                 successfulLogin = true;
                 if (checkManager())
-                {   prepareQuery("getleaguerequestsbymanager.sql",userid);
+                {   prepareQuery("getmanagersleague.sql",userid);
                     fetch();
                     leagueManaged = getQueryResult()[0];
                 }
@@ -202,7 +202,6 @@ public class User extends DBInterface {
     public void setUserid(String userid) {
         this.userid = userid;
     }
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLeagueManaged() {
         return leagueManaged;
     }
