@@ -64,3 +64,17 @@ h3 .section-header {
   padding: 10px;
   /* border: solid 0.5px #333; */
 }
+
+.red {
+  color: red;
+}
+
+.errorSelection {
+  visibility: hidden;
+}
+
+.loginlogoutBTN {
+  color: black;
+  background-color: white;
+  text-decoration: none;
+}

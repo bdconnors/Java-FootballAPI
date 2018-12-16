@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script src="js/dataRetrieval.js" charset="utf-8"></script> -->
     <script src="js/master.js"></script>
     <script src="js/login.js"></script>
     <script src="js/cookies.js"></script>
+    <script src="js/trade.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="css/master.css">
-    <link rel="stylesheet" href="css/myTeam-styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC" rel="stylesheet">
     <title></title>
   </head>
   <body onload="checkSession()">
@@ -47,6 +48,8 @@
                 <a class="dropdown-item" href="myTeam-Roster.php">Team Rosters</a>
                 <a class="dropdown-item" href="myTeam-Schedule.php">Team Schedule</a>
                 <a class="dropdown-item" href="myTeam-Trade.php">Trade</a>
+                <!-- <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="league.php">If not in league</a> -->
               </div>
             </li>
           </li>
@@ -59,24 +62,18 @@
                 <a class="dropdown-item" href="pendingJoins.php">Pending Joins</a>
                 <a class="dropdown-item" href="managerTrade.php">Trades</a>
                 <a class="dropdown-item" href="createTeams.php">Create Teams</a>
+                <!-- <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="league.php">If not in league</a> -->
               </div>
             </li>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <button class="btn btn-outline-success my-2 my-sm-0 invisible" id="loginBtn" type="submit"><a id="name-space" href="login.php">Login</a></button>
-          <div class="dropdown" id="logoutDropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown button
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <div id="logoutBtn">
-                <a class="dropdown-item" href="#">Logout</a>
-              </div>
-            </div>
-          </div>
+          <button class="btn my-2 my-sm-0 invisible loginlogoutBTN" id="loginBtn" type="submit"><a id="name-space" class="loginlogoutBTN" href="login.php">Login</a></button>
+          <a class="btn loginlogoutBTN" id="logoutBtn" href="#">Logout</a>
         </form>
       </div>
     </nav>
 
     <div class="banner"></div>
+    <script src="js/actionEvent.js" charset="utf-8"></script>
