@@ -1,0 +1,1 @@
+INSERT INTO userteam(leagueid,userid,teamname)VALUES(?,?,?);

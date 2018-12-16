@@ -1,0 +1,1 @@
+SELECT access FROM users WHERE userid=?;
