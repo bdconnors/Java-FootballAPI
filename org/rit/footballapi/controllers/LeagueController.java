@@ -30,11 +30,11 @@ public class LeagueController {
         return leagues;
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @RequestMapping(value = "Leagues/requests", method = RequestMethod.GET)
+    @RequestMapping(value = "Leagues/requests/{leagueid}", method = RequestMethod.GET)
     @ResponseBody
-    public AllLeagueRequests getAllRequests() {
+    public AllLeagueRequests getAllRequests(@PathVariable(value="leagueid")String leagueid) {
 
-        AllLeagueRequests lr = new AllLeagueRequests();
+        AllLeagueRequests lr = new AllLeagueRequests(leagueid);
         try {
 
             lr.fetch();
