@@ -21,7 +21,6 @@ public class Player extends Game {
         team = player[3];
         pos = player[4];
         jerseyNumber = player[5];
-
     }
     public Player(String playerid) {
         this.playerid = playerid;
@@ -33,7 +32,6 @@ public class Player extends Game {
     public Player() {
 
     }
-
     @Override
     public void fetch() throws DLException {
 
