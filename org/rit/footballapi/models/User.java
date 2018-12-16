@@ -15,6 +15,7 @@ public class User extends DBInterface {
     private int password;
     public String accessLevel;
     public String teamid;
+    public String leagueid;
 
     public User(String userName,int password)
     {
@@ -47,12 +48,13 @@ public class User extends DBInterface {
                 {   prepareQuery("getteamid.sql",userid);
                     fetch();
                     teamid = getQueryResult()[0];
+                    leagueid = getQueryResult()[1];
                 }
                 else if(accessLevel.equals("MNGR"))
                 {
                     prepareQuery("getmanagersleague.sql",userid);
                     fetch();
-                    teamid = getQueryResult()[0];
+                    leagueid = getQueryResult()[0];
                 }
             }
 
