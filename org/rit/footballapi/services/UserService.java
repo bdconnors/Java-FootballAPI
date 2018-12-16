@@ -4,7 +4,7 @@ package org.rit.footballapi.services;
 import org.rit.footballapi.util.DLException;
 
 public class UserService extends org.rit.footballapi.models.User {
-    public String userID;
+
     public boolean successfullLogin;
     public boolean successfullUserCreation;
     public boolean successfullLeagueRequest;
@@ -12,10 +12,7 @@ public class UserService extends org.rit.footballapi.models.User {
     public int successfullPlayerAdd;
     public boolean successfullTradeRequest;
     public boolean isSuccessfullTradeRequestReponse;
-    public UserService(String userid)
-    {
-        super(userid);
-    }
+    public UserService(String userid) { super(userid); }
     public UserService(String userName, String password)
     {
         super(userName,password.hashCode());

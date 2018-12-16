@@ -1,0 +1,1 @@
+SELECT * FROM leaguerequest WHERE leagueid = ?;

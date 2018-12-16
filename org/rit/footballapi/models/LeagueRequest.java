@@ -9,6 +9,7 @@ public class LeagueRequest extends DBInterface {
     public String leagueid;
     public String userName;
     public String leagueName;
+    public String teamName;
 
     public LeagueRequest(String requestid)
     {
@@ -22,7 +23,7 @@ public class LeagueRequest extends DBInterface {
     {
         setRequestid(requestinfo[0]);setUserid(requestinfo[1]);
         setLeagueid(requestinfo[2]);setUserName(requestinfo[3]);
-        setLeagueName(requestinfo[4]);
+        setLeagueName(requestinfo[4]);setTeamName(requestinfo[5]);
     }
     public String getRequestid() {
         return requestid;
@@ -62,6 +63,14 @@ public class LeagueRequest extends DBInterface {
 
     public void setLeagueName(String leagueName) {
         this.leagueName = leagueName;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }
 

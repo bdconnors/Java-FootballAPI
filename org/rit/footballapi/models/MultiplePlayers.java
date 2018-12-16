@@ -21,6 +21,10 @@ public class MultiplePlayers extends DBInterface {
             allQB();
         else if(pos.equalsIgnoreCase("k"))
             allK();
+        else if(pos.equalsIgnoreCase("flex"))
+            allRB();
+            allWR();
+            allTE();
 
     }
     public MultiplePlayers()throws DLException {

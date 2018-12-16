@@ -14,6 +14,7 @@ public class User extends DBInterface {
     private String userName;
     private int password;
     private String accessLevel;
+    public String leagueManaged;
 
     public User(String userName,int password)
     {
@@ -38,10 +39,18 @@ public class User extends DBInterface {
         try
         {   prepareQuery("getuser.sql",userName);
             fetch();
-            getQueryResult()[0].equals(String.valueOf(password));
-            accessLevel = getQueryResult()[1];
-            userid = getQueryResult()[2];
-            successfulLogin = true;
+            if(getQueryResult()[0].equals(String.valueOf(password)));
+            {
+                accessLevel = getQueryResult()[1];
+                userid = getQueryResult()[2];
+                successfulLogin = true;
+                if (checkManager())
+                {   prepareQuery("getmanagersleague.sql",userid);
+                    fetch();
+                    leagueManaged = getQueryResult()[0];
+                }
+            }
+
         }
         catch(Exception e)
         {   rollbackTrans();
@@ -143,7 +152,16 @@ public class User extends DBInterface {
         fetch();
         String[] info = getQueryResult();
         accessLevel = info[0];
-        if(!(accessLevel.equals("STD")))
+        if(accessLevel.equals("ADMIN"))
+        { return true; }else{return false;}
+    }
+    public boolean checkManager()throws DLException
+    {
+        prepareQuery("getuserbyid.sql",userid);
+        fetch();
+        String[] info = getQueryResult();
+        accessLevel = info[0];
+        if(accessLevel.equals("MNGR"))
         { return true; }else{return false;}
     }
     public boolean addPlayer(String teamid,String playerid)throws DLException
@@ -183,5 +201,11 @@ public class User extends DBInterface {
 
     public void setUserid(String userid) {
         this.userid = userid;
+    }
+    public String getLeagueManaged() {
+        return leagueManaged;
+    }
+    public void setLeagueManaged(String leagueManaged) {
+        this.leagueManaged = leagueManaged;
     }
 }
