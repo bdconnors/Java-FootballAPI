@@ -137,7 +137,7 @@ public class User extends DBInterface {
         boolean responseSuccesful = false;
         try
         {
-               if(checkManager())
+               if(accessLevel.equals("MNGR"))
                {
                    startTrans();
                    prepareQuery("getleaguerequest.sql",requestid);
@@ -161,27 +161,9 @@ public class User extends DBInterface {
         }
         return responseSuccesful;
     }
-    public boolean checkAdmin()throws DLException
-    {
-        prepareQuery("getuserbyid.sql",userid);
-        fetch();
-        String[] info = getQueryResult();
-        accessLevel = info[0];
-        if(accessLevel.equals("ADMIN"))
-        { return true; }else{return false;}
-    }
-    public boolean checkManager()throws DLException
-    {
-        prepareQuery("getuserbyid.sql",userid);
-        fetch();
-        String[] info = getQueryResult();
-        accessLevel = info[0];
-        if(accessLevel.equals("MNGR"))
-        { return true; }else{return false;}
-    }
     public boolean addPlayer(String teamid,String playerid)throws DLException
     {   Roster roster = null;
-       if(checkManager()) {
+       if(accessLevel.equals("MNGR")) {
            roster = new Roster(teamid, playerid);
            return successUpdate(roster.post());
        }
