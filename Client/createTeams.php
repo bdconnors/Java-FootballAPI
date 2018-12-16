@@ -7,7 +7,12 @@
       <div class="container">
         <div class="row">
           <div class="col-2">
-            Team 1
+            <div class="col-sm-2 label">Owner</div>
+            <div class="col-sm-10">
+              <select class="form-control form-control-sm">
+                <option value="negative">--</option>
+              </select>
+            </div>
           </div>
           <div class="col-4">
             <div class="col-sm-2 label">QB</div>
@@ -97,15 +102,6 @@
         </div>
         <div class="row">
           <div class="col-2"><button type="button" class="btn btn-secondary btn-sm ml-2 mr-2" onclick="setTeamBtnClick(1)">Set Team</button></div>
-          <div class="col-4"></div>
-          <div class="col-4">
-            <div class="col-sm-2 label">Owner</div>
-            <div class="col-sm-10">
-              <select class="form-control form-control-sm">
-                <option value="negative">--</option>
-              </select>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -116,7 +112,7 @@
       var reqBaseKicker = "http://serenity.ist.rit.edu:22222/footballapi/Players/k";
       var reqBaseTE = "http://serenity.ist.rit.edu:22222/footballapi/Players/te";
       var reqBaseDefense = "http://serenity.ist.rit.edu:22222/footballapi/Players/Defenses";
-      var reqBaseFlex = "http://serenity.ist.rit.edu:22222/footballapi/Players/wr";
+      var reqBaseFlex = "http://serenity.ist.rit.edu:22222/footballapi/Players/flex";
 
       $(document).ready(function(){
         setPlayers(reqBaseQB,'#setQBs-1');

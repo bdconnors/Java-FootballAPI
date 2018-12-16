@@ -19,7 +19,7 @@ function loginSubmit() {
       document.cookie = "session = " + json.userid;
 
       //check if user is a League Manager
-      if (json.leagueManaged != null) {
+      if (json.leagueManaged != "null" || json.leagueManaged != null) {
         //add leagueId to cookie
         document.cookie = "leagueid = " + json.leagueManaged;
       }
@@ -86,7 +86,7 @@ function checkSession() {
     }
   } else {
     alert("No session running, you can login");
-
+    document.cookie = "leagueid = " + null;
     var logoutDD = document.getElementById("logoutBtn");
 
     if (logoutDD.classList.contains("invisible")) {
@@ -95,6 +95,13 @@ function checkSession() {
       hideElem("logoutBtn");
       showElem("loginBtn");
     }
+  }
+
+  //set League Manager dropdown to be visibile or not
+  if (GetCookie("leagueid") != "null") {
+    $(".leagueManagerDropdown").css("visibility", "visible");
+  } else {
+    $(".leagueManagerDropdown").css("visibility", "hidden");
   }
 }
 

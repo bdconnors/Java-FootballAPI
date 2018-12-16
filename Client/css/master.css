@@ -78,3 +78,7 @@ h3 .section-header {
   background-color: white;
   text-decoration: none;
 }
+
+.leagueManagerDropdown {
+  visibility: hidden;
+}
