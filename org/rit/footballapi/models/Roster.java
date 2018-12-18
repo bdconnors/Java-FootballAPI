@@ -12,6 +12,7 @@ public class Roster extends DBInterface {
     */
     public String teamid;
     public String teamname;
+    public String leaguename;
 
     public ArrayList<Player> players= new ArrayList<>();
 
@@ -46,10 +47,12 @@ public class Roster extends DBInterface {
     public void loadRoster(ArrayList<String[]> playerids)throws DLException
     {
         Player player = null;
+        setTeamname(playerids.get(0)[0]);
+        setLeaguename(playerids.get(0)[1]);
 
         for(String[] playerid :playerids)
         {
-            player = new Player(playerid[0]);
+            player = new Player(playerid[2]);
             player.fetch();
             player.setInfo();
             players.add(player);
@@ -70,6 +73,14 @@ public class Roster extends DBInterface {
 
     public void setTeamname(String teamname) {
         this.teamname = teamname;
+    }
+
+    public String getLeaguename() {
+        return leaguename;
+    }
+
+    public void setLeaguename(String leaguename) {
+        this.leaguename = leaguename;
     }
 }
 
