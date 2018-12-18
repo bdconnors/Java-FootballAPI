@@ -101,6 +101,11 @@ public class User extends DBInterface {
         return successUpdate(post());
 
     }
+    public boolean createLeague(String leaguename,String numteams,String scoring)throws DLException
+    {
+        League league = new League(userid,leaguename,scoring,numteams);
+        return successUpdate(league.post());
+    }
     public boolean respondToTradeRequest(String tradeid,boolean accept)throws DLException
     {
         boolean succesfulTrade = false;
@@ -119,7 +124,7 @@ public class User extends DBInterface {
               succesfulTrade = successUpdate(put());
               super.endTrans();
           }
-
+          return succesfulTrade;
       }
       catch(Exception e)
       {

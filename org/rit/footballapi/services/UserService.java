@@ -7,6 +7,7 @@ public class UserService extends org.rit.footballapi.models.User {
 
     public boolean successfullLogin;
     public boolean successfullUserCreation;
+    public boolean successfullLeagueCreation;
     public boolean successfullLeagueRequest;
     public boolean successfullLeagueRequestResponse;
     public int successfullPlayerAdd;
@@ -69,6 +70,10 @@ public class UserService extends org.rit.footballapi.models.User {
     public boolean setRoster(String teamid)throws DLException
     {
         return successfullRosterSet = super.setRoster(teamid);
+    }
+    public boolean createLeague(String leaguename,String numteams,String scoring)throws DLException
+    {
+        return successfullLeagueCreation = super.createLeague(leaguename,numteams,scoring);
     }
 
 

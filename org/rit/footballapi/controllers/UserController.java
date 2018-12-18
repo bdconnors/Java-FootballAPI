@@ -58,7 +58,7 @@ public class UserController {
     {
         user = new UserService(userid);
         try {
-
+            user.createLeague(leaguename,numteams,scoring);
         }
         catch(Exception e)
         {
