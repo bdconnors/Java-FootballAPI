@@ -123,4 +123,21 @@ public class LeagueController {
 
         return scoring;
     }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "Leagues/Scoring/Defense/{format}", method = RequestMethod.GET)
+    @ResponseBody
+    public DefenseScoring getDScoring(@PathVariable(value="format")String format){
+
+        DefenseScoring ds = null;
+        try {
+
+            ds = new DefenseScoring(format);
+            ds.fetch();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ds;
+    }
 }

@@ -1,0 +1,1 @@
+SELECT format,pa,sck,sfty,fum,inttd,fumtd,krtd,prtd,kblk,xpblk FROM def_points WHERE format = ?;
