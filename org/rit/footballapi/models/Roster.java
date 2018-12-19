@@ -13,6 +13,7 @@ public class Roster extends DBInterface {
     public String teamid;
     public String teamname;
     public String leaguename;
+    public String scoring;
 
     public ArrayList<Player> players= new ArrayList<>();
 
@@ -49,10 +50,11 @@ public class Roster extends DBInterface {
         Player player = null;
         setTeamname(playerids.get(0)[0]);
         setLeaguename(playerids.get(0)[1]);
+        setScoring(playerids.get(0)[2]);
 
         for(String[] playerid :playerids)
         {
-            player = new Player(playerid[2]);
+            player = new Player(playerid[3]);
             player.fetch();
             player.setInfo();
             players.add(player);
@@ -81,6 +83,14 @@ public class Roster extends DBInterface {
 
     public void setLeaguename(String leaguename) {
         this.leaguename = leaguename;
+    }
+
+    public String getScoring() {
+        return scoring;
+    }
+
+    public void setScoring(String scoring) {
+        this.scoring = scoring;
     }
 }
 
