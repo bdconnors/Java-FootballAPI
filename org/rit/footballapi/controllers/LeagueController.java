@@ -106,4 +106,21 @@ public class LeagueController {
 
         return roster;
     }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "Leagues/Scoring/{format}", method = RequestMethod.GET)
+    @ResponseBody
+    public Scoring getScoring(@PathVariable(value="format")String format){
+
+        Scoring scoring = null;
+        try {
+
+             scoring = new Scoring(format);
+             scoring.fetch();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return scoring;
+    }
 }
