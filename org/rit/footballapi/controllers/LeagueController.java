@@ -1,9 +1,6 @@
 package org.rit.footballapi.controllers;
 
-import org.rit.footballapi.models.AllLeagueRequests;
-import org.rit.footballapi.models.AllLeagues;
-import org.rit.footballapi.models.AllRosters;
-import org.rit.footballapi.models.Roster;
+import org.rit.footballapi.models.*;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -44,6 +41,22 @@ public class LeagueController {
         }
 
         return lr;
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "Leagues/trades", method = RequestMethod.GET)
+    @ResponseBody
+    public AllTradeRequests getAllTrades(){
+
+        AllTradeRequests allreqs = new AllTradeRequests();
+        try {
+
+            allreqs.fetch();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return allreqs;
     }
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "Leagues/unset/{leagueid}", method = RequestMethod.GET)
