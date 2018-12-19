@@ -38,6 +38,7 @@ public class Player extends Game {
         setQuery(query);
         setBindValues(bindValues);
         super.fetch();
+        setInfo();
     }
 
     public String getPlayerid() {
