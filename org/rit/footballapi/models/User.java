@@ -46,19 +46,22 @@ public class User extends DBInterface {
             {   accessLevel = getQueryResult()[1];
                 userid = getQueryResult()[2];
                 successfulLogin = true;
-                if(hasLeague())
-                { leagueid =getQueryResult()[0];
+
                     if (hasTeam()) {
                         prepareQuery("getteamid.sql", userid);
                         fetch();
                         teamid = getQueryResult()[0];
+                        leagueid =getQueryResult()[1];
                         teamname = getQueryResult()[2];
                         leaguename = getQueryResult()[3];
 
+                    }else if(isManager())
+                    {
+                        prepareQuery("hasleague.sql",userid);
+                        fetch();
+                        leagueid = getQueryResult()[0];
                     }
                 }
-            }
-
         }
         catch(Exception e)
         {
