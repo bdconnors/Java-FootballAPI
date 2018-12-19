@@ -1,1 +1,1 @@
-SELECT leagueid FROM league WHERE userid=?;
+SELECT leagueid FROM league WHERE mngr=?;
