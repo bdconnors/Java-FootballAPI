@@ -46,14 +46,16 @@ public class User extends DBInterface {
             {   accessLevel = getQueryResult()[1];
                 userid = getQueryResult()[2];
                 successfulLogin = true;
-                if(hasTeam())
-                {   prepareQuery("getteamid.sql",userid);
-                    fetch();
-                    teamid = getQueryResult()[0];
-                    leagueid = getQueryResult()[1];
-                    teamname = getQueryResult()[2];
-                    leaguename = getQueryResult()[3];
+                if(hasLeague())
+                { leagueid =getQueryResult()[0];
+                    if (hasTeam()) {
+                        prepareQuery("getteamid.sql", userid);
+                        fetch();
+                        teamid = getQueryResult()[0];
+                        teamname = getQueryResult()[2];
+                        leaguename = getQueryResult()[3];
 
+                    }
                 }
             }
 
@@ -196,6 +198,18 @@ public class User extends DBInterface {
       
       return isManager;
     
+    }
+    public boolean hasLeague()throws DLException
+    {
+        boolean hasLeague = false;
+        prepareQuery("hasleague.sql",userid);
+        fetch();
+        if(getQueryResult()!= null)
+        {hasLeague= true;}
+        else
+        { hasLeague = false; }
+        return hasLeague;
+
     }
     public boolean setRoster(String teamid)throws DLException
     {

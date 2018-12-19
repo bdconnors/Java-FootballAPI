@@ -1,0 +1,1 @@
+SELECT leagueid FROM league WHERE userid=?;
