@@ -12,20 +12,27 @@ public class MultiplePlayers extends DBInterface {
     public MultiplePlayers(String pos)throws DLException {
 
         if(pos.equalsIgnoreCase("wr"))
-            allWR();
+         {   allWR();}
         else if(pos.equalsIgnoreCase("te"))
-            allTE();
+           { allTE();}
         else if(pos.equalsIgnoreCase("rb"))
-            allRB();
+            {allRB();
+            }
         else if(pos.equalsIgnoreCase("qb"))
-            allQB();
+         {   allQB();
+         }
         else if(pos.equalsIgnoreCase("k"))
-            allK();
+          {  allK();
+          }
         else if(pos.equalsIgnoreCase("flex"))
-            allRB();
+          {  allRB();
             allWR();
             allTE();
-
+         }
+         else if(pos.equalsIgnoreCase("df"))
+         {
+            allDf();
+         }
     }
     public MultiplePlayers()throws DLException {
 
@@ -151,7 +158,18 @@ public class MultiplePlayers extends DBInterface {
             this.player.add(play);
         }
     }
-
+    public void allDf() throws DLException{
+      ArrayList<String[]> defenses = new ArrayList<>();
+      Player play = null;
+      setQuery("getalldf.sql");
+      super.fetch();
+      defenses = getResults();
+      for(String[] defense : defenses)
+      {
+       play = new Player(defense);
+         this.player.add(play);  
+      }
+    }
     public ArrayList<Player> getPlayer() {
         return player;
     }
